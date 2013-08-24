@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+<!-- Fichero de configuración de Spring -->
+	<bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		 <property name="location" value="classpath:configuration/configuracionMovies.properties" />
+		 <!-- <property name="location" value="classpath:configuration/configuracionBooks.properties" /> -->
+	</bean>
+	
+	<bean name="pathFicheroCsv" class="java.lang.String">
+		<constructor-arg index="0" value="${test.ficherocsv.path}"/>
+	</bean>
+	<bean name="nombreFicheroCsv" class="java.lang.String">
+		<constructor-arg index="0" value="${test.ficherocsv.nombre}"/>
+	</bean>
+
+	<import resource="spring/spring-models.xml" />
+
+	<import resource="spring/spring-recommender-user-pearson.xml" />
+	<import resource="spring/spring-recommender-user-cosine.xml" />
+	<import resource="spring/spring-recommender-user-euclidean.xml" />
+	<import resource="spring/spring-recommender-user-spearman.xml" />
+	<import resource="spring/spring-recommender-item-pearson.xml" />
+	<import resource="spring/spring-recommender-item-cosine.xml" />
+	<import resource="spring/spring-recommender-item-euclidean.xml" />
+<!--<import resource="spring/spring-recommender-item-spearman.xml" /> -->
+
+</beans>

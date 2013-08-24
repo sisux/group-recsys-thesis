@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean name="userCosineSimilarity" class="org.apache.mahout.cf.taste.impl.similarity.UncenteredCosineSimilarity">
+		<constructor-arg index="0">
+			<ref bean="testModel" />
+		</constructor-arg>
+	</bean>
+	
+	<bean name="userCosineNeighborhood" class="org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood">
+		<constructor-arg index="0" value="${neighborhood}"/>
+		<constructor-arg index="1" ref="userCosineSimilarity"/>
+		<constructor-arg index="2" ref="testModel"/>
+	</bean>
+	
+	<bean name="userCosineRecommender" class="org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender">
+		<constructor-arg index="0" ref="testModel"/>
+		<constructor-arg index="1" ref="userCosineNeighborhood" />
+		<constructor-arg index="2" ref="userCosineSimilarity"/>
+	</bean>
+
+	<bean name="userCosineService" class="edu.ub.tfc.recommender.services.impl.RecommenderServiceImpl">
+		<property name="recommender" ref="userCosineRecommender"/>
+	</bean>
+
+</beans>

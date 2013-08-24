@@ -1,0 +1,97 @@
+<project default="gendoc" basedir="." xmlns:ac="antlib:net.sf.antcontrib">
+	<description>Maxam Project document generation</description>
+	
+	<!-- References -->
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+	
+	<tstamp>
+		<format property="today.timestamp" pattern="dd/MM/yyyy, HH:mm" locale="es,ES"/>
+	</tstamp>
+  
+	<!-- Properties -->
+	<property file="common.properties"/>
+	
+	<!-- Gets the version -->
+	<loadfile srcfile="${version.file}" property="version" />
+	<echo level="debug">Version file contents = ${version}</echo>
+	
+	<!-- Create the header file, only the first time-->
+	<ac:if>
+		<not><available file="${log.file}"/></not>
+		<ac:then>
+			<echo file="${log.file}" append="true">Distribution Log file&#xD;=====================&#xD;&#xD;</echo>		
+		</ac:then>
+	</ac:if>
+	
+	<!-- Generates the whole documentation distribution sets -->
+	<target name="gendoc"
+		description="Generates the whole documentation distribution sets">
+
+		<echo file="${log.file}" append="true">## Distributable documents on ${today.timestamp} &#xD;&#xD;</echo>		
+		<!-- for all properties files -->
+		<ac:foreach target="-gen_doc" param="thePropertiesFile">
+			<path>
+				<fileset id="myPropertiesFiles" dir="./" casesensitive="yes">
+					<include name="**/*.properties"/>	
+					<exclude name="**/common.properties"/>
+				</fileset>
+			</path>
+		</ac:foreach>
+		<echo file="${log.file}" append="true">&#xD;--------------------- &#xD;</echo>
+	</target>
+	
+	<!-- Generates a single documentation distribution set
+		@param thePropertiesFile - the properties filename
+	-->
+	<target name="-gen_doc" description="Generates a single documentation distribution set">
+		<property file="${thePropertiesFile}"/>
+		<echo level="info">-gen_doc for ${thePropertiesFile}</echo>
+		
+		<!-- Start: Git check -->
+		<!--
+		<ac:var name="git.to.check" value="${doc.src.filename}"/>
+		<ac:if>
+			<equals arg1="${doc.src.filename}" arg2="" />
+			<ac:then>
+				<ac:var name="git.to.check" value="${doc.src.dir}"/>
+			</ac:then>
+		</ac:if>
+		<echo level="info">git.to.check = ${git.to.check}</echo>
+		
+		<property name="git.exe" location="C:/Program Files (x86)/Git/bin/git.exe"/>
+		<exec executable="${git.exe}" outputproperty="git.result">
+			<arg value="show" />
+			<arg value="- -name-status" /> //TODO: join these two slashes
+			<arg value="- -oneline" /> //TODO: join these two slashes
+			<arg value="${git.to.check}" />
+		</exec>
+		<echo level="info">git result = ${git.result}</echo>
+		-->
+		<!-- trim the git.result property -->
+		<!--
+		<local name="git.result.trimmed" />
+        <script language="javascript"> <![CDATA[
+            // get values
+			var tmpTexToTrim = project.getProperty("git.result");
+
+			tmpTrimmedText = tmpTexToTrim.trim();
+ 
+            // store the result in a new property
+            project.setProperty("git.result.trimmed",tmpTrimmedText);
+        ]]> </script>
+		-->
+		<!-- End: Git check -->
+		<property name="git.result.trimmed" value="direct" />
+		<ac:if>
+			<not><equals arg1="${git.result.trimmed}" arg2="" /></not>
+			<ac:then>
+				<echo level="info">update pdf for ${thePropertiesFile}</echo>
+				<ant antfile="${ant.build.dir}/${ant.build}" dir="${ant.build.dir}" target="pdf">
+					<property file="${thePropertiesFile}"/>
+					<property file="common.properties"/>
+				</ant>
+			</ac:then>
+		</ac:if>
+	</target>
+	
+</project>

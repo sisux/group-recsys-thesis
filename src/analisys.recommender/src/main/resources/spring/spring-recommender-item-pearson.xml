@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Crea un objeto PearsonCorrelationSimilarity -->
+	<bean name="itemPearsonSimilarity" class="org.apache.mahout.cf.taste.impl.similarity.PearsonCorrelationSimilarity">
+		<constructor-arg index="0">
+			<ref bean="testModel" />
+		</constructor-arg>
+	</bean>
+	
+	<!-- Crea un objeto GenericItemBasedRecommender -->
+	<bean name="itemPearsonRecommender" class="org.apache.mahout.cf.taste.impl.recommender.GenericItemBasedRecommender">
+		<constructor-arg index="0" ref="testModel"/>
+		<constructor-arg index="1" ref="itemPearsonSimilarity"/>
+	</bean>
+
+	<!-- Crea el servicio del recomendador item-based -->
+	<bean name="itemPearsonService" class="edu.ub.tfc.recommender.services.impl.RecommenderServiceImpl">
+		<property name="recommender" ref="itemPearsonRecommender"/>
+	</bean>
+
+</beans>

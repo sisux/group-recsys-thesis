@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<version>1</version>
+	<pluginVersion><![CDATA[3.3.0.201307091516-RELEASE]]></pluginVersion>
+	<configSuffixes>
+		<configSuffix><![CDATA[xml]]></configSuffix>
+	</configSuffixes>
+	<enableImports><![CDATA[true]]></enableImports>
+	<configs>
+		<config>src/main/resources/applicationContext.xml</config>
+		<config>src/main/resources/spring/spring-dao.xml</config>
+		<config>src/main/resources/spring/spring-models.xml</config>
+		<config>src/main/resources/spring/spring-recommender-item-pearson.xml</config>
+		<config>src/main/resources/spring/spring-recommender-user-pearson.xml</config>
+	</configs>
+	<configSets>
+	</configSets>
+</beansProjectDescription>

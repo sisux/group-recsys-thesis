@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+<!-- Fichero de configuración de Spring -->
+	<bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:configuration/configuration.properties" />
+	</bean>
+
+	<import resource="classpath:spring/spring-dao.xml" />
+	<import resource="classpath:spring/spring-models.xml" />
+
+	<import resource="classpath:spring/spring-recommender-user-pearson.xml" />
+	<!-- <import resource="classpath:spring/spring-recommender-user-cosine.xml" /> -->
+
+	<import resource="classpath:spring/spring-recommender-item-pearson.xml" />
+	<!-- <import resource="classpath:spring/spring-recommender-item-cosine.xml" /> -->
+
+</beans>

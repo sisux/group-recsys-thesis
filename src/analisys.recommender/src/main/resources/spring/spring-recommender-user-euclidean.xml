@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean name="userEuclideanSimilarity" class="org.apache.mahout.cf.taste.impl.similarity.EuclideanDistanceSimilarity">
+		<constructor-arg index="0">
+			<ref bean="testModel" />
+		</constructor-arg>
+	</bean>
+	
+	<bean name="userEuclideanNeighborhood" class="org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood">
+		<constructor-arg index="0" value="${neighborhood}"/>
+		<constructor-arg index="1" ref="userEuclideanSimilarity"/>
+		<constructor-arg index="2" ref="testModel"/>
+	</bean>
+	
+	<bean name="userEuclideanRecommender" class="org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender">
+		<constructor-arg index="0" ref="testModel"/>
+		<constructor-arg index="1" ref="userEuclideanNeighborhood" />
+		<constructor-arg index="2" ref="userEuclideanSimilarity"/>
+	</bean>
+
+	<bean name="userEuclideanService" class="edu.ub.tfc.recommender.services.impl.RecommenderServiceImpl">
+		<property name="recommender" ref="userEuclideanRecommender"/>
+	</bean>
+
+</beans>

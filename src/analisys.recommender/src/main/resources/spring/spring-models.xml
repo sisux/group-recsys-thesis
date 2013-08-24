@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean name="trainModel" class="org.apache.mahout.cf.taste.impl.model.jdbc.GenericJDBCDataModel">
+		<constructor-arg index="0">
+            <props>
+                <prop key="dataSource">${dataSource}</prop>
+                <prop key="getPreferenceSQL">${getPreferenceSQL}</prop>
+                <prop key="getPreferenceSQL">${getPreferenceSQL}</prop>
+                <prop key="getPreferenceTimeSQL">${getPreferenceTimeSQL}</prop>
+                <prop key="getUserSQL">${getUserSQL}</prop>
+                <prop key="getAllUsersSQL">${getAllUsersSQL}</prop>
+                <prop key="getNumUsersSQL">${getNumUsersSQL}</prop>
+                <prop key="getNumItemsSQL">${getNumItemsSQL}</prop>
+                <prop key="setPreferenceSQL">${setPreferenceSQL}</prop>
+                <prop key="removePreferenceSQL">${removePreferenceSQL}</prop>
+                <prop key="getUsersSQL">${getUsersSQL}</prop>
+                <prop key="getItemsSQL">${getItemsSQL}</prop>
+                <prop key="getPrefsForItemSQL">${getPrefsForItemSQL}</prop>
+                <prop key="getNumPreferenceForItemSQL">${getNumPreferenceForItemSQL}</prop>
+                <prop key="getNumPreferenceForItemsSQL">${getNumPreferenceForItemsSQL}</prop>
+                <prop key="getMaxPreferenceSQL">${getMaxPreferenceSQL}</prop>
+                <prop key="getMinPreferenceSQL">${getMinPreferenceSQL}</prop>
+            </props>
+		</constructor-arg>
+	</bean>
+	
+	<bean name="testModel" class="org.apache.mahout.cf.taste.impl.model.jdbc.GenericJDBCDataModel">
+		<constructor-arg index="0">
+            <props>
+                <prop key="dataSource">${dataSource}</prop>
+                <prop key="getPreferenceSQL">${getPreferenceSQL}</prop>
+                <prop key="getPreferenceSQL">${getPreferenceSQL}</prop>
+                <prop key="getPreferenceTimeSQL">${getPreferenceTimeSQL}</prop>
+                <prop key="getUserSQL">${getUserSQL}</prop>
+                <prop key="getAllUsersSQL">${getAllUsersSQL}</prop>
+                <prop key="getNumUsersSQL">${getNumUsersSQL}</prop>
+                <prop key="getNumItemsSQL">${getNumItemsSQL}</prop>
+                <prop key="setPreferenceSQL">${setPreferenceSQL}</prop>
+                <prop key="removePreferenceSQL">${removePreferenceSQL}</prop>
+                <prop key="getUsersSQL">${getUsersSQL}</prop>
+                <prop key="getItemsSQL">${getItemsSQL}</prop>
+                <prop key="getPrefsForItemSQL">${getPrefsForItemSQL}</prop>
+                <prop key="getNumPreferenceForItemSQL">${getNumPreferenceForItemSQL}</prop>
+                <prop key="getNumPreferenceForItemsSQL">${getNumPreferenceForItemsSQL}</prop>
+                <prop key="getMaxPreferenceSQL">${getMaxPreferenceSQL}</prop>
+                <prop key="getMinPreferenceSQL">${getMinPreferenceSQL}</prop>
+            </props>
+		</constructor-arg>
+	</bean>
+	
+</beans>

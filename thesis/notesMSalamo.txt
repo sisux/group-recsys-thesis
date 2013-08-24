@@ -1,0 +1,75 @@
+
+Chapter 01 - Introduction to the Research Project
+
+* Problem background
+* Relevance of the problem
+* Research question
+* Research methods
+ * Engineering cycle
+ * Literature study
+ * User Study
+ * Software Development
+ * Validation of the model
+* Reader’s guide
+
+Em sembla molt bé.
+Només hi ha una cosa que no entenc molt bé, Que vols dir amb "literature study"?. A continuació tens el state-of-the-Art, aquí a que et refereixes. 
+
+------------
+
+Chapter 02 - State-of-the-Art in Group Recommender Systems
+
+* Parts of a GRSys
+* Recommendation approaches
+
+A "recommendation approaches" suposo que faries una introducció a tots els sistemes que s'han proposat des de cadascuna de les parts del GRSys.
+Més extensa però similar a com es fa al paper de [Garcia, I., Pajares, S., Sebastia, L., & Onaindia, E. (2012)]. 
+
+------------
+
+Chapter 03 - State-of-the-Art in group elicitation strategies
+
+* Additive utilitarian strategy
+* Multiplicative utilitarian strategy
+* Average strategy.
+* Average without misery strategy
+* Least misery strategy.
+* Most pleasure strategy.
+* Fairness strategy. 
+* Plurality voting strategy. 
+* Approval voting strategy
+* Borda count strategy
+* Copeland rule strategy
+
+Les estrategies que vam proposar com a consensus al paper : "Maria Salamó, Kevin Mccarthy, and Barry Smyth. 2012. Generating recommendations for consensus negotiation in group personalization services. Personal Ubiquitous Comput. 16, 5 (June 2012), 597-610. DOI=10.1007/s00779-011-0413-1 http://dx.doi.org/10.1007/s00779-011-0413-1" també et poden servir. 
+
+------------
+
+Chapter 04 - New elicitation strategies
+
+PREGUNTES:
+-  La idea seria analitzar els 2 mètodes presentats a [Garcia, I., Pajares, S., Sebastia, L., & Onaindia, E. (2012). Preference elicitation techniques for group recommender systems. Inf. Sci., 189, 155–175. doi:10.1016/j.ins.2011.11.037]?
+
+Això et fa introduir-te a ontologies ... no pensava en que et liessis tant. Bé, potser per a tu és fàcil. A mi m'agrada molt la idea, si és el que has decidit, endavant. Només pensa que la idea es que poguessis provar amb un parell de conjunts de dades: MovieLens i un altre que podria ser el que ells usen de turisme a valència.  Com faries per tenir una ontologia de qualsevol altre conjunt de dades? 
+
+- O podría afegir un 3er? No he pensat com analitzar-lo, però la idea seria ponderant els resultats en funció de l'ús del sistema. 
+
+- Caldria que afegís algun tema relatiu a ontologies? 
+Si fas la comparativa amb  [Garcia, I., Pajares, S., Sebastia, L., & Onaindia, E. (2012)], sí una mica per centrar com has enfocat tu. Els papers no ho expliquen tot i tu hauries de detallar com ho has acabat d'enfocar (prendràs decisions pel camí). 
+
+
+Chapter 05 - Research Analisys
+Chapter 06 - Conclusions and Future Work
+
+Atentament,
+ Narcís
+
+
+Bé, em sembla que has avançat força i has fet molt bona feina. Si tens algun dubte, demà encara estaré disponible al correu. 
+Com a planificació, al Setembre m'agradaria veure els teus avencos, o com a mínim en parlem (en Skype).  Els primers dies seran de bojeria, com sempre però segur que trobem un forat. 
+
+Bones vacances, que suposo que una mica sí descansaràs, tens un petitó del que disfrutar també. 
+
+Fins al Setembre, 
+
+Maria
