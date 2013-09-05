@@ -105,22 +105,22 @@ Table: Overview of Aggregation Strategies
 
 Strategy	                Example Ranked List
 --------------------------- --------------------------------------------------------------------------------------
-_[Plurality Voting]_        $\lbrace i_{5}, i_{6}, i_{4}, i_{8}, i_{10}, i_{1}, i_{9}, i_{2}, i_{7}, i_{3}\rbrace$
-_[Median]_                  $\lbrace i_{1},i_{5}-i_{6},i_{8}-i_{10},i_{4}-i_{9},i_{7},i_{2},i_{3}\rbrace$
-_[Average]_                 $\lbrace i_{5}-i_{6}, i_{8}, i_{4}-i_{10}, i_{1}, i_{9}, i_{2}, i_{7}, i_{3}\rbrace$
-_[Additive]_                $\lbrace i_{5}-i_{6}, i_{8}, i_{4}-i_{10}, i_{1}, i_{9}, i_{2}, i_{7}, i_{3}\rbrace$
-_[Multiplicative]_          $\lbrace i_{6}, i_{5}, i_{8}, i_{10}, i_{4}, i_{9}, i_{2}-i_{7}, i_{1}, i_{3}\rbrace$
-_[Borda Count]_             $\lbrace i_{6}, i_{5}, i_{1}, i_{4}-i_{8}, i_{9}, i_{10}, i_{2}, i_{7}, i_{3}\rbrace$
-_[Copeland Rule]_           $\lbrace i_{5}, i_{1}, i_{6}, i_{9}, i_{4}, i_{8}, i_{10}, i_{2}-i_{7}, i_{3}\rbrace$
-_[Approval Voting]_         $\lbrace i_{4}-i_{5}-i_{6}-i_{8}-i_{10}, i_{1}-i_{7}-i_{9}, i_{2}-i_{3}\rbrace$
-_[Least Misery]_            $\lbrace i_{6}, i_{5}, i_{4}-i_{8}-i_{10}, i_{7}, i_{2}, i_{9}, i_{3}, i_{1}\rbrace$
-_[Most Pleasure]_           $\lbrace i_{1}-i_{5}-i_{9}, i_{2}-i_{4}-i_{6}-i_{8}, i_{3}-i_{10}, i_{7}\rbrace$
-_[Average Without Misery]_  $\lbrace i_{5}-i_{6}, i_{8}, i_{4}-i_{10},i_{2}, i_{7}\rbrace$
-_[Fairness]_                $\lbrace i_{5}, i_{6}, i_{4}, i_{8}, i_{10}, i_{7}, i_{1}, i_{2}, i_{9}, i_{3}\rbrace$
-_[Purity]_                  $\lbrace i_{6}, i_{5}, i_{8}, i_{10}, i_{4}, i_{9}, i_{7}, i_{1}, i_{2}, i_{3}\rbrace$
-_[Completeness]_            $\lbrace i_{6}, i_{5}, i_{8}, i_{10}, i_{4}, i_{9}, i_{1}, i_{2}, i_{7}, i_{3}\rbrace$
-_[Logical Sufficiency]_     $\lbrace i_{6}, i_{5}, i_{1}, i_{8}, i_{4}, i_{9}, i_{2}, i_{10}, i_{3}, i_{7}\rbrace$
-_[Group Sufficiency]_       $\lbrace i_{6}, i_{7}, i_{10}, i_{8}, i_{4}, i_{5}, i_{2}, i_{3}, i_{9}, i_{1}\rbrace$
+_[Plurality Voting]_        $\lbrace p_{5}, p_{6}, p_{4}, p_{8}, p_{10}, p_{1}, p_{9}, p_{2}, p_{7}, p_{3}\rbrace$
+_[Median]_                  $\lbrace p_{1},p_{5}-p_{6},p_{8}-p_{10},p_{4}-p_{9},p_{7},p_{2},p_{3}\rbrace$
+_[Average]_                 $\lbrace p_{5}-p_{6}, p_{8}, p_{4}-p_{10}, p_{1}, p_{9}, p_{2}, p_{7}, p_{3}\rbrace$
+_[Additive]_                $\lbrace p_{5}-p_{6}, p_{8}, p_{4}-p_{10}, p_{1}, p_{9}, p_{2}, p_{7}, p_{3}\rbrace$
+_[Multiplicative]_          $\lbrace p_{6}, p_{5}, p_{8}, p_{10}, p_{4}, p_{9}, p_{2}-p_{7}, p_{1}, p_{3}\rbrace$
+_[Borda Count]_             $\lbrace p_{6}, p_{5}, p_{1}, p_{4}-p_{8}, p_{9}, p_{10}, p_{2}, p_{7}, p_{3}\rbrace$
+_[Copeland Rule]_           $\lbrace p_{5}, p_{1}, p_{6}, p_{9}, p_{4}, p_{8}, p_{10}, p_{2}-p_{7}, p_{3}\rbrace$
+_[Approval Voting]_         $\lbrace p_{4}-p_{5}-p_{6}-p_{8}-p_{10}, p_{1}-p_{7}-p_{9}, p_{2}-p_{3}\rbrace$
+_[Least Misery]_            $\lbrace p_{6}, p_{5}, p_{4}-p_{8}-p_{10}, p_{7}, p_{2}, p_{9}, p_{3}, p_{1}\rbrace$
+_[Most Pleasure]_           $\lbrace p_{1}-p_{5}-p_{9}, p_{2}-p_{4}-p_{6}-p_{8}, p_{3}-p_{10}, p_{7}\rbrace$
+_[Average Without Misery]_  $\lbrace p_{5}-p_{6}, p_{8}, p_{4}-p_{10},p_{2}, p_{7}\rbrace$
+_[Fairness]_                $\lbrace p_{5}, p_{6}, p_{4}, p_{8}, p_{10}, p_{7}, p_{1}, p_{2}, p_{9}, p_{3}\rbrace$
+_[Purity]_                  $\lbrace p_{6}, p_{5}, p_{8}, p_{10}, p_{4}, p_{9}, p_{7}, p_{1}, p_{2}, p_{3}\rbrace$
+_[Completeness]_            $\lbrace p_{6}, p_{5}, p_{8}, p_{10}, p_{4}, p_{9}, p_{1}, p_{2}, p_{7}, p_{3}\rbrace$
+_[Logical Sufficiency]_     $\lbrace p_{6}, p_{5}, p_{1}, p_{8}, p_{4}, p_{9}, p_{2}, p_{10}, p_{3}, p_{7}\rbrace$
+_[Group Sufficiency]_       $\lbrace p_{6}, p_{7}, p_{10}, p_{8}, p_{4}, p_{5}, p_{2}, p_{3}, p_{9}, p_{1}\rbrace$
 ----------------------------------------------------------------------------------------------------------------
 
 Table: Overview of Aggregation Strategies
@@ -203,18 +203,24 @@ These strategies are classified by Senot and colleagues [27] into three categori
 In the following, we assume a user has a preference (utility) for each item represented in the form of a numeric 1-10 rating. 
 In all the cases, the greater the rating value, the most useful the item is for the user.
 
+Therefore, following the definitions stated in Annex1, the example considers:
+
+* $U = \lbrace u_{1},u_{2},u_{3}\rbrace$ is the set of _users_, where $u_{i}$ represents the *i*th user and $n$ the number of users, $\left\vert{U}\right\vert = n = 3$.
+* $P = \lbrace p_{1},\ldots,p_{10}\rbrace$ is the set of _products_ or _items_ for recommendation, where $p_{j}$ is the *j*th product and $m$ the number of items, $\left\vert{P}\right\vert = m = 10$. 
+* $V = \lbrace 1,\ldots,10\rbrace$ is the totally ordered set of _values_ representing the possible ratings given by a user for any item, where $v_{k}$ is the *k*th value and $s$ the number of items, $\left\vert{V}\right\vert = s = 10$. 
+
 ### Plurality voting strategy
 
 Each member votes for his preferred item and the one with the highest votes is selected. In this strategy, the items that were rated highest are combined as follows:
 
 1. A user is randomly selected
 2. His *L* top rated items are taking into account.
-	 - From them, the item that causes the most utility to the group is chosen for the group profile with a score equal to *N*, i.e., the number of items.
-3. Restart the process in step 1 considering the remaining *N–1,N–2,etc.* items and uniformly diminishing to 1 the further assigned scores.
+	 - From them, the item that causes the most utility to the group is chosen for the group profile with a score equal to *m*, i.e., the number of items.
+3. Restart the process in step 1 considering the remaining *m–1,m–2,etc.* items and uniformly diminishing to 1 the further assigned scores.
 
 In the final list, the higher score the more influential the item is for the group.
 
-          $i_{1}$ $i_{2}$ $i_{3}$ $i_{4}$ $i_{5}$ $i_{6}$ $i_{7}$ $i_{8}$ $i_{9}$ $i_{10}$
+          $p_{1}$ $p_{2}$ $p_{3}$ $p_{4}$ $p_{5}$ $p_{6}$ $p_{7}$ $p_{8}$ $p_{9}$ $p_{10}$
 --------- ------- ------- ------- ------- ------- ------- ------- ------- ------- --------
  $u_{1}$    10      4       3       6       10      9       6       8       10      8
  $u_{2}$    1       9       8       9       7       9       6       9       3       8
@@ -222,37 +228,37 @@ In the final list, the higher score the more influential the item is for the gro
 **group**  **5**  **3**   **1**   **8**   **10**   **9**   **2**  **7**   **4**   **6**
 -----------------------------------------------------------------------------------------
 
-Table: Group choice selection following the _plurality voting strategy_. The ranked list of items for the group would be $\lbrace i_{5}, i_{6}, i_{4}, i_{8}, i_{10}, i_{1}, i_{9}, i_{2}, i_{7}, i_{3}\rbrace$ following the user selecting order $\lbrace u_{1},u_{2},u_{3}\rbrace$ and $L=3$.
+Table: Group choice selection following the _plurality voting strategy_. The ranked list of items for the group would be $\lbrace p_{5}, p_{6}, p_{4}, p_{8}, p_{10}, p_{1}, p_{9}, p_{2}, p_{7}, p_{3}\rbrace$ following the user selecting order $\lbrace u_{1},u_{2},u_{3}\rbrace$ and $L=3$.
 
 To better understand the strategy, let us explain its first 4 iterations on the example shown in Table [@table].
 
 i. Iteration 0
 	1. The user $u_{1}$ is selected
-	2. Whose $L=3$ top ranked items are $i_{1}$, $i_{5}$ and $i_{9}$.
-		- From these items, we choose item $i_{5}$ with a score $N=10$. Item $i_{5}$ is the one with most votes to all three users, whose votes for items $i_{1}$, $i_{5}$ and $i_{9}$ are respectively 21, 26 and 20.
+	2. Whose $L=3$ top ranked items are $p_{1}$, $p_{5}$ and $p_{9}$.
+		- From these items, we choose item $p_{5}$ with a score $m=10$. Item $p_{5}$ is the one with most votes to all three users, whose votes for items $p_{1}$, $p_{5}$ and $p_{9}$ are respectively 21, 26 and 20.
 ii. Iteration 1
 	1. The user $u_{2}$ is selected
-	2. Whose $L=3$ top ranked items are $i_{2}$, $i_{4}$ and $i_{6}$.
-		- From these items, we choose item $i_{6}$ with a score $N-1=9$. Item $i_{6}$ is the one with most votes to all three users, whose votes for items $i_{2}$, $i_{4}$ and $i_{6}$ are respectively 18, 22 and 26.
+	2. Whose $L=3$ top ranked items are $p_{2}$, $p_{4}$ and $p_{6}$.
+		- From these items, we choose item $p_{6}$ with a score $m-1=9$. Item $p_{6}$ is the one with most votes to all three users, whose votes for items $p_{2}$, $p_{4}$ and $p_{6}$ are respectively 18, 22 and 26.
 iii. Iteration 2
 	1. The user $u_{3}$ is selected
-	2. Whose $L=3$ top ranked items are $i_{1}$, $i_{4}$ and $i_{9}$.
-		- From these items, we choose item $i_{4}$ with a score $N-2=8$. Item $i_{4}$ is the one with most votes to all three users, whose votes for items $i_{1}$, $i_{4}$ and $i_{9}$ are respectively 21, 22 and 20.
+	2. Whose $L=3$ top ranked items are $p_{1}$, $p_{4}$ and $p_{9}$.
+		- From these items, we choose item $p_{4}$ with a score $m-2=8$. Item $p_{4}$ is the one with most votes to all three users, whose votes for items $p_{1}$, $p_{4}$ and $p_{9}$ are respectively 21, 22 and 20.
 iv. Iteration 3
 	1. The user $u_{1}$ is selected
-	2. Whose $L=3$ top ranked items are $i_{1}$, $i_{9}$ and $i_{8}$.
-		- From these items, we choose item $i_{8}$ with a score $N-3=7$. Item $i_{8}$ is the one with most votes to all three users, whose votes for items $i_{1}$, $i_{9}$ and $i_{8}$ are respectively 21, 20 and 23.
+	2. Whose $L=3$ top ranked items are $p_{1}$, $p_{9}$ and $p_{8}$.
+		- From these items, we choose item $p_{8}$ with a score $m-3=7$. Item $p_{8}$ is the one with most votes to all three users, whose votes for items $p_{1}$, $p_{9}$ and $p_{8}$ are respectively 21, 20 and 23.
 
 ### Median strategy
 
 The group rating for a particular item is computed as the middle value of the group members’ ratings. 
 
-(@eq_stgy_median)  $$gr_{i} = median(r_{i,j})$$
+(@eq_stgy_median)  $$group_{j} = \underset{1 \leq i \leq n}{median}(r_{i,j})$$
 
 As shown in equation (@eq_stgy_median)....
 
 
-          $i_{1}$ $i_{2}$ $i_{3}$ $i_{4}$ $i_{5}$ $i_{6}$ $i_{7}$ $i_{8}$ $i_{9}$ $i_{10}$
+          $p_{1}$ $p_{2}$ $p_{3}$ $p_{4}$ $p_{5}$ $p_{6}$ $p_{7}$ $p_{8}$ $p_{9}$ $p_{10}$
 --------- ------- ------- ------- ------- ------- ------- ------- ------- ------- --------
  $u_{1}$    10      4       3       6       10      9       6       8       10      8
  $u_{2}$    1       9       8       9       7       9       6       9       3       8
@@ -260,7 +266,7 @@ As shown in equation (@eq_stgy_median)....
 **group** **10**   **5**   **3**   **7**   **9**   **9**   **6**   **8**   **7**   **8**
 -----------------------------------------------------------------------------------------
 
-Table: Group choice selection following the _median strategy_. The ranked list of items for the group would be $\lbrace i_{1},i_{5}-i_{6},i_{8}-i_{10},i_{4}-i_{9},i_{7},i_{2},i_{3}\rbrace$.
+Table: Group choice selection following the _median strategy_. The ranked list of items for the group would be $\lbrace p_{1},p_{5}-p_{6},p_{8}-p_{10},p_{4}-p_{9},p_{7},p_{2},p_{3}\rbrace$.
 	   
 
 ### Average strategy
@@ -268,10 +274,10 @@ Table: Group choice selection following the _median strategy_. The ranked list o
 In this strategy, the group rating for a particular item is computed as the average rating over all individuals (Figure 3). 
 Note that if no user or item weighting is conducted, the ranking list of this strategy is the same as that of the _Utilitarian strategy_.
 
-$$gr_{i} = avg_{i} = \frac{1}{n}\cdot\sum_{j=1}^{n}r_{i,j}$$
+$$group_{j} = avg_{j} = \frac{1}{n}\cdot\sum_{i=1}^{n}r_{i,j}$$
 
 
-          $i_{1}$ $i_{2}$ $i_{3}$ $i_{4}$ $i_{5}$ $i_{6}$ $i_{7}$ $i_{8}$ $i_{9}$ $i_{10}$
+          $p_{1}$ $p_{2}$ $p_{3}$ $p_{4}$ $p_{5}$ $p_{6}$ $p_{7}$ $p_{8}$ $p_{9}$ $p_{10}$
 --------- ------- ------- ------- ------- ------- ------- ------- ------- ------- --------
  $u_{1}$    10      4       3       6       10      9       6       8       10      8
  $u_{2}$    1       9       8       9       7       9       6       9       3       8
@@ -279,7 +285,7 @@ $$gr_{i} = avg_{i} = \frac{1}{n}\cdot\sum_{j=1}^{n}r_{i,j}$$
 **group** **7**   **6**   **4.3** **7.3** **8.7** **8.7** **5.7** **7.7** **6.7** **7.3**
 -----------------------------------------------------------------------------------------
 
-Table: Group choice selection following the _average strategy_. The ranked list of items for the group would be $\lbrace i_{5}-i_{6}, i_{8}, i_{4}-i_{10}, i_{1}, i_{9}, i_{2}, i_{7}, i_{3}\rbrace$.
+Table: Group choice selection following the _average strategy_. The ranked list of items for the group would be $\lbrace p_{5}-p_{6}, p_{8}, p_{4}-p_{10}, p_{1}, p_{9}, p_{2}, p_{7}, p_{3}\rbrace$.
 
 ### Additive utilitarian strategy
 
@@ -288,10 +294,10 @@ Note that the resulting group ranking will be exactly the same as that obtained 
 A potential problem of this strategy is that individuals’ opinions tend to be less significant as larger the group is.
 This strategy could also use a weighted schema, where a weight is attached to individual preferences depending on multiple criteria for single or multiple users.
 
-$$gr_{i} = \sum_{j=1}^{n}r_{i,j}$$
+$$group_{j} = \sum_{i=1}^{n}r_{i,j}$$
 
 
-          $i_{1}$ $i_{2}$ $i_{3}$ $i_{4}$ $i_{5}$ $i_{6}$ $i_{7}$ $i_{8}$ $i_{9}$ $i_{10}$
+          $p_{1}$ $p_{2}$ $p_{3}$ $p_{4}$ $p_{5}$ $p_{6}$ $p_{7}$ $p_{8}$ $p_{9}$ $p_{10}$
 --------- ------- ------- ------- ------- ------- ------- ------- ------- ------- --------
  $u_{1}$    10      4       3       6       10      9       6       8       10      8
  $u_{2}$    1       9       8       9       7       9       6       9       3       8
@@ -299,7 +305,7 @@ $$gr_{i} = \sum_{j=1}^{n}r_{i,j}$$
 **group** **21**   **18**   **13**  **22**  **26**  **26**  **17**  **23**  **20**  **22**
 -----------------------------------------------------------------------------------------
 
-Table: Group choice selection following the _additive strategy_. The ranked list of items for the group would be $\lbrace i_{5}-i_{6}, i_{8}, i_{4}-i_{10}, i_{1}, i_{9}, i_{2}, i_{7}, i_{3}\rbrace$.
+Table: Group choice selection following the _additive strategy_. The ranked list of items for the group would be $\lbrace p_{5}-p_{6}, p_{8}, p_{4}-p_{10}, p_{1}, p_{9}, p_{2}, p_{7}, p_{3}\rbrace$.
 
 
 ### Multiplicative utilitarian strategy
@@ -307,10 +313,10 @@ Table: Group choice selection following the _additive strategy_. The ranked list
 Instead of adding the preferences, they are multiplied, and the larger the product the more influential the item is for the group (Figure 2).
 Note that this strategy could be self-defeating: in a small group, the opinion of each individual may have too much impact on the product.
 
-$$gr_{i} = \prod_{j=1}^{n}r_{i,j}$$
+$$group_{j} = \prod_{i=1}^{n}r_{i,j}$$
 
 
-          $i_{1}$ $i_{2}$ $i_{3}$ $i_{4}$ $i_{5}$ $i_{6}$ $i_{7}$ $i_{8}$ $i_{9}$ $i_{10}$
+          $p_{1}$ $p_{2}$ $p_{3}$ $p_{4}$ $p_{5}$ $p_{6}$ $p_{7}$ $p_{8}$ $p_{9}$ $p_{10}$
 --------- ------- ------- ------- ------- ------- ------- ------- ------- ------- --------
  $u_{1}$    10      4       3       6       10      9       6       8       10      8
  $u_{2}$    1       9       8       9       7       9       6       9       3       8
@@ -318,7 +324,7 @@ $$gr_{i} = \prod_{j=1}^{n}r_{i,j}$$
 **group** **100** **180** **48**  **378** **630** **648** **180** **432** **210** **384**
 -----------------------------------------------------------------------------------------
 
-Table: Group choice selection following the _multiplicative strategy_. The ranked list of items for the group would be $\lbrace i_{6}, i_{5}, i_{8}, i_{10}, i_{4}, i_{9}, i_{2}-i_{7}, i_{1}, i_{3}\rbrace$.
+Table: Group choice selection following the _multiplicative strategy_. The ranked list of items for the group would be $\lbrace p_{6}, p_{5}, p_{8}, p_{10}, p_{4}, p_{9}, p_{2}-p_{7}, p_{1}, p_{3}\rbrace$.
 
 ### Borda count strategy
 
@@ -333,7 +339,7 @@ This strategy is a two-step process:
 
 <!-- -->
 
-          $i_{1}$ $i_{2}$ $i_{3}$ $i_{4}$ $i_{5}$ $i_{6}$ $i_{7}$ $i_{8}$ $i_{9}$ $i_{10}$
+          $p_{1}$ $p_{2}$ $p_{3}$ $p_{4}$ $p_{5}$ $p_{6}$ $p_{7}$ $p_{8}$ $p_{9}$ $p_{10}$
 --------- ------- ------- ------- ------- ------- ------- ------- ------- ------- --------
  $u_{1}$    10      4       3       6       10      9       6       8       10      8
  $u_{2}$    1       9       8       9       7       9       6       9       3       8
@@ -342,7 +348,7 @@ This strategy is a two-step process:
 
 $\Downarrow$
 
-           $i_{1}$   $i_{2}$   $i_{3}$   $i_{4}$   $i_{5}$   $i_{6}$   $i_{7}$   $i_{8}$   $i_{9}$   $i_{10}$
+           $p_{1}$   $p_{2}$   $p_{3}$   $p_{4}$   $p_{5}$   $p_{6}$   $p_{7}$   $p_{8}$   $p_{9}$   $p_{10}$
 --------- --------- --------- --------- --------- --------- --------- --------- --------- --------- ----------
  $u_{1}$      8        1         0         2.5        8        6         2.5       4.5        8         4.5
  $u_{2}$      0       7.5       4.5        7.5        3       7.5         2        7.5        1         4.5
@@ -350,20 +356,20 @@ $\Downarrow$
 **group**   **17**   **10**   **4.5**    **15.5**  **19**   **20.5**    **6**    **15.5**  **14.5**  **12.5**
 --------------------------------------------------------------------------------------------------------------
 
-Table: Group choice selection following the _borda count strategy_. The ranked list of items for the group would be $\lbrace i_{6}, i_{5}, i_{1}, i_{4}-i_{8}, i_{9}, i_{10}, i_{2}, i_{7}, i_{3}\rbrace$.
+Table: Group choice selection following the _borda count strategy_. The ranked list of items for the group would be $\lbrace p_{6}, p_{5}, p_{1}, p_{4}-p_{8}, p_{9}, p_{10}, p_{2}, p_{7}, p_{3}\rbrace$.
 
 As an example, we show how the first step of the process is performed for user $u_1$. That is, how ratings are normalized according to their relative relevance within the users’ preferences.
 
-> The items sequence in increasing rating value for user $u_1$ are $\lbrace i_{3},i_{2},i_{4}-i_{7},i_{8}-i_{10},i_{6},i_{1}-i_{5}-i_{9}\rbrace$.
+> The items sequence in increasing rating value for user $u_1$ are $\lbrace p_{3},p_{2},p_{4}-p_{7},p_{8}-p_{10},p_{6},p_{1}-p_{5}-p_{9}\rbrace$.
 >
-> 1. For item $i_{3}$ a *0* score is assigned to $r_{1,3}$.
-> 2. Item $i_{2}$ receives a score of value *1* to $r_{1,2}$. 
-> 3. The next score to be assigned would be *2*. In this case, the next two items with lowest rating value,$\lbrace i_{4}-i_{7}\rbrace$, have the same rating. 
+> 1. For item $p_{3}$ a *0* score is assigned to $r_{1,3}$.
+> 2. Item $p_{2}$ receives a score of value *1* to $r_{1,2}$. 
+> 3. The next score to be assigned would be *2*. In this case, the next two items with lowest rating value,$\lbrace p_{4}-p_{7}\rbrace$, have the same rating. 
 > Therefore, the two next scores *2* and *3* are considered, and the average of them (i.e., $(2+3)/2=2.5$) is assigned to both items to $r_{1,4}$ and $r_{1,7}$.
-> 4. The next score to be assigned would be *4*. In this case, the next two items with lowest rating value,$\lbrace i_{8}-i_{10}\rbrace$, have the same rating. 
+> 4. The next score to be assigned would be *4*. In this case, the next two items with lowest rating value,$\lbrace p_{8}-p_{10}\rbrace$, have the same rating. 
 > Therefore, the two next scores *4* and *5* are considered, and the average of them (i.e., $(4+5)/2=4.5$) is assigned to both items to $r_{1,8}$ and $r_{1,10}$.
-> 5. Item $i_{6}$ receives a score of value *6* to $r_{1,6}$. 
-> 6. The next score to be assigned would be *7*. In this case, the next three items with lowest rating value,$\lbrace i_{1}-i_{5}-i_{9}\rbrace$, have the same rating. Therefore, the next three scores *7*, *8* and *9* are considered, and the average of them (i.e., $(7+8+9)/3=8$) is assigned to corresponding items to $r_{1,1}$, $r_{1,5}$ and $r_{1,9}$.
+> 5. Item $p_{6}$ receives a score of value *6* to $r_{1,6}$. 
+> 6. The next score to be assigned would be *7*. In this case, the next three items with lowest rating value,$\lbrace p_{1}-p_{5}-p_{9}\rbrace$, have the same rating. Therefore, the next three scores *7*, *8* and *9* are considered, and the average of them (i.e., $(7+8+9)/3=8$) is assigned to corresponding items to $r_{1,1}$, $r_{1,5}$ and $r_{1,9}$.
 
 
 ### Copeland rule strategy
@@ -377,7 +383,7 @@ than item at _i_-th row by the majority of the users.
 A zero value in a cell means that the corresponding items were rated with the same number of “beats” and “looses”.
 
 
-          $i_{1}$ $i_{2}$ $i_{3}$ $i_{4}$ $i_{5}$ $i_{6}$ $i_{7}$ $i_{8}$ $i_{9}$ $i_{10}$
+          $p_{1}$ $p_{2}$ $p_{3}$ $p_{4}$ $p_{5}$ $p_{6}$ $p_{7}$ $p_{8}$ $p_{9}$ $p_{10}$
 --------- ------- ------- ------- ------- ------- ------- ------- ------- ------- --------
  $u_{1}$    10      4       3       6       10      9       6       8       10      8
  $u_{2}$    1       9       8       9       7       9       6       9       3       8
@@ -386,29 +392,29 @@ A zero value in a cell means that the corresponding items were rated with the sa
 
 The _Copeland_ corresponding matrix is:
 
-          $i_{1}$ $i_{2}$ $i_{3}$ $i_{4}$ $i_{5}$ $i_{6}$ $i_{7}$ $i_{8}$ $i_{9}$ $i_{10}$
+          $p_{1}$ $p_{2}$ $p_{3}$ $p_{4}$ $p_{5}$ $p_{6}$ $p_{7}$ $p_{8}$ $p_{9}$ $p_{10}$
 --------- ------- ------- ------- ------- ------- ------- ------- ------- ------- --------
- $i_{1}$   $0$     $-$      $-$     $-$     $0$     $-$     $-$     $-$     $0$     $-$
- $i_{2}$   $+$     $0$      $-$     $+$     $+$     $+$     $0$     $+$     $+$     $+$
- $i_{3}$   $+$     $+$      $0$     $+$     $+$     $+$     $+$     $+$     $+$     $+$
- $i_{4}$   $+$     $-$      $-$     $0$     $+$     $+$     $-$     $0$     $0$     $-$
- $i_{5}$   $0$     $-$      $-$     $-$     $0$     $-$     $-$     $-$     $-$     $-$
- $i_{6}$   $+$     $-$      $-$     $-$     $+$     $0$     $-$     $-$     $-$     $-$
- $i_{7}$   $+$     $0$      $-$     $+$     $+$     $+$     $0$     $+$     $+$     $+$
- $i_{8}$   $+$     $-$      $-$     $0$     $+$     $+$     $-$     $0$     $+$     $-$
- $i_{9}$   $0$     $-$      $-$     $0$     $+$     $+$     $-$     $-$     $0$     $-$
- $i_{10}$  $+$     $-$      $-$     $+$     $+$     $+$     $-$     $+$     $+$     $0$
+ $p_{1}$   $0$     $-$      $-$     $-$     $0$     $-$     $-$     $-$     $0$     $-$
+ $p_{2}$   $+$     $0$      $-$     $+$     $+$     $+$     $0$     $+$     $+$     $+$
+ $p_{3}$   $+$     $+$      $0$     $+$     $+$     $+$     $+$     $+$     $+$     $+$
+ $p_{4}$   $+$     $-$      $-$     $0$     $+$     $+$     $-$     $0$     $0$     $-$
+ $p_{5}$   $0$     $-$      $-$     $-$     $0$     $-$     $-$     $-$     $-$     $-$
+ $p_{6}$   $+$     $-$      $-$     $-$     $+$     $0$     $-$     $-$     $-$     $-$
+ $p_{7}$   $+$     $0$      $-$     $+$     $+$     $+$     $0$     $+$     $+$     $+$
+ $p_{8}$   $+$     $-$      $-$     $0$     $+$     $+$     $-$     $0$     $+$     $-$
+ $p_{9}$   $0$     $-$      $-$     $0$     $+$     $+$     $-$     $-$     $0$     $-$
+ $p_{10}$  $+$     $-$      $-$     $+$     $+$     $+$     $-$     $+$     $+$     $0$
 **group** **+7**  **-6**  **-9**  **+1**  **+8**  **+5**  **-6**  **0**   **+3**  **-3**
 -----------------------------------------------------------------------------------------
 
-Table: Group choice selection following the _Copeland rule strategy_. The ranked list of items for the group would be $\lbrace i_{5}, i_{1}, i_{6}, i_{9}, i_{4}, i_{8}, i_{10}, i_{2}-i_{7}, i_{3}\rbrace$.
+Table: Group choice selection following the _Copeland rule strategy_. The ranked list of items for the group would be $\lbrace p_{5}, p_{1}, p_{6}, p_{9}, p_{4}, p_{8}, p_{10}, p_{2}-p_{7}, p_{3}\rbrace$.
 
 
 To better understand the strategy, let's explain 3 cells with different symbol values:
 
-* *Cell 2,1*: $+$ symbol. Means that item $i_{1}$ was rated higher than item $i_{2}$ by the majority of the users.
+* *Cell 2,1*: $+$ symbol. Means that item $p_{1}$ was rated higher than item $p_{2}$ by the majority of the users.
 
-*users*      $i_{1}$ $i_{2}$ 
+*users*      $p_{1}$ $p_{2}$ 
 ------------ ------- --------
 $u_{1}$      10      4    
 $u_{2}$      1       9    
@@ -419,9 +425,9 @@ $u_{3}$      10      5
 -------------------------------
 
 
-* *Cell 5,1*: $0$ symbol. Means means that the item $i_{1}$ and item $i_{5}$ were rated with the same number of “beats” and “looses”.
+* *Cell 5,1*: $0$ symbol. Means means that the item $p_{1}$ and item $p_{5}$ were rated with the same number of “beats” and “looses”.
 
-*users*      $i_{1}$ $i_{5}$ 
+*users*      $p_{1}$ $p_{5}$ 
 ------------ ------- --------
 $u_{1}$      10      10    
 $u_{2}$      1       7    
@@ -432,9 +438,9 @@ $u_{3}$      10      9
 -------------------------------
 
 
-* *Cell 5,3*: $-$ symbol. Means that item $i_{3}$ was rated lower than item $i_{5}$ by the majority of the users.
+* *Cell 5,3*: $-$ symbol. Means that item $p_{3}$ was rated lower than item $p_{5}$ by the majority of the users.
 
-*users*      $i_{3}$ $i_{5}$ 
+*users*      $p_{3}$ $p_{5}$ 
 ------------ ------- --------
 $u_{1}$      3       10    
 $u_{2}$      8       7    
@@ -455,7 +461,7 @@ A threshold $\theta$ is considered for the item ratings:
 The larger the number of votes the more influential the item is for the group. This strategy intends to promote the election of moderate alternatives: those that are not strongly disliked.
 
 
-          $i_{1}$ $i_{2}$ $i_{3}$ $i_{4}$ $i_{5}$ $i_{6}$ $i_{7}$ $i_{8}$ $i_{9}$ $i_{10}$
+          $p_{1}$ $p_{2}$ $p_{3}$ $p_{4}$ $p_{5}$ $p_{6}$ $p_{7}$ $p_{8}$ $p_{9}$ $p_{10}$
 --------- ------- ------- ------- ------- ------- ------- ------- ------- ------- --------
  $u_{1}$    10      4       3       6       10      9       6       8       10      8
  $u_{2}$    1       9       8       9       7       9       6       9       3       8
@@ -464,7 +470,7 @@ The larger the number of votes the more influential the item is for the group. T
 
 For a threshold $\theta = 5$, we get the following votes:
 
-          $i_{1}$ $i_{2}$ $i_{3}$ $i_{4}$ $i_{5}$ $i_{6}$ $i_{7}$ $i_{8}$ $i_{9}$ $i_{10}$
+          $p_{1}$ $p_{2}$ $p_{3}$ $p_{4}$ $p_{5}$ $p_{6}$ $p_{7}$ $p_{8}$ $p_{9}$ $p_{10}$
 --------- ------- ------- ------- ------- ------- ------- ------- ------- ------- --------
  $u_{1}$    1       -       -       1       1       1       1       1       1       1
  $u_{2}$    -       1       1       1       1       1       1       1       -       1
@@ -472,7 +478,7 @@ For a threshold $\theta = 5$, we get the following votes:
 **group**  **2**  **1**   **1**   **3**   **3**   **3**   **2**   **3**   **2**   **3**
 -----------------------------------------------------------------------------------------
 
-Table: Group choice selection following the _approval voting strategy_. The ranked list of items for the group would be $\lbrace i_{4}-i_{5}-i_{6}-i_{8}-i_{10}, i_{1}-i_{7}-i_{9}, i_{2}-i_{3}\rbrace$.
+Table: Group choice selection following the _approval voting strategy_. The ranked list of items for the group would be $\lbrace p_{4}-p_{5}-p_{6}-p_{8}-p_{10}, p_{1}-p_{7}-p_{9}, p_{2}-p_{3}\rbrace$.
 
 See table \thetable.
 See equation \theequation.
@@ -487,10 +493,10 @@ Thus, a group is as satisfied as its least satisfied member (Figure 5).
 
 Note that a minority of the group could dictate the opinion of the group: although many members like a certain item, if one member really hates it, the preferences associated to it will not appear in the group profile.
 
-$$gr_{i} = \underset{j}{min}(r_{i,j})$$
+$$group_{j} = \underset{1 \leq i \leq n}{min}(r_{i,j})$$
 
 
-          $i_{1}$ $i_{2}$ $i_{3}$ $i_{4}$ $i_{5}$ $i_{6}$ $i_{7}$ $i_{8}$ $i_{9}$ $i_{10}$
+          $p_{1}$ $p_{2}$ $p_{3}$ $p_{4}$ $p_{5}$ $p_{6}$ $p_{7}$ $p_{8}$ $p_{9}$ $p_{10}$
 --------- ------- ------- ------- ------- ------- ------- ------- ------- ------- --------
  $u_{1}$    10      4       3       6       10      9       6       8       10      8
  $u_{2}$    1       9       8       9       7       9       6       9       3       8
@@ -498,7 +504,7 @@ $$gr_{i} = \underset{j}{min}(r_{i,j})$$
 **group** **1**   **4**   **2**   **6**    **7**  **8**    **5**   **6**   **3**   **6**
 -----------------------------------------------------------------------------------------
 
-Table: Group choice selection following the _least misery strategy_. The ranked list of items for the group would be $\lbrace i_{6}, i_{5}, i_{4}-i_{8}-i_{10}, i_{7}, i_{2}, i_{9}, i_{3}, i_{1}\rbrace$.
+Table: Group choice selection following the _least misery strategy_. The ranked list of items for the group would be $\lbrace p_{6}, p_{5}, p_{4}-p_{8}-p_{10}, p_{7}, p_{2}, p_{9}, p_{3}, p_{1}\rbrace$.
 
 
 ### Most pleasure strategy
@@ -506,10 +512,10 @@ Table: Group choice selection following the _least misery strategy_. The ranked 
 It works as the _least misery strategy_, but instead of considering for an item the smallest ratings of the users, it selects the greatest ones.
 The higher rating the more influential the item is for the group, as shown in Figure 6.
 
-$$gr_{i} = \underset{j}{max}(r_{i,j})$$
+$$group_{j} = \underset{1 \leq i \leq n}{max}(r_{i,j})$$
 
 
-          $i_{1}$ $i_{2}$ $i_{3}$ $i_{4}$ $i_{5}$ $i_{6}$ $i_{7}$ $i_{8}$ $i_{9}$ $i_{10}$
+          $p_{1}$ $p_{2}$ $p_{3}$ $p_{4}$ $p_{5}$ $p_{6}$ $p_{7}$ $p_{8}$ $p_{9}$ $p_{10}$
 --------- ------- ------- ------- ------- ------- ------- ------- ------- ------- --------
  $u_{1}$    10      4       3       6       10      9       6       8       10      8
  $u_{2}$    1       9       8       9       7       9       6       9       3       8
@@ -517,20 +523,20 @@ $$gr_{i} = \underset{j}{max}(r_{i,j})$$
 **group** **10**  **9**   **8**    **9**   **10**  **9**   **6**   **9**  **10**  **8**
 -----------------------------------------------------------------------------------------
 
-Table: Group choice selection following the _most pleasure strategy_. The ranked list of items for the group would be $\lbrace i_{1}-i_{5}-i_{9}, i_{2}-i_{4}-i_{6}-i_{8}, i_{3}-i_{10}, i_{7}\rbrace$.
+Table: Group choice selection following the _most pleasure strategy_. The ranked list of items for the group would be $\lbrace p_{1}-p_{5}-p_{9}, p_{2}-p_{4}-p_{6}-p_{8}, p_{3}-p_{10}, p_{7}\rbrace$.
 
 ### Average without misery strategy
 
 As the average strategy, this one assigns an item the average of its ratings in the individual profiles. The difference here is that those items which have a rating under a certain threshold $\theta$ will not be considered in the group recommendations. 
 Figure 4 shows an example of group formation following this strategy with a threshold value of 3. 
 
-$$gr_{i} = \begin{cases}
-  -, & \text{if }\exists_{j}:r_{i,j} \leqslant \theta \\
-  avg(r_{i,j}), & \text{otherwise}
+$$group_{j} = \begin{cases}
+  -, & \text{if }\exists_{i}:r_{i,j} \leqslant \theta \\
+  avg_{j}, & \text{otherwise}
 \end{cases}$$
 
 
-          $i_{1}$ $i_{2}$ $i_{3}$ $i_{4}$ $i_{5}$ $i_{6}$ $i_{7}$ $i_{8}$ $i_{9}$ $i_{10}$
+          $p_{1}$ $p_{2}$ $p_{3}$ $p_{4}$ $p_{5}$ $p_{6}$ $p_{7}$ $p_{8}$ $p_{9}$ $p_{10}$
 --------- ------- ------- ------- ------- ------- ------- ------- ------- ------- --------
  $u_{1}$    10      4       3       6       10      9       6       8       10      8
  $u_{2}$    1       9       8       9       7       9       6       9       3       8
@@ -538,7 +544,7 @@ $$gr_{i} = \begin{cases}
 **group**   -     **6**     -     **7.3** **8.7** **8.7** **5.7** **7.7**   -     **7.3**
 -----------------------------------------------------------------------------------------
 
-Table: Group choice selection following the _average without misery strategy_. The ranked list of items for the group would be $\lbrace i_{5}-i_{6}, i_{8}, i_{4}-i_{10},i_{2}, i_{7}\rbrace$.
+Table: Group choice selection following the _average without misery strategy_. The ranked list of items for the group would be $\lbrace p_{5}-p_{6}, p_{8}, p_{4}-p_{10},p_{2}, p_{7}\rbrace$.
 
 ### Fairness strategy
 
@@ -547,14 +553,14 @@ In this strategy, the items that were rated highest and cause less misery to all
 1. A user is randomly selected
 2. His *L* top rated items are taking into account.
 	 - From them, the item that less misery causes to the group (that from the worst alternatives that has the highest rating) 
-is chosen for the group profile with a score equal to *N*, i.e., the number of items.
-3. Restart the process in step 1 considering the remaining *N–1,N–2,etc.* items and uniformly diminishing to 1 the further assigned scores.
+is chosen for the group profile with a score equal to *m*, i.e., the number of items.
+3. Restart the process in step 1 considering the remaining *m–1,m–2,etc.* items and uniformly diminishing to 1 the further assigned scores.
 
 In the final list, the higher score the more influential the item is for the group.
 
 > Note that this list would be different if we let other users to choose first.
 
-          $i_{1}$ $i_{2}$ $i_{3}$ $i_{4}$ $i_{5}$ $i_{6}$ $i_{7}$ $i_{8}$ $i_{9}$ $i_{10}$
+          $p_{1}$ $p_{2}$ $p_{3}$ $p_{4}$ $p_{5}$ $p_{6}$ $p_{7}$ $p_{8}$ $p_{9}$ $p_{10}$
 --------- ------- ------- ------- ------- ------- ------- ------- ------- ------- --------
  $u_{1}$    10      4       3       6       10      9       6       8       10      8
  $u_{2}$    1       9       8       9       7       9       6       9       3       8
@@ -562,22 +568,22 @@ In the final list, the higher score the more influential the item is for the gro
 **group**  **4**  **3**   **1**   **8**   **10**   **9**   **5**  **7**   **2**   **6**
 -----------------------------------------------------------------------------------------
 
-Table: Group choice selection following the _fairness strategy_. The ranked list of items for the group would be $\lbrace i_{5}, i_{6}, i_{4}, i_{8}, i_{10}, i_{7}, i_{1}, i_{2}, i_{9}, i_{3}\rbrace$ following the user selecting order $\lbrace u_{1},u_{2},u_{3}\rbrace$ and $L=3$.
+Table: Group choice selection following the _fairness strategy_. The ranked list of items for the group would be $\lbrace p_{5}, p_{6}, p_{4}, p_{8}, p_{10}, p_{7}, p_{1}, p_{2}, p_{9}, p_{3}\rbrace$ following the user selecting order $\lbrace u_{1},u_{2},u_{3}\rbrace$ and $L=3$.
 
 To better understand the strategy, let us explain its first 3 iterations on the example shown in Table [@table].
 
 i. Iteration 0
 	1. The user $u_{1}$ is selected
-	2. Whose $L=3$ top ranked items are $i_{1}$, $i_{5}$ and $i_{9}$.
-		- From these items, we choose item $i_{5}$ with a score $N=10$. Item $i_{5}$ is the one that less misery causes to users $u_{2}$ and $u_{3}$, whose lowest ratings for items $i_{1}$, $i_{5}$ and $i_{9}$ are respectively 1, 7 and 3.
+	2. Whose $L=3$ top ranked items are $p_{1}$, $p_{5}$ and $p_{9}$.
+		- From these items, we choose item $p_{5}$ with a score $m=10$. Item $p_{5}$ is the one that less misery causes to users $u_{2}$ and $u_{3}$, whose lowest ratings for items $p_{1}$, $p_{5}$ and $p_{9}$ are respectively 1, 7 and 3.
 ii. Iteration 1
 	1. The user $u_{2}$ is selected
-	2. Whose $L=3$ top ranked items are $i_{2}$, $i_{4}$ and $i_{6}$.
-		- From these items, we choose item $i_{6}$ with a score $N-1=9$. Item $i_{6}$ is the one that less misery causes to users $u_{1}$ and $u_{3}$, whose lowest ratings for items $i_{2}$, $i_{4}$ and $i_{6}$ are respectively 4, 6 and 8.
+	2. Whose $L=3$ top ranked items are $p_{2}$, $p_{4}$ and $p_{6}$.
+		- From these items, we choose item $p_{6}$ with a score $m-1=9$. Item $p_{6}$ is the one that less misery causes to users $u_{1}$ and $u_{3}$, whose lowest ratings for items $p_{2}$, $p_{4}$ and $p_{6}$ are respectively 4, 6 and 8.
 iii. Iteration 2
 	1. The user $u_{3}$ is selected
-	2. Whose $L=3$ top ranked items are $i_{1}$, $i_{4}$ and $i_{9}$.
-		- From these items, we choose item $i_{4}$ with a score $N-2=8$. Item $i_{4}$ is the one that less misery causes to users $u_{1}$ and $u_{2}$, whose lowest ratings for items $i_{1}$, $i_{4}$ and $i_{9}$ are respectively 1, 6 and 3.
+	2. Whose $L=3$ top ranked items are $p_{1}$, $p_{4}$ and $p_{9}$.
+		- From these items, we choose item $p_{4}$ with a score $m-2=8$. Item $p_{4}$ is the one that less misery causes to users $u_{1}$ and $u_{2}$, whose lowest ratings for items $p_{1}$, $p_{4}$ and $p_{9}$ are respectively 1, 6 and 3.
 
 
 ### Purity strategy
@@ -588,16 +594,16 @@ The _deviation_ is included in the equation to denote the dispersion of the sati
 * A value $purity_{i} = 1$, means that all members of the group satisfy their preferences
 * Whereas a value $purity_{i} = 0$ denotes that none of the preferences of the group are satisfied. 
 
-$$dev_{i} = \sqrt{
+$$dev_{j} = \sqrt{
 	\frac{1}{n-1}
 	\cdot
-	\sum_{j=1}^{n}(r_{i,j}-avg_{i})^{2}
+	\sum_{i=1}^{n}(r_{i,j}-avg_{j})^{2}
 }$$
 
-$$purity_{i} = \frac{\sum_{j=1}^{n}r_{i,j}-dev_{i}}{R}$$
+$$group_{j} = \frac{\sum_{i=1}^{n}r_{i,j}-dev_{j}}{n \cdot v_{s}}$$
 
 
-           $i_{1}$   $i_{2}$   $i_{3}$   $i_{4}$   $i_{5}$   $i_{6}$   $i_{7}$   $i_{8}$   $i_{9}$   $i_{10}$
+           $p_{1}$   $p_{2}$   $p_{3}$   $p_{4}$   $p_{5}$   $p_{6}$   $p_{7}$   $p_{8}$   $p_{9}$   $p_{10}$
 --------- --------- --------- --------- --------- --------- --------- --------- --------- --------- ----------
  $u_{1}$    10          4         3         6        10         9         6         8         10        8
  $u_{2}$    1           9         8         9        7          9         6         9         3         8
@@ -606,24 +612,24 @@ $$purity_{i} = \frac{\sum_{j=1}^{n}r_{i,j}-dev_{i}}{R}$$
 **group** **0,527**  **0,512** **0,326** **0,682** **0,816** **0,847** **0,547** **0,716** **0,550** **0,695**
 --------------------------------------------------------------------------------------------------------------
 
-Table: Group choice selection following the _purity strategy_. The ranked list of items for the group would be $\lbrace i_{6}, i_{5}, i_{8}, i_{10}, i_{4}, i_{9}, i_{7}, i_{1}, i_{2}, i_{3}\rbrace$.
+Table: Group choice selection following the _purity strategy_. The ranked list of items for the group would be $\lbrace p_{6}, p_{5}, p_{8}, p_{10}, p_{4}, p_{9}, p_{7}, p_{1}, p_{2}, p_{3}\rbrace$.
 
 ### Completeness strategy
 
 The objective of the _completeness strategy_ is to favor high scores while penalizing big differences between members.
 
-$$completeness_{i} = \frac
-{\sum_{j=1}^{n}w_{j}\cdot\sqrt{r_{i,j}}}
-{\sum_{j=1}^{n}\sqrt{r_{i,j}}}$$
+$$group_{j} = \frac
+{\sum_{i=1}^{n}w_{i}\cdot\sqrt{r_{i,j}}}
+{n \cdot \sqrt{v_{s}}}$$
 
-where $w_{j}$ is a weighting factor used to tune the strategy—i.e., to focus more on one of the member’s preferences. Also, must comply?
+where $w_{j}$ is a weighting factor used to tune the strategy—i.e., to focus more on one of the user’s preferences. Also, must comply?
 
 $$\begin{cases}
-  \sum_{j=1}^{n}w_{j} = 1 \\
-  w_{j}\geq 0
+  \sum_{i=1}^{n}w_{i} = 1 \\
+  w_{i}\geq 0
 \end{cases}$$
 
-           $i_{1}$   $i_{2}$   $i_{3}$   $i_{4}$   $i_{5}$   $i_{6}$   $i_{7}$   $i_{8}$   $i_{9}$   $i_{10}$
+           $p_{1}$   $p_{2}$   $p_{3}$   $p_{4}$   $p_{5}$   $p_{6}$   $p_{7}$   $p_{8}$   $p_{9}$   $p_{10}$
 --------- --------- --------- --------- --------- --------- --------- --------- --------- --------- ----------
  $u_{1}$    10          4         3         6        10         9         6         8         10        8
  $u_{2}$    1           9         8         9        7          9         6         9         3         8
@@ -631,27 +637,27 @@ $$\begin{cases}
 **group** **0,193** **0,191** **0,157** **0,213** **0,232** **0,233** **0,188** **0,218** **0,199** **0,214**
 --------------------------------------------------------------------------------------------------------------
 
-Table: Group choice selection following the _completeness strategy_. The ranked list of items for the group would be $\lbrace i_{6}, i_{5}, i_{8}, i_{10}, i_{4}, i_{9}, i_{1}, i_{2}, i_{7}, i_{3}\rbrace$.
+Table: Group choice selection following the _completeness strategy_. The ranked list of items for the group would be $\lbrace p_{6}, p_{5}, p_{8}, p_{10}, p_{4}, p_{9}, p_{1}, p_{2}, p_{7}, p_{3}\rbrace$.
 
 ### Logical Sufficiency strategy
 
 The degree of logical sufficiency (i.e, in short the _ls_ measure) is a standard likelihood ratio statistic, which has been applied to measure rule quality of rule induction systems.
 This measure divides the proportion of positive examples that are covered by a rule by the proportion of negative examples.
 
-$$ls_{i} = \frac
-{\sum_{j=1}^{n}ls_{i,j}}
-{R}$$
+$$group_{j} = \frac
+{\sum_{i=1}^{n}ls_{i,j}}
+{s}$$
 
 $$ls_{i,j} = \frac
 {r_{i,j}}
-{r_{i,j}-r_{i,j}}$$
+{v_{s}-r_{i,j}}$$
 
 Note that in the extreme $ls_{i,j}$ approaches to infinity and, in this case, we restrict the value to $ls_{i,j} = r_{i,j}$.
 On the other hand, if $ls_{i,j}$ is much less than unity, then the product _i_ is discouraging for user _j_.
 
 <!-- -->
 
-          $i_{1}$ $i_{2}$ $i_{3}$ $i_{4}$ $i_{5}$ $i_{6}$ $i_{7}$ $i_{8}$ $i_{9}$ $i_{10}$
+          $p_{1}$ $p_{2}$ $p_{3}$ $p_{4}$ $p_{5}$ $p_{6}$ $p_{7}$ $p_{8}$ $p_{9}$ $p_{10}$
 --------- ------- ------- ------- ------- ------- ------- ------- ------- ------- --------
  $u_{1}$    10      4       3       6       10      9       6       8       10      8
  $u_{2}$    1       9       8       9       7       9       6       9       3       8
@@ -660,7 +666,7 @@ On the other hand, if $ls_{i,j}$ is much less than unity, then the product _i_ i
 
 $\Downarrow$
 
-           $i_{1}$   $i_{2}$   $i_{3}$   $i_{4}$   $i_{5}$   $i_{6}$   $i_{7}$   $i_{8}$   $i_{9}$   $i_{10}$
+           $p_{1}$   $p_{2}$   $p_{3}$   $p_{4}$   $p_{5}$   $p_{6}$   $p_{7}$   $p_{8}$   $p_{9}$   $p_{10}$
 --------- --------- --------- --------- --------- --------- --------- --------- --------- --------- ----------
  $u_{1}$    10        0,67       0,43      1,50        10         9      1,50       4         10       4
  $u_{2}$    0,11        9         4         9        2,33         9      1,50       9        0,43      4
@@ -669,7 +675,7 @@ $\Downarrow$
 **group** **0,670** **0,356** **0,156** **0,428** **0,711** **0,733** **0,133** **0,483** **0,425** **0,317**
 --------------------------------------------------------------------------------------------------------------
 
-Table: Group choice selection following the _logical sufficiency strategy_. The ranked list of items for the group would be $\lbrace i_{6}, i_{5}, i_{1}, i_{8}, i_{4}, i_{9}, i_{2}, i_{10}, i_{3}, i_{7}\rbrace$.
+Table: Group choice selection following the _logical sufficiency strategy_. The ranked list of items for the group would be $\lbrace p_{6}, p_{5}, p_{1}, p_{8}, p_{4}, p_{9}, p_{2}, p_{10}, p_{3}, p_{7}\rbrace$.
 
 
 ### Group Sufficiency strategy
@@ -680,8 +686,8 @@ to the unsatisfied preferences for the individual in comparison with the whole g
 The intuition behind this strategy comes from the fact that the satisfaction of an individual 
 is likely to depend on that of other individual in the group (emotional contagion).
 
-$$gs_{i} = \frac
-{\sum_{j=1}^{n}gs_{i,j}}
+$$group_{j} = \frac
+{\sum_{i=1}^{n}gs_{i,j}}
 {n}$$
 
 $$gs_{i,j} = \frac
@@ -689,14 +695,14 @@ $$gs_{i,j} = \frac
 {r_{i,j}+1}
 {\sum_{j=1}^{n}r_{i,j}+2}}
 {\frac
-{r_{i,j}-r_{i,j}+1}
-{\sum_{j=1}^{n}r_{i,j}-r_{i,j}+2}}$$
+{v_{s}-r_{i,j}+1}
+{\sum_{j=1}^{n}v_{s}-r_{i,j}+2}}$$
 
 This equation estimates as the best product the one that minimizes gs.
 
 <!-- -->
 
-          $i_{1}$ $i_{2}$ $i_{3}$ $i_{4}$ $i_{5}$ $i_{6}$ $i_{7}$ $i_{8}$ $i_{9}$ $i_{10}$
+          $p_{1}$ $p_{2}$ $p_{3}$ $p_{4}$ $p_{5}$ $p_{6}$ $p_{7}$ $p_{8}$ $p_{9}$ $p_{10}$
 --------- ------- ------- ------- ------- ------- ------- ------- ------- ------- --------
  $u_{1}$    10      4       3       6       10      9       6       8       10      8
  $u_{2}$    1       9       8       9       7       9       6       9       3       8
@@ -705,7 +711,7 @@ This equation estimates as the best product the one that minimizes gs.
 
 $\Downarrow$
 
-           $i_{1}$   $i_{2}$   $i_{3}$   $i_{4}$   $i_{5}$   $i_{6}$   $i_{7}$   $i_{8}$   $i_{9}$   $i_{10}$
+           $p_{1}$   $p_{2}$   $p_{3}$   $p_{4}$   $p_{5}$   $p_{6}$   $p_{7}$   $p_{8}$   $p_{9}$   $p_{10}$
 --------- --------- --------- --------- --------- --------- --------- --------- --------- --------- ----------
  $u_{1}$    5,26      0,50      0,63      0,58      2,36       1,07     1,11       1,08      6,00      1,25
  $u_{2}$    0,10      3,50      3,80      2,08      0,43       1,07     1,11       1,80      0,27      1,25
@@ -714,7 +720,7 @@ $\Downarrow$
 **group** **3,539** **1,567** **1,619** **1,167** **1,286** **0,929** **1,000** **1,128** **2,455** **1,028**
 --------------------------------------------------------------------------------------------------------------
 
-Table: Group choice selection following the _group sufficiency strategy_. The ranked list of items for the group would be $\lbrace i_{6}, i_{7}, i_{10}, i_{8}, i_{4}, i_{5}, i_{2}, i_{3}, i_{9}, i_{1}\rbrace$.
+Table: Group choice selection following the _group sufficiency strategy_. The ranked list of items for the group would be $\lbrace p_{6}, p_{7}, p_{10}, p_{8}, p_{4}, p_{5}, p_{2}, p_{3}, p_{9}, p_{1}\rbrace$.
 
 +NOTA: veure fórmules a 
   [Gartrell, M., Xing, X., Lv, Q., Beach, A., Han, R., Mishra, S., & Seada, K. (2010). Enhancing group recommendation by incorporating social relationship interactions. Proceedings of the 16th ACM international conference on Supporting group work (pp. 97–106). New York, NY, USA: ACM. doi:10.1145/1880071.1880087]
@@ -726,7 +732,7 @@ Table: Group choice selection following the _group sufficiency strategy_. The ra
 
 ### Average strategy
 
-Travel Decision Forum [15] implements multiple group modeling strategies, including the _average strategy_ and the median strategy, which uses the middle value of the group members’ ratings, instead of the average value.
+Travel Decision Forum [15] implements multiple group modeling strategies, including the _average strategy_ and the median strategy.
 
 In [36], Yu and colleagues present a TV program recommender that performs a variation of the average strategy, where the group preference vector minimizes its distance compared to the individual members’ preference vectors.
 
