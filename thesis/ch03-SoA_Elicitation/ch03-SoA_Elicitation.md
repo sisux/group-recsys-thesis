@@ -102,6 +102,48 @@ person_           most respected individual.                 then A’s group ra
 
 Table: Overview of Aggregation Strategies
 
+
+Strategy	                Example Ranked List
+--------------------------- --------------------------------------------------------------------------------------
+_[Plurality Voting]_        $\lbrace i_{5}, i_{6}, i_{4}, i_{8}, i_{10}, i_{1}, i_{9}, i_{2}, i_{7}, i_{3}\rbrace$
+_[Median]_                  $\lbrace i_{1},i_{5}-i_{6},i_{8}-i_{10},i_{4}-i_{9},i_{7},i_{2},i_{3}\rbrace$
+_[Average]_                 $\lbrace i_{5}-i_{6}, i_{8}, i_{4}-i_{10}, i_{1}, i_{9}, i_{2}, i_{7}, i_{3}\rbrace$
+_[Additive]_                $\lbrace i_{5}-i_{6}, i_{8}, i_{4}-i_{10}, i_{1}, i_{9}, i_{2}, i_{7}, i_{3}\rbrace$
+_[Multiplicative]_          $\lbrace i_{6}, i_{5}, i_{8}, i_{10}, i_{4}, i_{9}, i_{2}-i_{7}, i_{1}, i_{3}\rbrace$
+_[Borda Count]_             $\lbrace i_{6}, i_{5}, i_{1}, i_{4}-i_{8}, i_{9}, i_{10}, i_{2}, i_{7}, i_{3}\rbrace$
+_[Copeland Rule]_           $\lbrace i_{5}, i_{1}, i_{6}, i_{9}, i_{4}, i_{8}, i_{10}, i_{2}-i_{7}, i_{3}\rbrace$
+_[Approval Voting]_         $\lbrace i_{4}-i_{5}-i_{6}-i_{8}-i_{10}, i_{1}-i_{7}-i_{9}, i_{2}-i_{3}\rbrace$
+_[Least Misery]_            $\lbrace i_{6}, i_{5}, i_{4}-i_{8}-i_{10}, i_{7}, i_{2}, i_{9}, i_{3}, i_{1}\rbrace$
+_[Most Pleasure]_           $\lbrace i_{1}-i_{5}-i_{9}, i_{2}-i_{4}-i_{6}-i_{8}, i_{3}-i_{10}, i_{7}\rbrace$
+_[Average Without Misery]_  $\lbrace i_{5}-i_{6}, i_{8}, i_{4}-i_{10},i_{2}, i_{7}\rbrace$
+_[Fairness]_                $\lbrace i_{5}, i_{6}, i_{4}, i_{8}, i_{10}, i_{7}, i_{1}, i_{2}, i_{9}, i_{3}\rbrace$
+_[Purity]_                  $\lbrace i_{6}, i_{5}, i_{8}, i_{10}, i_{4}, i_{9}, i_{7}, i_{1}, i_{2}, i_{3}\rbrace$
+_[Completeness]_            $\lbrace i_{6}, i_{5}, i_{8}, i_{10}, i_{4}, i_{9}, i_{1}, i_{2}, i_{7}, i_{3}\rbrace$
+_[Logical Sufficiency]_     $\lbrace i_{6}, i_{5}, i_{1}, i_{8}, i_{4}, i_{9}, i_{2}, i_{10}, i_{3}, i_{7}\rbrace$
+_[Group Sufficiency]_       $\lbrace i_{6}, i_{7}, i_{10}, i_{8}, i_{4}, i_{5}, i_{2}, i_{3}, i_{9}, i_{1}\rbrace$
+----------------------------------------------------------------------------------------------------------------
+
+Table: Overview of Aggregation Strategies
+
+[Plurality Voting]:#plurality-voting-strategy
+[Median]:#median-strategy
+[Average]:#average-strategy
+[Additive]:#additive-utilitarian-strategy
+[Multiplicative]:#multiplicative-utilitarian-strategy
+[Borda Count]:#borda-count-strategy
+[Copeland Rule]:#copeland-rule-strategy
+[Approval Voting]:#approval-voting-strategy
+[Least Misery]:#least-misery-strategy
+[Most Pleasure]:#most-pleasure-strategy
+[Average Without Misery]:#average-without-misery-strategy
+[Fairness]:#fairness-strategy
+[Purity]:#purity-strategy
+[Completeness]:#completeness-strategy
+[Logical Sufficiency]:#logical-sufficiency-strategy
+[Group Sufficiency]:#group-sufficiency-strategy
+
+See section \ref{plurality-voting-strategy}.
+
 ## Detailed description
 
 The following sections will review theses strategies in detail.
@@ -226,7 +268,7 @@ Table: Group choice selection following the _median strategy_. The ranked list o
 In this strategy, the group rating for a particular item is computed as the average rating over all individuals (Figure 3). 
 Note that if no user or item weighting is conducted, the ranking list of this strategy is the same as that of the _Utilitarian strategy_.
 
-$$gr_{i} = avg(r_{i,j}) = \frac{1}{n}\cdot\sum_{j=1}^{n}r_{i,j}$$
+$$gr_{i} = avg_{i} = \frac{1}{n}\cdot\sum_{j=1}^{n}r_{i,j}$$
 
 
           $i_{1}$ $i_{2}$ $i_{3}$ $i_{4}$ $i_{5}$ $i_{6}$ $i_{7}$ $i_{8}$ $i_{9}$ $i_{10}$
@@ -538,6 +580,141 @@ iii. Iteration 2
 		- From these items, we choose item $i_{4}$ with a score $N-2=8$. Item $i_{4}$ is the one that less misery causes to users $u_{1}$ and $u_{2}$, whose lowest ratings for items $i_{1}$, $i_{4}$ and $i_{9}$ are respectively 1, 6 and 3.
 
 
+### Purity strategy
+
+The objective is to measure how many preferences are covered (i.e., satisfied) by a product while considering all the preferences of the group. 
+The _deviation_ is included in the equation to denote the dispersion of the satisfaction.
+
+* A value $purity_{i} = 1$, means that all members of the group satisfy their preferences
+* Whereas a value $purity_{i} = 0$ denotes that none of the preferences of the group are satisfied. 
+
+$$dev_{i} = \sqrt{
+	\frac{1}{n-1}
+	\cdot
+	\sum_{j=1}^{n}(r_{i,j}-avg_{i})^{2}
+}$$
+
+$$purity_{i} = \frac{\sum_{j=1}^{n}r_{i,j}-dev_{i}}{R}$$
+
+
+           $i_{1}$   $i_{2}$   $i_{3}$   $i_{4}$   $i_{5}$   $i_{6}$   $i_{7}$   $i_{8}$   $i_{9}$   $i_{10}$
+--------- --------- --------- --------- --------- --------- --------- --------- --------- --------- ----------
+ $u_{1}$    10          4         3         6        10         9         6         8         10        8
+ $u_{2}$    1           9         8         9        7          9         6         9         3         8
+ $u_{3}$    10          5         2         7        9          8         5         6         7         6
+**dev**	  **5,196**  **2,646** **3,215** **1,528** **1,528** **0,577** **0,577** **1,528** **3,512** **1,155**
+**group** **0,527**  **0,512** **0,326** **0,682** **0,816** **0,847** **0,547** **0,716** **0,550** **0,695**
+--------------------------------------------------------------------------------------------------------------
+
+Table: Group choice selection following the _purity strategy_. The ranked list of items for the group would be $\lbrace i_{6}, i_{5}, i_{8}, i_{10}, i_{4}, i_{9}, i_{7}, i_{1}, i_{2}, i_{3}\rbrace$.
+
+### Completeness strategy
+
+The objective of the _completeness strategy_ is to favor high scores while penalizing big differences between members.
+
+$$completeness_{i} = \frac
+{\sum_{j=1}^{n}w_{j}\cdot\sqrt{r_{i,j}}}
+{\sum_{j=1}^{n}\sqrt{r_{i,j}}}$$
+
+where $w_{j}$ is a weighting factor used to tune the strategy—i.e., to focus more on one of the member’s preferences. Also, must comply?
+
+$$\begin{cases}
+  \sum_{j=1}^{n}w_{j} = 1 \\
+  w_{j}\geq 0
+\end{cases}$$
+
+           $i_{1}$   $i_{2}$   $i_{3}$   $i_{4}$   $i_{5}$   $i_{6}$   $i_{7}$   $i_{8}$   $i_{9}$   $i_{10}$
+--------- --------- --------- --------- --------- --------- --------- --------- --------- --------- ----------
+ $u_{1}$    10          4         3         6        10         9         6         8         10        8
+ $u_{2}$    1           9         8         9        7          9         6         9         3         8
+ $u_{3}$    10          5         2         7        9          8         5         6         7         6
+**group** **0,193** **0,191** **0,157** **0,213** **0,232** **0,233** **0,188** **0,218** **0,199** **0,214**
+--------------------------------------------------------------------------------------------------------------
+
+Table: Group choice selection following the _completeness strategy_. The ranked list of items for the group would be $\lbrace i_{6}, i_{5}, i_{8}, i_{10}, i_{4}, i_{9}, i_{1}, i_{2}, i_{7}, i_{3}\rbrace$.
+
+### Logical Sufficiency strategy
+
+The degree of logical sufficiency (i.e, in short the _ls_ measure) is a standard likelihood ratio statistic, which has been applied to measure rule quality of rule induction systems.
+This measure divides the proportion of positive examples that are covered by a rule by the proportion of negative examples.
+
+$$ls_{i} = \frac
+{\sum_{j=1}^{n}ls_{i,j}}
+{R}$$
+
+$$ls_{i,j} = \frac
+{r_{i,j}}
+{r_{i,j}-r_{i,j}}$$
+
+Note that in the extreme $ls_{i,j}$ approaches to infinity and, in this case, we restrict the value to $ls_{i,j} = r_{i,j}$.
+On the other hand, if $ls_{i,j}$ is much less than unity, then the product _i_ is discouraging for user _j_.
+
+<!-- -->
+
+          $i_{1}$ $i_{2}$ $i_{3}$ $i_{4}$ $i_{5}$ $i_{6}$ $i_{7}$ $i_{8}$ $i_{9}$ $i_{10}$
+--------- ------- ------- ------- ------- ------- ------- ------- ------- ------- --------
+ $u_{1}$    10      4       3       6       10      9       6       8       10      8
+ $u_{2}$    1       9       8       9       7       9       6       9       3       8
+ $u_{3}$    10      5       2       7       9       8       5       6       7       6
+-----------------------------------------------------------------------------------------
+
+$\Downarrow$
+
+           $i_{1}$   $i_{2}$   $i_{3}$   $i_{4}$   $i_{5}$   $i_{6}$   $i_{7}$   $i_{8}$   $i_{9}$   $i_{10}$
+--------- --------- --------- --------- --------- --------- --------- --------- --------- --------- ----------
+ $u_{1}$    10        0,67       0,43      1,50        10         9      1,50       4         10       4
+ $u_{2}$    0,11        9         4         9        2,33         9      1,50       9        0,43      4
+ $u_{3}$    10          1        0,25       2,33        9         4        1       1,50       2,33     1,50
+**sum**	  **20,11** **10,67** **4,68**  **12,83** **21,33** **22,00** **4,00**  **14,50** **12,76** **9,50**
+**group** **0,670** **0,356** **0,156** **0,428** **0,711** **0,733** **0,133** **0,483** **0,425** **0,317**
+--------------------------------------------------------------------------------------------------------------
+
+Table: Group choice selection following the _logical sufficiency strategy_. The ranked list of items for the group would be $\lbrace i_{6}, i_{5}, i_{1}, i_{8}, i_{4}, i_{9}, i_{2}, i_{10}, i_{3}, i_{7}\rbrace$.
+
+
+### Group Sufficiency strategy
+
+gs measures the satisfaction of a member in relation to the satisfied preferences for the rest of the group and 
+to the unsatisfied preferences for the individual in comparison with the whole group. 
+
+The intuition behind this strategy comes from the fact that the satisfaction of an individual 
+is likely to depend on that of other individual in the group (emotional contagion).
+
+$$gs_{i} = \frac
+{\sum_{j=1}^{n}gs_{i,j}}
+{n}$$
+
+$$gs_{i,j} = \frac
+{\frac
+{r_{i,j}+1}
+{\sum_{j=1}^{n}r_{i,j}+2}}
+{\frac
+{r_{i,j}-r_{i,j}+1}
+{\sum_{j=1}^{n}r_{i,j}-r_{i,j}+2}}$$
+
+This equation estimates as the best product the one that minimizes gs.
+
+<!-- -->
+
+          $i_{1}$ $i_{2}$ $i_{3}$ $i_{4}$ $i_{5}$ $i_{6}$ $i_{7}$ $i_{8}$ $i_{9}$ $i_{10}$
+--------- ------- ------- ------- ------- ------- ------- ------- ------- ------- --------
+ $u_{1}$    10      4       3       6       10      9       6       8       10      8
+ $u_{2}$    1       9       8       9       7       9       6       9       3       8
+ $u_{3}$    10      5       2       7       9       8       5       6       7       6
+-----------------------------------------------------------------------------------------
+
+$\Downarrow$
+
+           $i_{1}$   $i_{2}$   $i_{3}$   $i_{4}$   $i_{5}$   $i_{6}$   $i_{7}$   $i_{8}$   $i_{9}$   $i_{10}$
+--------- --------- --------- --------- --------- --------- --------- --------- --------- --------- ----------
+ $u_{1}$    5,26      0,50      0,63      0,58      2,36       1,07     1,11       1,08      6,00      1,25
+ $u_{2}$    0,10      3,50      3,80      2,08      0,43       1,07     1,11       1,80      0,27      1,25
+ $u_{3}$    5,26      0,70      0,42      0,83      1,07       0,64     0,79       0,50      1,09      0,58
+**sum**	  **10,62** **4,70**  **4,86**  **3,50**  **3,86**  **2,79**  **3,00**  **3,38**  **7,36**  **3,08**
+**group** **3,539** **1,567** **1,619** **1,167** **1,286** **0,929** **1,000** **1,128** **2,455** **1,028**
+--------------------------------------------------------------------------------------------------------------
+
+Table: Group choice selection following the _group sufficiency strategy_. The ranked list of items for the group would be $\lbrace i_{6}, i_{7}, i_{10}, i_{8}, i_{4}, i_{5}, i_{2}, i_{3}, i_{9}, i_{1}\rbrace$.
 
 +NOTA: veure fórmules a 
   [Gartrell, M., Xing, X., Lv, Q., Beach, A., Han, R., Mishra, S., & Seada, K. (2010). Enhancing group recommendation by incorporating social relationship interactions. Proceedings of the 16th ACM international conference on Supporting group work (pp. 97–106). New York, NY, USA: ACM. doi:10.1145/1880071.1880087]
