@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel>
+<schema name="public" protected="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<database name="movielens" encoding="UTF8">
+	<role name="postgres"/>
+</database>
+
+<table name="users">
+	<schema name="public"/>
+	<position x="59" y="66"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+		<comment><![CDATA[User id]]></comment>
+	</column>
+	<column name="age">
+		<type name="smallint"/>
+	</column>
+	<column name="gender">
+		<type name="char"/>
+		<comment><![CDATA[Male or Female]]></comment>
+	</column>
+	<column name="occupation">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="zipCode">
+		<type name="char" length="5"/>
+	</column>
+	<constraint name="pk_users" type="pk-constr" factor="10" table="public.users">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="items">
+	<schema name="public"/>
+	<position x="704" y="54"/>
+	<column name="id" not-null="true">
+		<type name="bigint"/>
+		<comment><![CDATA[Movie Id]]></comment>
+	</column>
+	<column name="title">
+		<type name="varchar" length="200"/>
+		<comment><![CDATA[Movie title]]></comment>
+	</column>
+	<column name="releaseDate">
+		<type name="date"/>
+	</column>
+	<column name="videoReleaseDate">
+		<type name="date"/>
+	</column>
+	<column name="IMDbURL">
+		<type name="text"/>
+		<comment><![CDATA[URL for the IMDB web site]]></comment>
+	</column>
+	<column name="unknown">
+		<type name="integer"/>
+		<comment><![CDATA[genre unknown]]></comment>
+	</column>
+	<column name="Action">
+		<type name="integer"/>
+		<comment><![CDATA[genre Action]]></comment>
+	</column>
+	<column name="Adventure">
+		<type name="integer"/>
+		<comment><![CDATA[genre Adventure]]></comment>
+	</column>
+	<column name="Animation">
+		<type name="integer"/>
+		<comment><![CDATA[genre Animation]]></comment>
+	</column>
+	<column name="Childrens">
+		<type name="integer"/>
+		<comment><![CDATA[Genre Children]]></comment>
+	</column>
+	<column name="Comedy">
+		<type name="integer"/>
+		<comment><![CDATA[Genre Comedy]]></comment>
+	</column>
+	<column name="Crime">
+		<type name="integer"/>
+		<comment><![CDATA[Genre Crime]]></comment>
+	</column>
+	<column name="Documentary">
+		<type name="integer"/>
+		<comment><![CDATA[Genre Documentary]]></comment>
+	</column>
+	<column name="Drama">
+		<type name="integer"/>
+		<comment><![CDATA[Genre Drama]]></comment>
+	</column>
+	<column name="Fantasy">
+		<type name="integer"/>
+		<comment><![CDATA[Genre Fantasy]]></comment>
+	</column>
+	<column name="FilmNoir">
+		<type name="integer"/>
+		<comment><![CDATA[Genre Film-Noir]]></comment>
+	</column>
+	<column name="Horror">
+		<type name="integer"/>
+		<comment><![CDATA[Genre Horror]]></comment>
+	</column>
+	<column name="Musical">
+		<type name="integer"/>
+		<comment><![CDATA[Genre Musical]]></comment>
+	</column>
+	<column name="Mystery">
+		<type name="integer"/>
+		<comment><![CDATA[Genre Mystery]]></comment>
+	</column>
+	<column name="Romance">
+		<type name="integer"/>
+		<comment><![CDATA[Genre Romance]]></comment>
+	</column>
+	<column name="SciFi">
+		<type name="integer"/>
+		<comment><![CDATA[Genre Sci-Fi]]></comment>
+	</column>
+	<column name="Thriller">
+		<type name="integer"/>
+		<comment><![CDATA[Genre Thriller]]></comment>
+	</column>
+	<column name="War">
+		<type name="integer"/>
+		<comment><![CDATA[Genre War]]></comment>
+	</column>
+	<column name="Western">
+		<type name="integer"/>
+		<comment><![CDATA[Genre Western]]></comment>
+	</column>
+	<constraint name="items_pk" type="pk-constr" factor="10" table="public.items">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="ratings">
+	<schema name="public"/>
+	<position x="261" y="328"/>
+	<column name="userId">
+		<type name="bigint"/>
+	</column>
+	<column name="itemId">
+		<type name="bigint"/>
+	</column>
+	<column name="rating">
+		<type name="smallint"/>
+	</column>
+	<column name="timestamp">
+		<type name="varchar" length="10"/>
+	</column>
+	<constraint name="ratings_pk" type="pk-constr" factor="10" table="public.ratings">
+		<columns names="userId,itemId" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="occupations">
+	<schema name="public"/>
+	<position x="421" y="88"/>
+	<column name="enum" not-null="true">
+		<type name="smallint"/>
+		<comment><![CDATA[Occupation id]]></comment>
+	</column>
+	<column name="name" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="occupations_pk" type="pk-constr" factor="10" table="public.occupations">
+		<columns names="name" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="occupations_un" type="uq-constr" factor="10" table="public.occupations">
+		<columns names="enum" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="vectorizations">
+	<schema name="public"/>
+	<position x="8" y="354"/>
+	<column name="userId" not-null="true">
+		<type name="bigint"/>
+	</column>
+	<column name="age">
+		<type name="smallint"/>
+	</column>
+	<column name="gender">
+		<type name="char"/>
+	</column>
+	<column name="occupation">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="occupationId">
+		<type name="smallint"/>
+	</column>
+	<column name="zipCode">
+		<type name="char" length="5"/>
+	</column>
+	<column name="UnkownFreq">
+		<type name="float8"/>
+	</column>
+	<column name="ActionFreq">
+		<type name="float8"/>
+	</column>
+	<column name="AdventureFreq">
+		<type name="float8"/>
+	</column>
+	<column name="AnimationFreq">
+		<type name="float8"/>
+	</column>
+	<column name="ChildrensFreq">
+		<type name="float8"/>
+	</column>
+	<column name="ComedyFreq">
+		<type name="float8"/>
+	</column>
+	<column name="CrimeFreq">
+		<type name="float8"/>
+	</column>
+	<column name="DocumentaryFreq">
+		<type name="float8"/>
+	</column>
+	<column name="DramaFreq">
+		<type name="float8"/>
+	</column>
+	<column name="FantasyFreq">
+		<type name="float8"/>
+	</column>
+	<column name="FilmNoirFreq">
+		<type name="float8"/>
+	</column>
+	<column name="HorrorFreq">
+		<type name="float8"/>
+	</column>
+	<column name="MusicalFreq">
+		<type name="float8"/>
+	</column>
+	<column name="MysteryFreq">
+		<type name="float8"/>
+	</column>
+	<column name="RomanceFreq">
+		<type name="float8"/>
+	</column>
+	<column name="SciFiFreq">
+		<type name="float8"/>
+	</column>
+	<column name="ThrillerFreq">
+		<type name="float8"/>
+	</column>
+	<column name="WarFreq">
+		<type name="float8"/>
+	</column>
+	<column name="WesternFreq">
+		<type name="float8"/>
+	</column>
+	<constraint name="vectorizations_pk" type="pk-constr" factor="10" table="public.vectorizations">
+		<columns names="userId" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<constraint name="occupations_fk" type="fk-constr"	 comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.occupations" table="public.users">
+	<columns names="occupation" ref-type="src-columns"/>
+	<columns names="name" ref-type="dst-columns"/>
+</constraint>
+<constraint name="ratings_users_pf" type="fk-constr"	 comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.users" table="public.ratings">
+	<columns names="userId" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+<constraint name="ratings_item_fk" type="fk-constr"	 comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.items" table="public.ratings">
+	<columns names="itemId" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+<relationship name="rel_ratings_users" type="relfk"
+	 src-table="public.ratings"
+	 dst-table="public.users"
+	 src-required="true" dst-required="true"/>
+
+<relationship name="rel_ratings_items" type="relfk"
+	 src-table="public.ratings"
+	 dst-table="public.items"
+	 src-required="true" dst-required="true"/>
+
+<relationship name="rel_users_occupations" type="relfk"
+	 src-table="public.users"
+	 dst-table="public.occupations"
+	 src-required="true" dst-required="true"/>
+
+</dbmodel>

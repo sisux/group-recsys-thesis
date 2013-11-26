@@ -1,8 +1,97 @@
 Introduction to the Research Project
 ====================================
 
+Group recommender systems support groups of users in decision-making by providing shared suggestions. They generate recommendations from a broad range of alternatives that suit group members' tastes or needs.
+
 ----------------
 
+However, the group recommender process goes beyond
+the presentation of generated recommendation and
+needs to support the whole group interaction from the
+moment when the group meets over the presentation
+of a recommendation to the final group decision. This
+process is critical for the users’ overall satisfaction with
+the system; yet at the same time, it is complex and
+involves many subtleties [2].
+
+----------------
+Group Recommendation: Semantics and Efficiency
+
+Defined simply as a set of users, a user group can be formed on a recurring basis, e.g., friends who meet regularly
+for dinner, or on an ephemeral basis, e.g., random users getting together for a weekend climbing trip organized by
+their sports club. Regardless how the group is formed, recommending to the group presents two major challenges in
+comparison to individual user recommendations [9, 11].
+
+The first challenge is how to define the semantics of group recommendation. In individual user recommendation, the
+usual goal is to retrieve items with the highest scores, also referred to as relevance or user’s expected rating, computed by a given recommendation strategy. For example, a system such as Netflix recommends movies which are more likely to be rented by a user by finding those with the highest expected rating by that user. In group recommendation,
+however, an item may have different relevances to different group members and this disagreement among members must
+be resolved. Indeed, despite being friends, people may not share the same tastes for all movies. The same observa-
+tion can be made for colleagues going to a working lunch or family members traveling together.
+Existing methods have focused mostly on aggregating individual group members’ relevances to produce recommen-
+dations to a group [9]. In particular, those methods can be classified into two approaches: preference aggregation, which aggregates group members’ prior ratings into a single virtual user profile and makes recommendations to that user; score aggregation, which computes each member’s individual recommendations and merges them to produce a single list for the group, where the score of each item is aggregated from individual recommendations. The score aggregation
+approach typically offers better flexibility [9, 13] and more opportunities for efficiency improvement.
+
+Two main score aggregation functions have been proposed thus far: average and least misery. Strategies incorporating
+the former aim to maximize the average of group members’ scores for an item, while strategies incorporating the latter aim at maximizing the lowest score among all group members. However, neither models the resolution of disagreement among users in a formal way. Intuitively, in the movie domain, taking the average of expected ratings for a
+movie may result in a high score for movies which are highly liked by some group members and highly disliked by others.
+Similarly, optimizing for the lowest projected rating would miss a movie which is expected to be liked by every group
+member except one.
+
+-------------------------
+An Analysis of Group Recommendation Strategies
+
+CF is based on the assumption that users, who agreed
+in the past, are likely to agree in the future [2]. Hence, it
+analyses the opinions of users, who shared a target user’s
+opinions in the past, in order to predict the target user’s
+future opinions. To do this, CF initially computes the degree
+of similarity of the target user to all other users, then
+selects a neighborhood of the most similar users, and finally
+computes the prediction by aggregating the ratings
+of the neighbor users for the target item.
+One of the main problems experienced by CF recommender
+systems is data sparsity, i.e., an insufficient
+amount of user information to generate accurate recommendations
+
+CF is one of the most popular and widely-used recommendation
+algorithms. It is based on the notion of word
+of mouth [2], which assumes that users, who agreed in
+the past, will agree also in the future. In other words, it
+uses opinions of similar users to generate predictions for
+a target user. The opinions of users on the items are expressed
+either as explicit ratings given by users according
+to a predefined scale or as implicit ratings inferred from
+the logged user interactions with the system [6].
+The main stages of the CF recommendation process
+are [1]: (1) recognizing commonalities between users by
+computing inter-user similarity; (2) selecting most similar
+users; (3) generating predictions for unseen items by aggregating
+opinions of the most similar users; and (4) recommending
+the items with the highest prediction scores.
+The main advantage of CF is that it is domain agnostic and
+independent of the representation of users and items, i.e.,
+CF systems can generate recommendations for any items,
+e.g., movies, images, or text. Hence, CF is appropriate to
+a variety of domains and applications [7].
+
+CF recommender systems often suffer from a data sparsity
+problem, which prevents the system from generating
+accurate predictions due to insufficient user data [3]. Two
+cases of the sparsity problem should be differentiated: the
+new user problem, when the number of ratings provided
+by a new user is insufficient for the identification of similar
+users and reliable recommendations generation to that
+user, and the new item problem, when the number of ratings
+from users for a new item is insufficient for the generation
+of reliable recommendations for that item to other
+users. In either case, the data sparsity problem results in
+low-quality recommendations, inevitably having a negative
+impact on user experience and system trust.
+
+
+
+
+---------------
 Veure [Cantador, I., & Castells, P. (2012). Group Recommender Systems: New Perspectives in the Social Web. In J. J. P. Arias, A. F. Vilas, & R. P. D. Redondo (Eds.), Recommender Systems for the Social Web. Springer Verlag, Intelligent Systems Reference Library, Vol. 32.]
 
 ----------------

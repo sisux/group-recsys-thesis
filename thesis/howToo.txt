@@ -1,0 +1,7 @@
+
+
+Ontologia del domini (creada a mà o usant GATE)
+
+Usuaris
+ - Expressen una valoració sobre un concepte (http://xmlns.notu.be/wi/)
+ - 

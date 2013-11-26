@@ -52,17 +52,17 @@ public class WebAppServlet extends HttpServlet {
 		try {
 			final WebApplicationContext springContext = WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
 			
-			// Si se trata de la primera carga de la aplicaci—n, aparecer‡ la pantalla Login.
+			// Si se trata de la primera carga de la aplicacion, aparecera la pantalla Login.
 			if (request.getParameterMap().size() == 0) {
 				Actions.login(springContext, request, response);
 				final RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(LOGIN_JSP);
 				dispatcher.forward(request, response);
 
-			// Carga la car‡tula de la pel’cula seleccionada.
+			// Carga la caratula de la pelicula seleccionada.
 			} else if (StringUtils.equals(request.getParameter(ACTION),GET_COVER_ACTION)) {
 				Actions.getCover(springContext, request, response);
 
-			// Inicia la sesi—n de un usuario.
+			// Inicia la sesion de un usuario.
 			} else if (StringUtils.equals(request.getParameter(ACTION),SIGN_IN_ACTION)) {
 				Actions.signIn(springContext, request, response);
 				final RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(SIGN_IN_JSP);

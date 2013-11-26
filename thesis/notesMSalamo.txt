@@ -73,3 +73,14 @@ Bones vacances, que suposo que una mica sí descansaràs, tens un petitó del que d
 Fins al Setembre, 
 
 Maria
+
+-------------------------------------------
+
+Skype 09/09/2013
+
+Simulació:
+ - crear una simulació de groups basada en els paràmetres de mida i similitud
+ - València -> utilitzen un Content-based i després les polítiques d'agregació
+ - Projecte de Mahout: software de base per no haver de fer un col·laboratiu (CF)
+ - Cal fer un soft que permeti simular diferents polítiques d'agregació
+  => mínim: el de València

@@ -6,12 +6,18 @@
 	in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF 
 	ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under 
 	the License. -->
+	
+<!--
+This is the XML DTD for the Servlet 2.3 deployment descriptor.
+All Servlet 2.3 deployment descriptors must include a DOCTYPE
+of the following form:
 
   <!DOCTYPE web-app PUBLIC
 	"-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
 	"http://java.sun.com/dtd/web-app_2_3.dtd">
 
-<web-app>
+-->
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	<display-name>TFC Recommender</display-name>
 	<description>Treball de Fi de Carra</description>
 

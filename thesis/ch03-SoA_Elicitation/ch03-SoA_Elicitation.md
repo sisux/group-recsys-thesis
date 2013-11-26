@@ -8,6 +8,38 @@ The purpose of them are to adapt to the group as a whole based on information ab
 
 Veure imatge de [Gartrell, M., Xing, X., Lv, Q., Beach, A., Han, R., Mishra, S., & Seada, K. (2010). Enhancing group recommendation by incorporating social relationship interactions. Proceedings of the 16th ACM international conference on Supporting group work (pp. 97–106). New York, NY, USA: ACM. doi:10.1145/1880071.1880087]
 
+
+------------------
+[Carvalho, L. A. M. C., Cristóvão, S., & Macedo, H. T. (2013). Users ’ Satisfaction in Recommendation Systems for Groups : an Approach Based on Noncooperative Games, 951–958.]
+
+Although recommendation systems traditionally recommend items for individual users, 
+there is an increasing amount of research focused on recommendation for groups of users.
+In such case, recommendations aim to satisfy a group of users with potentially conflicting interests. 
+The need for choosing a method of aggregation to generate recommendations is the key characteristic of group recommendation. 
+
+Although different aggregation strategies differ in the way they manipulate and represent users’ preferences, virtually all of them adopts one of three schemes:
+
+1. Aggregates a single set of individual recommendations
+2. Builds a unique representation model for the group
+3. Aggregate the ratings/preferences for particular items.
+
+According to [24], aggregation strategies can be divided into three categories:
+• strategies consensus-based: considers the preferences of all group members. 
+Among the strategies in this category are Average, Average without Misery, Fairness and Multiplicative.
+• majority-based strategies: uses the most popular items among group members.
+Among the strategies in this category is Plurality Voting.
+• borderline strategies: consider only a subset of items in individual profiles based on user roles or any other relevant criteria.
+In the Dictatorship strategy, for instance, a single member imposes his taste for the rest of the group. 
+Least Misery and Most Pleasure strategies consider only the lowest and highest level of interest, respectively,
+
+
+Aggregation strategies may be evaluated according to a sort of different metrics [\cite{Jameson2007}]:
+• Maximize average satisfaction: a function that computes some kind of average predictions of satisfaction for each member to use as the basis for the selection of candidate items;
+• Minimize misery: a function that measures the level of dissatisfaction of one or more members;
+• Ensure some degree of fairness: a function that measures how balanced is the level of satisfaction among
+members of the group concerning the given recommendation.
+
+
 -----------------------
 
 [@Senot:2011:EGP:2283696.2283850]
@@ -253,7 +285,7 @@ iv. Iteration 3
 
 The group rating for a particular item is computed as the middle value of the group members’ ratings. 
 
-(@eq_stgy_median)  $$group_{j} = \underset{1 \leq i \leq n}{median}(r_{i,j})$$
+(@eq_stgy_median)  $$group_{j} = \underset{\forall i \in U}{median}(r_{i,j})$$
 
 As shown in equation (@eq_stgy_median)....
 
@@ -493,7 +525,7 @@ Thus, a group is as satisfied as its least satisfied member (Figure 5).
 
 Note that a minority of the group could dictate the opinion of the group: although many members like a certain item, if one member really hates it, the preferences associated to it will not appear in the group profile.
 
-$$group_{j} = \underset{1 \leq i \leq n}{min}(r_{i,j})$$
+$$group_{j} = \underset{\forall i \in U}{min}(r_{i,j})$$
 
 
           $p_{1}$ $p_{2}$ $p_{3}$ $p_{4}$ $p_{5}$ $p_{6}$ $p_{7}$ $p_{8}$ $p_{9}$ $p_{10}$
@@ -512,7 +544,7 @@ Table: Group choice selection following the _least misery strategy_. The ranked 
 It works as the _least misery strategy_, but instead of considering for an item the smallest ratings of the users, it selects the greatest ones.
 The higher rating the more influential the item is for the group, as shown in Figure 6.
 
-$$group_{j} = \underset{1 \leq i \leq n}{max}(r_{i,j})$$
+$$group_{j} = \underset{\forall i \in U}{max}(r_{i,j})$$
 
 
           $p_{1}$ $p_{2}$ $p_{3}$ $p_{4}$ $p_{5}$ $p_{6}$ $p_{7}$ $p_{8}$ $p_{9}$ $p_{10}$
