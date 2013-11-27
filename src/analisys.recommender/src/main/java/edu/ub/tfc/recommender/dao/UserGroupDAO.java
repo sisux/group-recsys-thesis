@@ -1,4 +1,4 @@
-package mia.clustering.users.dao;
+package edu.ub.tfc.recommender.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import mia.clustering.users.model.UserGroup;
+import edu.ub.tfc.recommender.bean.UserGroup;
 
 public class UserGroupDAO {
 

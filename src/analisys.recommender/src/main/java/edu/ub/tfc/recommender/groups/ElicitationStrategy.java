@@ -5,10 +5,9 @@ import java.util.Map;
 public interface ElicitationStrategy {
 
 	/**
-	 * Return the unified estimations from a list of user estimations
+	 * Return the group estimations from a set of individual user estimations
 	 * @param theUsersEstimations (idUser - {idItem, itemEstimation})
 	 * 
 	 */
 	Map<Long, Float> evaluate(Map<Long, Map<Long, Float>> theUsersEstimations);
-
 }

@@ -35,6 +35,7 @@ public class GroupRecommenderServlet extends HttpServlet {
 	/* ****************************
 				CONSTANTS
 	 * *************************** */
+	
 	/* *** BEANS *********** */
 	private static final String BEAN_TRAINMODEL = "trainModel";
 	private static final String BEAN_TESTMODEL = "testModel";
@@ -52,7 +53,7 @@ public class GroupRecommenderServlet extends HttpServlet {
 	private static final String PARAMETER_GROUPLENGTH = "groupLength";
 		
 	/* *** JSP ATTRIBUTES *********** */
-	private static final String ATTRIBUTE_TESTCASE = "testCase";
+	public static final String ATTRIBUTE_TESTCASE = "testCase";
 		
 	private static final String GROUP_EUCLIDEAN = "gEuclidean";
 	private static final String GROUP_AVERAGE = "gAverage";

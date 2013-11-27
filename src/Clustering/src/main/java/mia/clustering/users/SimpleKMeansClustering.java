@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import mia.clustering.users.dao.UserProfileDAO;
 import mia.clustering.users.helper.ClusterHelper;
 import mia.clustering.users.model.ClusterManager;
 import mia.clustering.users.model.UserGroup;
@@ -48,8 +49,8 @@ public class SimpleKMeansClustering {
 		private void createClusters() throws IOException, ClassNotFoundException, InterruptedException {
 			List<Vector> sampleData = new ArrayList<Vector>();
 
-            VectorManager tmpVectorManager = new VectorManager();
-            sampleData = tmpVectorManager.getUserVectors();
+            UserProfileDAO tmpUserProfileDAO = new UserProfileDAO();
+            sampleData = tmpUserProfileDAO.getUserVectors();
             
             double k = Math.sqrt(943);
             File testData = new File("input");
@@ -72,7 +73,7 @@ public class SimpleKMeansClustering {
 
             List<List<Cluster>> Clusters = ClusterHelper.readClusters(conf, output);
             ClusterManager tmpClusterManager = new ClusterManager();
-            Map<Integer, UserGroup> tmpUserGroups = tmpClusterManager.get_userGroups();
+            Map<Long, UserGroup> tmpUserGroups = tmpClusterManager.get_userGroups();
             
             UserGroup tmpUserGroup;
             for (Cluster cluster : Clusters.get(Clusters.size() - 1)) {
@@ -80,10 +81,10 @@ public class SimpleKMeansClustering {
                                     + cluster.getCenter().asFormatString());
                     System.out.println("Num observations: " + cluster.getNumObservations());
                     tmpUserGroup = new UserGroup();
-                    tmpUserGroup.set_id(cluster.getId());
+                    tmpUserGroup.set_id(Long.valueOf(cluster.getId()));
                     tmpUserGroup.set_centroid(cluster.getCenter().asFormatString());
                     tmpUserGroup.set_description("Initial Clustering Group");
-                    tmpUserGroups.put(Integer.valueOf(cluster.getId()), tmpUserGroup);
+                    tmpUserGroups.put(Long.valueOf(cluster.getId()), tmpUserGroup);
             }
 
             writeClusterRelations(conf, tmpUserGroups);
@@ -109,7 +110,7 @@ public class SimpleKMeansClustering {
         }
 
 
-		private static void writeClusterRelations(Configuration conf, Map<Integer, UserGroup> theUserGroups)
+		private static void writeClusterRelations(Configuration conf, Map<Long, UserGroup> theUserGroups)
 				throws IOException {
 			FileSystem fs = FileSystem.get(conf);
             SequenceFile.Reader reader = new SequenceFile.Reader(fs, new Path("output/" + Cluster.CLUSTERED_POINTS_DIR
@@ -122,7 +123,7 @@ public class SimpleKMeansClustering {
             	nVec = (NamedVector)vector.getVector();
             	System.out.println(nVec.getName() + " belongs to cluster " + clusterId.toString());
             	tmpUserGroup = theUserGroups.get(Integer.valueOf(clusterId.get()));
-            	tmpUserGroup.get_userIds().add(Integer.valueOf(nVec.getName()));
+            	tmpUserGroup.get_userIds().add(Long.valueOf(nVec.getName()));
             }
             reader.close();
 		}

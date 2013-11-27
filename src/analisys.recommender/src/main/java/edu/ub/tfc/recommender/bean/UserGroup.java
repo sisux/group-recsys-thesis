@@ -1,4 +1,4 @@
-package mia.clustering.users.model;
+package edu.ub.tfc.recommender.bean;
 
 import java.util.ArrayList;
 import java.util.List;

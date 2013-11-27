@@ -25,6 +25,13 @@
 	<import resource="spring/spring-recommender-item-pearson.xml" />
 	<import resource="spring/spring-recommender-item-cosine.xml" />
 	<import resource="spring/spring-recommender-item-euclidean.xml" />
-<!--<import resource="spring/spring-recommender-item-spearman.xml" /> -->
+    <!-- Commented due to following error: 
+    Failed to convert value of type 'org.apache.mahout.cf.taste.impl.similarity.SpearmanCorrelationSimilarity' 
+    to required type 'org.apache.mahout.cf.taste.similarity.ItemSimilarity'
+    
+     <import resource="spring/spring-recommender-item-spearman.xml" />
+    -->
+
+	<import resource="spring/spring-recommender-group-average.xml" />
 
 </beans>

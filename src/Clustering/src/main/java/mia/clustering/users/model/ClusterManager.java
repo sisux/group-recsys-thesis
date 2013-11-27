@@ -3,19 +3,16 @@ package mia.clustering.users.model;
 import java.util.HashMap;
 import java.util.Map;
 
-import mia.clustering.users.dao.PostgreSQLAccessor;
 import mia.clustering.users.dao.UserGroupDAO;
 
 public class ClusterManager {
 
-	private PostgreSQLAccessor _dbAccessor;
-	
-	private Map<Integer, UserGroup> _userGroups;
+	private Map<Long, UserGroup> _userGroups;
 	private int _maxGroups;
 	private int _maxUsersPerGroup;
 	private double _targetSimilarity;
 	
-	public Map<Integer, UserGroup> get_userGroups() {
+	public Map<Long, UserGroup> get_userGroups() {
 		return _userGroups;
 	}
 	
@@ -44,8 +41,7 @@ public class ClusterManager {
 	}
 
 	public ClusterManager() {
-		_dbAccessor = PostgreSQLAccessor.getInstance();
-		_userGroups = new HashMap<Integer, UserGroup>();
+		_userGroups = new HashMap<Long, UserGroup>();
 	}
 	
 	public ClusterManager(int theGroupNum, int theGroupSize, double theTargetSimilarity) {
@@ -57,7 +53,7 @@ public class ClusterManager {
 	
 	public void saveGroups() {
 		UserGroupDAO tmpUserGroupDAO = new UserGroupDAO();
-		tmpUserGroupDAO.cleanExistingroups();
+		tmpUserGroupDAO.cleanExistinGroups();
 		tmpUserGroupDAO.insertGroups(this._userGroups);
 	}
 }

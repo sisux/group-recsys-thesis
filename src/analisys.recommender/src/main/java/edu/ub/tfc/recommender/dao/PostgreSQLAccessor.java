@@ -1,4 +1,4 @@
-package mia.clustering.users.dao;
+package edu.ub.tfc.recommender.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

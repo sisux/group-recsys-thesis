@@ -1,6 +1,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Collections"%>
+<%@page import="edu.ub.tfc.recommender.servlet.GroupRecommenderServlet"%>
 <%@page import="edu.ub.tfc.recommender.bean.Resultado"%>
 <%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -14,7 +15,7 @@
 <body bgcolor="#F2F2F2">
 	<h1>Group Resultados de las pruebas:</h1>
 	<%
-		Map<Long, Resultado> testCase = (Map<Long, Resultado>)request.getAttribute("testCase");
+		Map<Long, Resultado> testCase = (Map<Long, Resultado>)request.getAttribute(GroupRecommenderServlet.ATTRIBUTE_TESTCASE);
 		List<Long> keys = new ArrayList<Long>(testCase.keySet());
 		Collections.sort(keys);
 	%>
@@ -34,7 +35,7 @@
 				</tr>
 				<tr>
 					<th style="background-color: gray;">Iteración</th>
-					<th style="background-color: gray;">Usuario</th>
+					<th style="background-color: gray;">Grupo</th>
 					<th style="background-color: gray;">MAE</th>
 					<th style="background-color: gray;">RMSE</th>
 					<th style="background-color: gray;">Tiempo (ms)</th>

@@ -115,7 +115,7 @@ Let $u$ be a user and $r_{up_{i}}$ the true rating of the user $u$ for the item 
 
 Discounted Cumulative Gain (DCG) and normalized DCG (nDCG) at rank k are defined respectively as:
 
-$$DCG^{u}_{k} = r_{up1} + \sum^{k}_{i=2} r_{up1}/log_{2}(i)$$
+$$DCG^{u}_{k} = r_{up1} + \sum^{k}_{i=2}\frac{r_{up1}}{log_{2}(i)}$$
 
 $$nDCG^{u}_{k} = \frac{DCG^{u}_{k}}{IDCG^{u}_{k}}$$
 
@@ -135,16 +135,16 @@ Moreover, suppose that the user $u$ test set consists of eight items ${1, 4, 7, 
 In such case, we would compute nDCG on the ranked list $[1, 4, 8, 7, 9]$.
 
 -----------------------------------------
+Carvalho, L. A. M. C., Cristóvão, S., & Macedo, H. T. (2013). Users ’ Satisfaction in Recommendation Systems for Groups : an Approach Based on Noncooperative Games, 951–958.
 
-Garcia, I., Pajares, S., Sebastia, L., & Onaindia, E. (2012). Preference elicitation techniques for group recommender systems. Inf. Sci., 189, 155–175. doi:10.1016/j.ins.2011.11.037
+A prediction function for group satisfaction for recommended items has been used to evaluate the result (equation 5).
 
-Unlike individual recommendations, when dealing with groups, a very important issue is to obtain recommendations that
-are as satisfactory as possible for all the group members, that is, the avoidance of misery. Therefore, our interest is to measure two aspects:
+$$S(g,R) = \frac{\sum_{u \in g}{S(u,R)}}{\lvert{g}\rvert}$$
 
-1. The satisfaction of the group as a whole, that is, the accuracy of the group recommendation for all the group members. 
-This is achieved by unifying the MAEu for each group member into a single measure; specifically, we define MAEG as the average of MAEu for all the members of the group. Therefore, a low MAEG indicates that the group as a whole is highly satisfied with the recommendation.
-2. The degree to which the group members are equally satisfied with the recommendation.
-This is achieved by calculating the standard deviation (distance) on MAEu over all the group members, which we denote as DG. 
-A low distance represents that all the group members are equally satisfied. 
-That is, this measure could be interpreted as the difference between the satisfaction of each group member with respect to the satisfaction of the other group members.
+This function is constructed from the average of individual satisfactions of each group member to the list of recommended items.
+
+$$S(u,R) = \frac{\sum_{i \in R}{p(u,i)}}{\lvert{R}\rvert}$$
+
+The maximization of $S(g,R)$ means maximizing average satisfaction of the group members to the list of recommended items.
+
 

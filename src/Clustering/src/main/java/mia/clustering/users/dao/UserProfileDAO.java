@@ -1,37 +1,39 @@
-package mia.clustering.users;
+package mia.clustering.users.dao;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import mia.clustering.users.dao.PostgreSQLAccessor;
 
 import org.apache.mahout.math.DenseVector;
 import org.apache.mahout.math.NamedVector;
 import org.apache.mahout.math.Vector;
 
-public class VectorManager {
+public class UserProfileDAO {
 
-	private PostgreSQLAccessor _dbAccessor;
+	private Connection _connection = PostgreSQLAccessor.getInstance().get_connection();
 	
-	public VectorManager() {
-		try {
-		_dbAccessor = PostgreSQLAccessor.getInstance();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public List<Vector> getUserVectors() {
-		List<Vector> tmpResult = null;
+		List<Vector> tmpResult = new ArrayList<Vector>();
 		
 		try {
-			ResultSet tmpUserVectors = _dbAccessor.getUserVectors();
-			tmpResult = new ArrayList<Vector>();
-
+			Statement stmt = this._connection.createStatement();
+			String tmpQuery = "SELECT \"userId\", \"UnkownFreq\", \"ActionFreq\", \"AdventureFreq\", \"AnimationFreq\","
+							  + "\"ChildrensFreq\", \"ComedyFreq\", \"CrimeFreq\", \"DocumentaryFreq\"," 
+							  + "\"DramaFreq\", \"FantasyFreq\", \"FilmNoirFreq\", \"HorrorFreq\", \"MusicalFreq\"," 
+							  + "\"MysteryFreq\", \"RomanceFreq\", \"SciFiFreq\", \"ThrillerFreq\", \"WarFreq\"," 
+							  + "\"WesternFreq\""
+							  + " FROM \"userVectors\"";
+	 
+			ResultSet tmpUserVectors = stmt.executeQuery(tmpQuery);
 			while (tmpUserVectors.next()) {
-				tmpResult.add(getUserVector(tmpUserVectors));
+				tmpResult.add(parseAsUserVector(tmpUserVectors));
 			}
 			tmpUserVectors.close();
 		} catch (Exception e) {
@@ -40,7 +42,13 @@ public class VectorManager {
 		return tmpResult;
 	}
 	
-	private Vector getUserVector(ResultSet theRow) throws SQLException {
+	/**
+	 * 
+	 * @param theRow
+	 * @return
+	 * @throws SQLException
+	 */
+	private Vector parseAsUserVector(ResultSet theRow) throws SQLException {
 		NamedVector tmpResult;
 
 		DenseVector tmpDenseVector = new DenseVector(new double[] {

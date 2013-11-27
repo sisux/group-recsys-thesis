@@ -3,7 +3,7 @@ package edu.ub.tfc.recommender.services.impl;
 public enum RecommenderServiceType {
 
 	GROUP_EUCLIDEAN_SERVICE("itemCosineService"),
-	GROUP_AVERAGE_SERVICE("itemPearsonService");
+	GROUP_AVERAGE_SERVICE("groupAverageService");
 	
 	private final String name;       
 

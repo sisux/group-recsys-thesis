@@ -31,13 +31,13 @@ public class RecsysGroupFormator {
 	private static String DISSIMILAR_PREFIX = "D";
 	
 	private UserGroupDAO _userGroupDAO;
-	private List<Integer> _userClusters;
-	private BidiMatrix<Integer> _dissimilarMatrix;
+	private List<Long> _userClusters;
+	private BidiMatrix<Long> _dissimilarMatrix;
 	
 	public RecsysGroupFormator()  {
 		_userGroupDAO = new UserGroupDAO();
 		_userClusters = _userGroupDAO.getAllClusters();
-		_dissimilarMatrix = new BidiMatrix<Integer>(_userClusters.size());
+		_dissimilarMatrix = new BidiMatrix<Long>(_userClusters.size());
 	}
 
 	public void createUserGroups() {
@@ -50,7 +50,7 @@ public class RecsysGroupFormator {
 		_dissimilarMatrix.addColumn(tmpClusterNum, tmpCurrentClusterGroup.get_userIds());
 	}
 
-	private UserGroup createGeneratedGroup(Integer theId, List<Integer> theUserList, String theDescription) {
+	private UserGroup createGeneratedGroup(Long theId, List<Long> theUserList, String theDescription) {
 		UserGroup tmpUserGroup = new UserGroup();
 		
 		tmpUserGroup.set_id(theId);
@@ -62,7 +62,7 @@ public class RecsysGroupFormator {
 
 	private void createDissimilarUserGroups() {
 		for (int i = 0; i < _dissimilarMatrix.size(); i++) {
-			ICombinatoricsVector<Integer> initialVector = Factory.createVector(_dissimilarMatrix.getRow(i));
+			ICombinatoricsVector<Long> initialVector = Factory.createVector(_dissimilarMatrix.getRow(i));
 			createCombinatorialUserGroup(initialVector, DISSIMILAR_PREFIX);
 		}
 	}
@@ -71,33 +71,33 @@ public class RecsysGroupFormator {
 		UserGroup tmpCurrentClusterGroup = null;
 		int tmpClusterNum = 0;
 		
-		for (Integer tmpCurrentClusterId : _userClusters) { // foreach cluster
+		for (Long tmpCurrentClusterId : _userClusters) { // foreach cluster
 			tmpCurrentClusterGroup = _userGroupDAO.findGroupById(tmpCurrentClusterId);
 			updateDissimilarMatrix(tmpCurrentClusterGroup, tmpClusterNum);
 			
 			if (MIN_GROUP_SIZE <= tmpCurrentClusterGroup.get_userIds().size()) {
 				// Create the initial vector
-				ICombinatoricsVector<Integer> initialVector = Factory.createVector(tmpCurrentClusterGroup.get_userIds());
+				ICombinatoricsVector<Long> initialVector = Factory.createVector(tmpCurrentClusterGroup.get_userIds());
 				createCombinatorialUserGroup(initialVector, SIMILAR_PREFIX);
 			}
 			tmpClusterNum++;
 		}
 	}
 	
-	private void createCombinatorialUserGroup(ICombinatoricsVector<Integer> theInitialVector, String theDescriptionPrefix) {
-		Map<Integer, UserGroup> tmpGeneratedUserGroups = new HashMap<Integer, UserGroup>();
+	private void createCombinatorialUserGroup(ICombinatoricsVector<Long> theInitialVector, String theDescriptionPrefix) {
+		Map<Long, UserGroup> tmpGeneratedUserGroups = new HashMap<Long, UserGroup>();
 		UserGroup tmpGeneratedUserGroup = null;
-		Integer tmpGeneratedGroupId = 0;
+		Long tmpGeneratedGroupId = (long) 0;
 		
 		for (Integer tmpSize : GROUP_SIZES) {
 
 			// Create a simple combination generator to generate
 			// Combinations of the initial vector
-			Generator<Integer> gen = Factory.createSimpleCombinationGenerator(theInitialVector, tmpSize);
+			Generator<Long> gen = Factory.createSimpleCombinationGenerator(theInitialVector, tmpSize);
 
 			// Get some possible combinations
-			Iterator<ICombinatoricsVector<Integer>> tmpIterator = gen.iterator();
-			ICombinatoricsVector<Integer> tmpCombination;
+			Iterator<ICombinatoricsVector<Long>> tmpIterator = gen.iterator();
+			ICombinatoricsVector<Long> tmpCombination;
 
 			for (int j = 0; j < GROUP_PER_TYPE; j++) {
 				tmpCombination = tmpIterator.next();
