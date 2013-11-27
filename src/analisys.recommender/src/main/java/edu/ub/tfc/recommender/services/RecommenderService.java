@@ -11,11 +11,6 @@ import org.apache.mahout.cf.taste.recommender.Recommender;
  * @author David Gil De Arce
  */
 public interface RecommenderService {
-	/**
-	 * Devuelve el recomendador
-	 * @return Recomendador
-	 */
-	Recommender getRecommender();
 
 	/**
 	 * Calcula las estimaciones de valoraciones para una lista de items y un usuario

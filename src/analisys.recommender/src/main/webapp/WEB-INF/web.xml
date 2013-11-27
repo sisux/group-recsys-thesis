@@ -32,7 +32,7 @@ of the following form:
 
 	<servlet>
 		<servlet-name>servlet</servlet-name>
-		<servlet-class>edu.ub.tfc.recommender.servlet.RecommenderServlet</servlet-class>
+		<servlet-class>edu.ub.tfc.recommender.servlet.GroupRecommenderServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>

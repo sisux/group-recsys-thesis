@@ -52,7 +52,6 @@ public class RecommenderServiceImpl implements RecommenderService {
 	/**
 	 * @see edu.ub.tfc.recommender.services.RecommenderInterface#getRecommender()
 	 */
-	@Override
 	public Recommender getRecommender() {
 		return this.recommender;
 	}

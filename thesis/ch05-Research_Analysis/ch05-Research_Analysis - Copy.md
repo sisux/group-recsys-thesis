@@ -73,7 +73,7 @@ obtain the ROC curve which visualizes the continuous trade-off between TPR and F
 
 ----------------------
 
-Garcia:2012:PET:2109241.2109644
+\cite{Garcia:2012:PET:2109241.2109644}
 
 Description of the measures for evaluating our GRS Recommender systems research has used several types of measures for evaluating the quality of the recommendations offered to individuals, such as _precision_, _recall_, or _mean absolute error_ (MAE).
 However, to the best of our knowledge, there is not a widely accepted measure for evaluating GRSs. 
@@ -85,7 +85,14 @@ estimated values for a group member on his own.
 
 Given a recommendation list of $N$ items for a group $G$ such that $u \in G$, the mean absolute error for the user $u$ is defined as follows:
 
-$$MAE^{u} = \frac{\sum_{i=1}^{N} \lvert{d^{ui} - d^{Gi}}\rvert}{N}$$
+$$MAE^{u}=\frac
+{\sum_{i=1}^{N}
+	left\vert{
+	d^{ui} - d^{Gi}
+	}\right\vert
+}
+{N}$$
+
 where $d^{ui}$ is the estimated degree of interest of the user u in the item i. 
 This value is obtained by a single-user RS [21,60]. 
 
@@ -105,19 +112,20 @@ A low distance represents that all the group members are equally satisfied. That
 
 
 -----------------------------
-
 Baltrunas, L., Makcinskas, T., & Ricci, F. (2010). Group recommendations with rank aggregation and collaborative filtering. … of the fourth ACM conference on …. Retrieved from http://dl.acm.org/citation.cfm?id=1864733
 
 For evaluating the goodness of a ranked list of recommendations we use Normalized Discounted Cumulative Gain (nDCG), a standard Information Retrieval (IR) measure.
 
 Let $p_{1},...,p_{l}$ be a ranked list of items produced as an individual or group recommendation.
-Let $u$ be a user and $r_{up_{i}}$ the true rating of the user $u$ for the item $p_{i}$ (ranked in position $i$, i.e., $\sigma_{u}(p_{i})= i$).
+Let $u$ be a user and $r_{up_{i}}% the true rating of the user $u$ for the item $p_{i}$ (ranked in position $i$, i.e., $\sigma_{u}(p_{i})= i$).
 
 Discounted Cumulative Gain (DCG) and normalized DCG (nDCG) at rank k are defined respectively as:
 
-$$DCG^{u}_{k} = r_{up1} + \sum^{k}_{i=2} r_{up1}/log_{2}(i)$$
 
-$$nDCG^{u}_{k} = \frac{DCG^{u}_{k}}{IDCG^{u}_{k}}$$
+DCG^{u}_{k} = r_{up1} + \sum^{k}_{i=2} r_{up1}/log_{2}(i)
+
+
+nDCG^{u}_{k} = DCG^{u}_{k} / IDCG^{u}_{k}
 
 where IDCG is the maximum possible gain value for user $u$ that is obtained with the optimal re-order of the $k$ items in $p_{1},...,p_{k}$.
 
@@ -132,10 +140,9 @@ In other words, we compute nDCG on the projection of the recommendation list on 
 For example, imagine that $r =[1, 4, 5, 8, 3, 7, 6, 2, 9]$ is a ranked list of recommendations for a group. 
 Since this is a group recommendation list, as we observed above, none of the items in this list occurs in the training set of any group member. 
 Moreover, suppose that the user $u$ test set consists of eight items ${1, 4, 7, 8, 9, 12, 14, 20}$. 
-In such case, we would compute nDCG on the ranked list $[1, 4, 8, 7, 9]$.
+In suchcase, we would compute nDCG on the ranked list $[1, 4, 8, 7, 9]$.
 
 -----------------------------------------
-
 Garcia, I., Pajares, S., Sebastia, L., & Onaindia, E. (2012). Preference elicitation techniques for group recommender systems. Inf. Sci., 189, 155–175. doi:10.1016/j.ins.2011.11.037
 
 Unlike individual recommendations, when dealing with groups, a very important issue is to obtain recommendations that
@@ -147,4 +154,3 @@ This is achieved by unifying the MAEu for each group member into a single measur
 This is achieved by calculating the standard deviation (distance) on MAEu over all the group members, which we denote as DG. 
 A low distance represents that all the group members are equally satisfied. 
 That is, this measure could be interpreted as the difference between the satisfaction of each group member with respect to the satisfaction of the other group members.
-
