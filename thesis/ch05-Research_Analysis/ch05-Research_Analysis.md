@@ -85,7 +85,7 @@ estimated values for a group member on his own.
 
 Given a recommendation list of $N$ items for a group $G$ such that $u \in G$, the mean absolute error for the user $u$ is defined as follows:
 
-$$MAE^{u} = \frac{\sum_{i=1}^{N} \lvert{d^{ui} - d^{Gi}}\rvert}{N}$$
+$$MAE^{u} = \frac{\sum\limits_{i=1}^{N} \lvert{d^{ui} - d^{Gi}}\rvert}{N}$$
 where $d^{ui}$ is the estimated degree of interest of the user u in the item i. 
 This value is obtained by a single-user RS [21,60]. 
 
@@ -115,7 +115,7 @@ Let $u$ be a user and $r_{up_{i}}$ the true rating of the user $u$ for the item 
 
 Discounted Cumulative Gain (DCG) and normalized DCG (nDCG) at rank k are defined respectively as:
 
-$$DCG^{u}_{k} = r_{up1} + \sum^{k}_{i=2}\frac{r_{up1}}{log_{2}(i)}$$
+$$DCG^{u}_{k} = r_{up1} + \sum\limits_{i=2}^{k}\frac{r_{up1}}{log_{2}(i)}$$
 
 $$nDCG^{u}_{k} = \frac{DCG^{u}_{k}}{IDCG^{u}_{k}}$$
 
@@ -137,13 +137,15 @@ In such case, we would compute nDCG on the ranked list $[1, 4, 8, 7, 9]$.
 -----------------------------------------
 Carvalho, L. A. M. C., Cristóvão, S., & Macedo, H. T. (2013). Users ’ Satisfaction in Recommendation Systems for Groups : an Approach Based on Noncooperative Games, 951–958.
 
-A prediction function for group satisfaction for recommended items has been used to evaluate the result (equation 5).
+Let $g$ be the group and $R$ the set of items rated within the group.
 
-$$S(g,R) = \frac{\sum_{u \in g}{S(u,R)}}{\lvert{g}\rvert}$$
+A prediction function for group satisfaction for recommended items has been used to evaluate the result.
+
+$$S(g,R) = \frac{\sum\limits_{u \in g}{S(u,R)}}{\lvert{g}\rvert}$$
 
 This function is constructed from the average of individual satisfactions of each group member to the list of recommended items.
 
-$$S(u,R) = \frac{\sum_{i \in R}{p(u,i)}}{\lvert{R}\rvert}$$
+$$S(u,R) = \frac{\sum\limits_{i \in R}{p(u,i)}}{\lvert{R}\rvert}$$
 
 The maximization of $S(g,R)$ means maximizing average satisfaction of the group members to the list of recommended items.
 
