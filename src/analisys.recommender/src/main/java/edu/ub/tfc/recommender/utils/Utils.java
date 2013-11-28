@@ -17,6 +17,8 @@ import java.util.Map;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.ub.tfc.recommender.bean.GRSAnalyserResult;
+import edu.ub.tfc.recommender.bean.GroupEvaluation;
 import edu.ub.tfc.recommender.bean.Resultado;
 
 /**
@@ -115,6 +117,43 @@ public class Utils {
 				final Resultado evaluation = testCase.get(key);
 				final String linea = key + SEPARATOR + evaluation.toString();
 				pw.println(linea.replace(DECIMAL_POINT, DECIMAL_COMA));
+			}
+		} catch (final Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (null != fichero) {
+					fichero.close();
+				}
+			} catch (final Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+	
+	/**
+	 * Genera el fichero CSV
+	 * @param testCase Resultados de la evaluaci—n
+	 * @param nombreFicheroCsv Nombre del fichero CSV
+	 * @param pathFicheroCsv Ruta del fichero CSV
+	 */
+	public static void escribirCsv(final GRSAnalyserResult testCases, final String nombreFicheroCsv, final String pathFicheroCsv) {
+		FileWriter fichero = null;
+		PrintWriter pw = null;
+		
+		try {
+			fichero = new FileWriter(pathFicheroCsv + nombreFicheroCsv);
+			pw = new PrintWriter(fichero);
+			
+			final List<Long> tmpGroupIds = testCases.getAllGroupsId();
+			Collections.sort(tmpGroupIds);
+			
+			for (final Long theGroupId : tmpGroupIds) {
+				List<GroupEvaluation> tmpGroupEvaluations = testCases.getAllGroupEvaluationsByGroupId(theGroupId);
+				
+				for(final GroupEvaluation tmpGroupEvaluation : tmpGroupEvaluations) {
+					pw.println(tmpGroupEvaluation.toString().replace(DECIMAL_POINT, DECIMAL_COMA));
+				}
 			}
 		} catch (final Exception e) {
 			e.printStackTrace();

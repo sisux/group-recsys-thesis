@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.mahout.cf.taste.common.TasteException;
 
+import edu.ub.tfc.recommender.bean.GroupEvaluation;
 import edu.ub.tfc.recommender.bean.UserGroup;
 import edu.ub.tfc.recommender.dao.UserGroupDAO;
 import edu.ub.tfc.recommender.groups.ElicitationStrategy;
@@ -74,6 +75,12 @@ public class GroupRecommenderService extends AbstractRecommenderServiceImpl {
 			PRIVATE METHODS
 	* *************************** */
 
+	private void setBaselineGroupInfo(UserGroup theUserGroup) {
+		this._metricResults.put(GroupEvaluation.GROUP_ID, theUserGroup.get_id().toString());
+		this._metricResults.put(GroupEvaluation.GROUP_DESCRIPTION, theUserGroup.get_description());
+		this._metricResults.put(GroupEvaluation.ELICITATION_STRATEGY, this._strategy.getElicitationStrategyName());
+	}
+
 	/**
 	 * All metrics are evaluated and the result is 
 	 * stored in GroupMetricsResults
@@ -122,6 +129,9 @@ public class GroupRecommenderService extends AbstractRecommenderServiceImpl {
 		// 1. Obtenir el llistat d'usuaris a partir del groupId
 		UserGroup tmpUserGroup = tmpUserGroupDAO.findGroupById(userID);
 		
+		// 1.1. Add basic info to results
+		this.setBaselineGroupInfo(tmpUserGroup);
+		
 		// 2. Per each single user, perform its recommendation
 		Map<Long, Map<Long, Float>> tmpUsersEstimations = getAllUserEstimations(tmpUserGroup, itemsID);
 
@@ -133,11 +143,5 @@ public class GroupRecommenderService extends AbstractRecommenderServiceImpl {
 		evaluateAllGroupMetrics(tmpResult, tmpUsersEstimations); 
 		 
 	return tmpResult;
-	}
-
-	@Override
-	protected long getRecommenderUnits() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 }

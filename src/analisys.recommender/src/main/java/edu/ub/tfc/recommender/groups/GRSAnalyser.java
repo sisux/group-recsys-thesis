@@ -4,8 +4,6 @@ import static edu.ub.tfc.recommender.utils.Utils.escribirCsv;
 import static edu.ub.tfc.recommender.utils.Utils.escribirLog;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,14 +17,12 @@ import org.apache.mahout.cf.taste.common.TasteException;
 import org.apache.mahout.cf.taste.impl.common.FastIDSet;
 import org.apache.mahout.cf.taste.impl.common.LongPrimitiveIterator;
 import org.apache.mahout.cf.taste.impl.model.jdbc.GenericJDBCDataModel;
-import org.apache.mahout.cf.taste.model.PreferenceArray;
-import org.apache.mahout.common.distance.ManhattanDistanceMeasure;
 
-import edu.ub.tfc.recommender.bean.Evaluacion;
+import edu.ub.tfc.recommender.bean.GRSAnalyserResult;
+import edu.ub.tfc.recommender.bean.GroupEvaluation;
 import edu.ub.tfc.recommender.bean.Resultado;
 import edu.ub.tfc.recommender.bean.UserGroup;
 import edu.ub.tfc.recommender.dao.UserGroupDAO;
-import edu.ub.tfc.recommender.distance.RootMeanSquaredError;
 import edu.ub.tfc.recommender.services.RecommenderService;
 import edu.ub.tfc.recommender.services.impl.RecommenderServiceType;
 
@@ -98,11 +94,11 @@ public class GRSAnalyser {
     		PUBLIC METHODS
 	 * *************************** */
 	
-	public Map<Long, Resultado> performAnalisys(final Map<String, RecommenderService> recommenderServices, final Integer totalIterations, final Integer itemsEstimados) throws IOException {
+	public GRSAnalyserResult performAnalisys(final Map<String, RecommenderService> recommenderServices, final Integer totalIterations, final Integer itemsEstimados) throws IOException {
 		escribirLog("========================================");
 		escribirLog("INICIANDO TEST");
 
-		Map<Long, Resultado> tmpAnalysisResult = null;
+		GRSAnalyserResult tmpAnalysisResult = null;
 		try {
 			escribirLog("TEST PARA "+ totalIterations + " GRUPOS");
 			tmpAnalysisResult = this.evaluate(recommenderServices, totalIterations, itemsEstimados);
@@ -129,16 +125,13 @@ public class GRSAnalyser {
 	 * @return Conjunto de evaluaciones
 	 * @throws TasteException Fallo del recomendador
 	 */
-	private Map<Long, Resultado> evaluate(final Map<String, RecommenderService> recommenderServices, final Integer totalIterations, final Integer itemsEstimados) throws TasteException {
+	private GRSAnalyserResult evaluate(final Map<String, RecommenderService> recommenderServices, final Integer totalIterations, final Integer itemsEstimados) throws TasteException {
 		// mapa que se devolvera
-		final Map<Long, Resultado> tmpResult = new HashMap<Long, Resultado>();
+		final GRSAnalyserResult tmpResult = new GRSAnalyserResult();
 		
-		Resultado tmpResultado;
-		PreferenceArray arrayReal;
-		int totalItems;
-		List<Long> items;
+		List<Long> tmpItemsToEvaluate;
 		Map<Long, Float> backup;
-		Evaluacion tmpGroupRecommenderEvaluation;
+		GroupEvaluation tmpGroupEvaluation = null;
 		UserGroup tmpCurrentGroup;
 		
 		int iteracion = 1;
@@ -152,32 +145,23 @@ public class GRSAnalyser {
 			escribirLog("EVALUANDO GRUPO " + tmpGroupId);
 			tmpCurrentGroup = _userGroupDAO.findGroupById(tmpGroupId);
 			
-			//TODO: change this
-//			arrayReal = this._trainModel.getPreferencesFromUser(tmpGroupId);
-//			totalItems = arrayReal.length();
-//
-			items = this._userGroupDAO.getNMostPopularRatedItems(tmpGroupId, itemsEstimados);
+			tmpItemsToEvaluate = this._userGroupDAO.getNMostPopularRatedItems(tmpGroupId, itemsEstimados);
 			
-//			items = new ArrayList<Long>();
 //			backup = new HashMap<Long, Float>();
 //			removeAndBackupValuations(items, backup, tmpGroupId, itemsEstimados);
 			
 			//for all services to evaluate
 			RecommenderService recommenderService;
-			tmpResultado = new Resultado();
 			for (String key : recommenderServices.keySet()) {
 				escribirLog("EVALUANDO SERVICIO " + key);
 				recommenderService = recommenderServices.get(key);
 				
 				//Ejecuta el servicio de recomendacion y obtiene las correspondientes estimaciones
-				tmpGroupRecommenderEvaluation = evaluateService(recommenderService, tmpGroupId, items);
-				
-				//TODO: change this
-//				//Calcula la diferencia entre lo recomendado y lo real
-//				escribirLog("CALCULANDO DISTANCIAS");
-//				updateDistances(tmpResultado, key, evaluacion, totalItems, arrayReal, tmpGroupId);
+				tmpGroupEvaluation = evaluateService(recommenderService, tmpGroupId, tmpItemsToEvaluate);
+				tmpGroupEvaluation.addNewMetric(GroupEvaluation.RECOMMENDATION_SERVICE, key);
+
+				tmpResult.addResult(tmpGroupId, tmpGroupEvaluation);
 			}
-			tmpResult.put(tmpGroupId, tmpResultado);
 			iteracion++;
 
 			//TODO: change this
@@ -185,21 +169,6 @@ public class GRSAnalyser {
 //			restoreRemovedValuations(tmpGroupId, backup);
 		}
 		return tmpResult;
-	}
-	
-	//TODO: to reorganize this.
-	/**
-	 * Calcula las métricas entre la valoración real del usuario y la estimación obtenida por el recomendador
-	 * @param theResultado
-	 * @param key
-	 * @param evalItem
-	 * @param totalItems
-	 * @param arrayReal
-	 * @param userID
-	 * @throws TasteException
-	 */
-	private void updateDistances(Resultado theResultado, String key, Evaluacion evalItem, int totalItems, PreferenceArray arrayReal, Long userID) throws TasteException {
-		updateResultado(key, theResultado, 0, 0, evalItem.getTime());
 	}
 	
 	/**
@@ -231,13 +200,16 @@ public class GRSAnalyser {
 	 * @return
 	 * @throws TasteException
 	 */
-	private Evaluacion evaluateService(RecommenderService recommenderService, Long groupId, List<Long> theItemsToEvaluate) throws TasteException {
+	private GroupEvaluation evaluateService(RecommenderService recommenderService, Long groupId, List<Long> theItemsToEvaluate) throws TasteException {
 		
 		Map<Long, Float> evaluacion = recommenderService.evaluate(groupId, theItemsToEvaluate);
-		//TODO: recommenderService.getMetricResults().get(arg0)
-		Evaluacion tmpEvaluacion = new Evaluacion(time, evaluacion);
+		Map<String,String> tmpMetrics = recommenderService.getMetricResults();
+		long time = Long.parseLong(tmpMetrics.get(GroupEvaluation.UNITARY_RECOMMENDATION_TIME));
+		
+		GroupEvaluation tmpGroupEvaluation = new GroupEvaluation(time, evaluacion);
+		tmpGroupEvaluation.setMetrics(tmpMetrics);
 
-		return tmpEvaluacion;
+		return tmpGroupEvaluation;
 	}
 	
 	/**
@@ -311,7 +283,6 @@ public class GRSAnalyser {
 			this._testModel.setPreference(userID, itemID, backup.get(itemID));
 		}
 	}
-	
 	
 	
 	/**

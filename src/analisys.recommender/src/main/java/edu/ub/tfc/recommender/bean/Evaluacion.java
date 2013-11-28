@@ -7,6 +7,17 @@ import java.util.Map;
  * @author David Gil De Arce
  */
 public class Evaluacion {
+
+
+	/* ****************************
+			CONSTANTS
+	* *************************** */
+
+	public static final String UNITARY_RECOMMENDATION_TIME = "URTime";
+
+	/* ****************************
+			ATTRIBUTES
+	* *************************** */
 	
 	private long time;
 	private Map<Long, Float> evaluacion;
@@ -17,7 +28,6 @@ public class Evaluacion {
 	 * @param evaluacion Lista de evaluaciones
 	 */
 	public Evaluacion(final long time, final Map<Long, Float> evaluacion) {
-		super();
 		this.time = time;
 		this.evaluacion = evaluacion;
 	}

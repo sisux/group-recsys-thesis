@@ -10,4 +10,10 @@ public interface ElicitationStrategy {
 	 * 
 	 */
 	Map<Long, Float> evaluate(Map<Long, Map<Long, Float>> theUsersEstimations);
+
+	/**
+	 * Return the Name of the Elicitation Strategy
+	 * @return
+	 */
+	String getElicitationStrategyName();
 }

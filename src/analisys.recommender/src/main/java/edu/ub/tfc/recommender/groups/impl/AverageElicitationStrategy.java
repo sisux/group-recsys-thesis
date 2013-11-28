@@ -8,6 +8,12 @@ import edu.ub.tfc.recommender.groups.ElicitationStrategy;
 public class AverageElicitationStrategy implements ElicitationStrategy {
 
 	/* ****************************
+			CONSTANTS
+	* *************************** */
+	
+	private final static String ELICITATION_STRATEGY_NAME = "Average ES";
+	
+	/* ****************************
 			PUBLIC METHODS
 	* *************************** */
 	
@@ -27,6 +33,12 @@ public class AverageElicitationStrategy implements ElicitationStrategy {
 		avgItemsEstimations(tmpResult, theUsersEstimations.size());
 
 		return tmpResult;
+	}
+	
+
+	@Override
+	public String getElicitationStrategyName() {
+		return ELICITATION_STRATEGY_NAME;
 	}
 	
 	/* ****************************

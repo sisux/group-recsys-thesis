@@ -6,15 +6,10 @@ import java.util.Map;
 
 import org.apache.mahout.cf.taste.common.TasteException;
 
+import edu.ub.tfc.recommender.bean.Evaluacion;
 import edu.ub.tfc.recommender.services.RecommenderService;
 
 public abstract class AbstractRecommenderServiceImpl implements RecommenderService {
-
-		/* ****************************
-				CONSTANTS
-		* *************************** */
-
-		protected static final String UNITARY_RECOMMENDATION_TIME = "URTime";
 			
 		/* ****************************
 				ATTRIBUTES
@@ -56,9 +51,8 @@ public abstract class AbstractRecommenderServiceImpl implements RecommenderServi
 			Map<Long, Float> tmpResult = evaluateRecommender(userID, itemsID);
 			
 			long timeFinish = System.currentTimeMillis();
-			long tmpRecomenderUnits = getRecommenderUnits();
-			long time = (timeFinish - timeStart) / tmpRecomenderUnits;
-			this._metricResults.put(UNITARY_RECOMMENDATION_TIME, String.valueOf(time));
+			long time = (timeFinish - timeStart) / getRecommenderUnits();
+			this._metricResults.put(Evaluacion.UNITARY_RECOMMENDATION_TIME, String.valueOf(time));
 			
 			return tmpResult;
 		}

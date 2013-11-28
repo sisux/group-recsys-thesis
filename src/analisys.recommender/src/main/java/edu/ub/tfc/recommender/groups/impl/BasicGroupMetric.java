@@ -8,17 +8,11 @@ import java.util.Map;
 import org.apache.mahout.cf.taste.common.TasteException;
 import org.apache.mahout.common.distance.ManhattanDistanceMeasure;
 
+import edu.ub.tfc.recommender.bean.GroupEvaluation;
 import edu.ub.tfc.recommender.distance.RootMeanSquaredError;
 import edu.ub.tfc.recommender.groups.GroupMetric;
 
 public class BasicGroupMetric implements GroupMetric {
-
-	/* ****************************
-				CONSTANTS
-	* *************************** */	
-	
-	private static final String MAE_METRIC_NAME = "MAE";
-	private static final String RMSE_METRIC_NAME = "RMSE";
 
 	/* ****************************
 			PUBLIC METHODS
@@ -57,8 +51,8 @@ public class BasicGroupMetric implements GroupMetric {
 			tmpGroupMAE = tmpGroupMAE / theUsersEstimations.size();
 			tmpGroupRMSE = tmpGroupRMSE / theUsersEstimations.size();
 			
-			tmpResult.put(MAE_METRIC_NAME, tmpGroupMAE.toString());
-			tmpResult.put(RMSE_METRIC_NAME, tmpGroupRMSE.toString());
+			tmpResult.put(GroupEvaluation.MAE_METRIC_NAME, tmpGroupMAE.toString());
+			tmpResult.put(GroupEvaluation.RMSE_METRIC_NAME, tmpGroupRMSE.toString());
 		} catch (TasteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -21,6 +21,7 @@ import org.apache.mahout.cf.taste.impl.model.jdbc.GenericJDBCDataModel;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import edu.ub.tfc.recommender.bean.GRSAnalyserResult;
 import edu.ub.tfc.recommender.bean.Resultado;
 import edu.ub.tfc.recommender.groups.GRSAnalyser;
 import edu.ub.tfc.recommender.services.RecommenderService;
@@ -147,8 +148,8 @@ public class GroupRecommenderServlet extends HttpServlet {
 			tmpGRSAnalyser.setNombreFicheroCsv(nombreFicheroCsv);
 			tmpGRSAnalyser.setPathFicheroCsv(pathFicheroCsv);
 			
-			Map<Long, Resultado> testCase = tmpGRSAnalyser.performAnalisys(recommenderServices, tmpMaxGroups, tmpMaxRecommendedItemsPerGroup);
-			request.setAttribute(ATTRIBUTE_TESTCASE, testCase);
+			GRSAnalyserResult testCases = tmpGRSAnalyser.performAnalisys(recommenderServices, tmpMaxGroups, tmpMaxRecommendedItemsPerGroup);
+			request.setAttribute(ATTRIBUTE_TESTCASE, testCases);
 		} catch (TasteException e) {
 			e.printStackTrace();
 		}

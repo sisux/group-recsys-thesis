@@ -40,6 +40,8 @@ public class RecommenderServiceImpl extends AbstractRecommenderServiceImpl {
 			List<Long> itemsID) throws TasteException {
 		final Map<Long, Float> result = new HashMap<Long, Float>();
 
+		this.setRecommenderUnits(itemsID.size());
+		
 		for (final Long itemID : itemsID) {
 			try {
 				final Float estimacion = this.recommender.estimatePreference(userID, itemID);
