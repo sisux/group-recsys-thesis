@@ -10,7 +10,6 @@ public class Evaluacion {
 	
 	private long time;
 	private Map<Long, Float> evaluacion;
-	private double distance;
 
 	/**
 	 * Constructor
@@ -52,23 +51,4 @@ public class Evaluacion {
 	public void setEvaluacion(final Map<Long, Float> evaluacion) {
 		this.evaluacion = evaluacion;
 	}
-
-	/**
-	 * Obtiene el valor de la diferencia entre la predicci—n y la valoraci—n
-	 * @return Distancia
-	 */
-	public double getDistance() {
-		return this.distance;
-	}
-
-	/**
-	 * Guarda el valor de la diferencia entre la predicci—n y la valoraci—n
-	 * @param distance Distancia
-	 */
-	public void setDistance(final double distance) {
-		this.distance = distance;
-	}
-
-
-
 }

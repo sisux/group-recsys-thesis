@@ -16,14 +16,28 @@ import edu.ub.tfc.recommender.services.RecommenderService;
  * Implementacion del servicio de recomendacion
  * @author David Gil
  */
-public class RecommenderServiceImpl implements RecommenderService {
+public class RecommenderServiceImpl extends AbstractRecommenderServiceImpl {
+	
 	protected Recommender recommender;
 
 	/**
-	 * @see edu.ub.tfc.recommender.services.RecommenderService#evaluate(java.lang.Long, java.util.List)
+	 * Guarda un recomendador
+	 * @param recommender Recomendador a guardar
 	 */
+	public void setRecommender(final Recommender recommender) {
+		this.recommender = recommender;
+	}
+
+	/**
+	 * @see edu.ub.tfc.recommender.services.RecommenderInterface#getRecommender()
+	 */
+	public Recommender getRecommender() {
+		return this.recommender;
+	}
+
 	@Override
-	public Map<Long, Float> evaluate(final Long userID, final List<Long> itemsID)  {
+	protected Map<Long, Float> evaluateRecommender(Long userID,
+			List<Long> itemsID) throws TasteException {
 		final Map<Long, Float> result = new HashMap<Long, Float>();
 
 		for (final Long itemID : itemsID) {
@@ -39,21 +53,6 @@ public class RecommenderServiceImpl implements RecommenderService {
 			}
 		}
 		return result;
-	}
-
-	/**
-	 * Guarda un recomendador
-	 * @param recommender Recomendador a guardar
-	 */
-	public void setRecommender(final Recommender recommender) {
-		this.recommender = recommender;
-	}
-
-	/**
-	 * @see edu.ub.tfc.recommender.services.RecommenderInterface#getRecommender()
-	 */
-	public Recommender getRecommender() {
-		return this.recommender;
 	}
 
 }

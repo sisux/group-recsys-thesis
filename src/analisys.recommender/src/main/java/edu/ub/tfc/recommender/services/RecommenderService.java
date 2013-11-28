@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.mahout.cf.taste.common.TasteException;
-import org.apache.mahout.cf.taste.recommender.Recommender;
 
 /**
  * Interfaz del servicio de recommendador
@@ -20,4 +19,10 @@ public interface RecommenderService {
 	 * @throws TasteException Fallo del recomendador
 	 */
 	Map<Long, Float> evaluate(final Long userID, final List<Long> itemsID) throws TasteException;
+	
+	/**
+	 * Return internal metrics of the recommender service
+	 * @return
+	 */
+	Map<String,String> getMetricResults();
 }

@@ -48,11 +48,12 @@ public class GRSAnalyser {
 	private String _nombreFicheroCsv;
 	private String _pathFicheroCsv;
 	private UserGroupDAO _userGroupDAO;
+
 	
 	/* ****************************
               CONSTRUCTORS
 	 **************************** */
-	
+
 	public GRSAnalyser(GenericJDBCDataModel theTestModel, GenericJDBCDataModel theTrainModel) throws TasteException {
 		_testModel = theTestModel;
 		_trainModel = theTrainModel;
@@ -73,7 +74,7 @@ public class GRSAnalyser {
 	}
 
 	/**
-	 * @return the pathFicheroCsv
+	 * @return the pathFich-eroCsv
 	 */
 	public String getPathFicheroCsv() {
 		return _pathFicheroCsv;
@@ -137,7 +138,7 @@ public class GRSAnalyser {
 		int totalItems;
 		List<Long> items;
 		Map<Long, Float> backup;
-		Evaluacion evaluacion;
+		Evaluacion tmpGroupRecommenderEvaluation;
 		UserGroup tmpCurrentGroup;
 		
 		int iteracion = 1;
@@ -155,7 +156,7 @@ public class GRSAnalyser {
 //			arrayReal = this._trainModel.getPreferencesFromUser(tmpGroupId);
 //			totalItems = arrayReal.length();
 //
-			items = retrieveNonRatedItems(tmpCurrentGroup.get_userIds(), itemsEstimados);
+			items = this._userGroupDAO.getNMostPopularRatedItems(tmpGroupId, itemsEstimados);
 			
 //			items = new ArrayList<Long>();
 //			backup = new HashMap<Long, Float>();
@@ -169,7 +170,7 @@ public class GRSAnalyser {
 				recommenderService = recommenderServices.get(key);
 				
 				//Ejecuta el servicio de recomendacion y obtiene las correspondientes estimaciones
-				evaluacion = evaluateService(recommenderService, items, tmpGroupId);
+				tmpGroupRecommenderEvaluation = evaluateService(recommenderService, tmpGroupId, items);
 				
 				//TODO: change this
 //				//Calcula la diferencia entre lo recomendado y lo real
@@ -186,6 +187,7 @@ public class GRSAnalyser {
 		return tmpResult;
 	}
 	
+	//TODO: to reorganize this.
 	/**
 	 * Calcula las métricas entre la valoración real del usuario y la estimación obtenida por el recomendador
 	 * @param theResultado
@@ -197,17 +199,7 @@ public class GRSAnalyser {
 	 * @throws TasteException
 	 */
 	private void updateDistances(Resultado theResultado, String key, Evaluacion evalItem, int totalItems, PreferenceArray arrayReal, Long userID) throws TasteException {
-//		Map<Long, Float> evaluate = evalItem.getEvaluacion();
-//		
-//		// calculo de la distancia
-//		final double[] d1 = new double[totalItems];
-//		final double[] d2 = new double[totalItems];
-//		calculateDistances(d1, d2, evaluate, arrayReal, userID);
-//		
-//		double mae = calculateMAE(totalItems, d1, d2);
-//		double rmse = calculateRMSE(totalItems, d1, d2);
-
-		updateResultado(key, theResultado, mae, rmse, evalItem.getTime());
+		updateResultado(key, theResultado, 0, 0, evalItem.getTime());
 	}
 	
 	/**
@@ -234,20 +226,18 @@ public class GRSAnalyser {
 	/**
 	 * Evalua el tiempo de ejecución del servicio de recomendacion
 	 * @param recommenderService
-	 * @param items
-	 * @param userID
+	 * @param theItemsToEvaluate
+	 * @param groupId
 	 * @return
 	 * @throws TasteException
 	 */
-	private Evaluacion evaluateService(RecommenderService recommenderService, List<Long> items, Long userID) throws TasteException {
+	private Evaluacion evaluateService(RecommenderService recommenderService, Long groupId, List<Long> theItemsToEvaluate) throws TasteException {
 		
-		long timeStart = System.currentTimeMillis();
-		Map<Long, Float> evaluacion = recommenderService.evaluate(userID, items);
-		long timeFinish = System.currentTimeMillis();
-		long time = (timeFinish - timeStart) / items.size();
-		Evaluacion evalItem = new Evaluacion(time, evaluacion);
+		Map<Long, Float> evaluacion = recommenderService.evaluate(groupId, theItemsToEvaluate);
+		//TODO: recommenderService.getMetricResults().get(arg0)
+		Evaluacion tmpEvaluacion = new Evaluacion(time, evaluacion);
 
-		return evalItem;
+		return tmpEvaluacion;
 	}
 	
 	/**
@@ -321,64 +311,8 @@ public class GRSAnalyser {
 			this._testModel.setPreference(userID, itemID, backup.get(itemID));
 		}
 	}
-
-//	/**
-//	 * Realiza el cálculo del Root Mean Squared Error
-//	 * @param totalItems
-//	 * @param d1
-//	 * @param d2
-//	 * @return
-//	 */
-//	private double calculateRMSE(final int totalItems, final double[] d1, final double[] d2) {
-//		final RootMeanSquaredError calculo = new RootMeanSquaredError();
-//		double rmse = calculo.distance(d1, d2) / Math.sqrt(totalItems);
-//
-//		String val = rmse + "";
-//		BigDecimal big = new BigDecimal(val);
-//		rmse = big.setScale(5, RoundingMode.HALF_UP).doubleValue();
-//		return rmse;
-//	}
-//
-//	/**
-//	 * Realiza el cálculo del Mean Absolute Error
-//	 * @param totalItems
-//	 * @param d1
-//	 * @param d2
-//	 * @return
-//	 */
-//	private double calculateMAE(final int totalItems, final double[] d1, final double[] d2) {
-//		final double distance = ManhattanDistanceMeasure.distance(d1, d2);
-//		double mae = distance / totalItems;
-//
-//		String val = mae + "";
-//		BigDecimal big = new BigDecimal(val);
-//		mae = big.setScale(5, RoundingMode.HALF_UP).doubleValue();
-//		return mae;
-//	}
 	
-//	/**
-//	 * Obtiene las todas valoraciones reales y estimadas del usuario
-//	 * @param d1 Todas las valoraciones reales
-//	 * @param d2 Todas las valoraciones estimadas
-//	 * @param evaluate
-//	 * @param arrayReal
-//	 * @param userID
-//	 * @throws TasteException
-//	 */
-//	private void calculateDistances(final double[] d1, final double[] d2, Map<Long, Float> evaluate, PreferenceArray arrayReal, Long userID) throws TasteException {
-//		for (int i = 0; i < d1.length; i++) {
-//			final long itemID = arrayReal.get(i).getItemID();
-//
-//			d1[i] = arrayReal.get(i).getValue();
-//			final Float preferenceValue = this._testModel.getPreferenceValue(userID, itemID);
-//
-//			if (preferenceValue != null) {
-//				d2[i] = preferenceValue;
-//			} else {
-//				d2[i] = evaluate.get(itemID);
-//			}
-//		}
-//	}
+	
 	
 	/**
 	 * Returns N non rated items by any user
@@ -386,8 +320,8 @@ public class GRSAnalyser {
 	 * @return
 	 * @throws TasteException 
 	 */
-	private List<Long> retrieveNonRatedItems(List<Long> theUserList, Integer theItemsToRetrieve) throws TasteException {
-		Set<Long> tmpRatedItemsByAnyUser = getAllRatedItems(theUserList);
+	private List<Long> retrieveNonRatedItems(UserGroup theUserGroup, Integer theItemsToRetrieve) throws TasteException {
+		Set<Long> tmpRatedItemsByAnyUser = new HashSet<Long>(this._userGroupDAO.getAllRatedItems(theUserGroup.get_id()));
 		List<Long> tmpResult = new ArrayList<Long>();
 		boolean isEnd = false;
 		Long tmpRandomItemId;
@@ -408,21 +342,4 @@ public class GRSAnalyser {
 		}
 		return tmpResult;
 	}
-	
-	/**
-	 * Gets a set with all the items rated by a user
-	 * @param theUserList
-	 * @return
-	 * @throws TasteException 
-	 */
-	private Set<Long> getAllRatedItems(List<Long> theUserList) throws TasteException {
-		Set<Long> tmpResult = new HashSet<Long>();
-		FastIDSet tmpItemsFromUser;
-		for(Long tmpUserId : theUserList) {
-			tmpItemsFromUser = this._trainModel.getItemIDsFromUser(tmpUserId);
-			tmpResult.addAll(convertToList(tmpItemsFromUser));
-		}
-		return tmpResult;
-	}
-	
 }

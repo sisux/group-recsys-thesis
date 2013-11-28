@@ -15,6 +15,12 @@ import edu.ub.tfc.recommender.bean.UserGroup;
 public class UserGroupDAO {
 
 	/* ****************************
+			CONSTANTS
+	* *************************** */
+
+	private static final int NO_LIMIT = -1;
+	
+	/* ****************************
 			ATTRIBUTES
 	* *************************** */
 
@@ -80,6 +86,25 @@ public class UserGroupDAO {
 	}
 	
 	/**
+	 * Return all items rated by a user group
+	 * @param theUserGroupId
+	 * @return
+	 */
+	public List<Long> getAllRatedItems(Long theUserGroupId) {
+		return getRatedItemsByPopularity(theUserGroupId, NO_LIMIT);
+	}
+	
+	/**
+	 * Return the N most popular items rated by a user group
+	 * @param theUserGroupId
+	 * @param theMaxItemsToRetrieve
+	 * @return
+	 */
+	public List<Long> getNMostPopularRatedItems(Long theUserGroupId, int theMaxItemsToRetrieve) {
+	    return getRatedItemsByPopularity(theUserGroupId, theMaxItemsToRetrieve);
+	}
+	
+	/**
 	 * Return the UserGroup from its own ID
 	 * @param theUserGroupId
 	 * @return
@@ -108,6 +133,42 @@ public class UserGroupDAO {
 			PRIVATE METHODS
 	* *************************** */
 	
+	
+	/**
+	 * Return the N most popular items rated by a user group
+	 * @param theUserGroupId
+	 * @param theMaxItemsToRetrieve
+	 * @return
+	 */
+	private List<Long> getRatedItemsByPopularity(Long theUserGroupId, int theMaxItemsToRetrieve) {
+		PreparedStatement statement = null;
+	    ResultSet tmpRankedItemsResultSet = null;
+	    List<Long> tmpItemIds = null;
+	    Boolean hasLimit = (theMaxItemsToRetrieve != NO_LIMIT);
+	    try {
+
+	    	String tmpQuery = "SELECT r.\"itemId\" as \"Id\", COUNT(gU.\"userId\") as \"popularity\""
+	    			+ " FROM \"groupUsers\" gU, \"ratings\" r"
+	    			+ " WHERE gU.\"groupId\"=? AND r.\"userId\"=gU.\"userId\""
+	    			+ "	GROUP BY r.\"itemId\" ORDER BY \"popularity\" DESC";
+	    	tmpQuery += (hasLimit) ? " LIMIT ?" : "";
+	    	
+	    	statement = this._connection.prepareStatement(tmpQuery);
+	    	statement.setLong(1, theUserGroupId);
+	    	if(hasLimit) {
+	    		statement.setInt(2, theMaxItemsToRetrieve);
+	    	}
+	        tmpRankedItemsResultSet = statement.executeQuery();
+	        tmpItemIds = this.getIdsFromSQL(tmpRankedItemsResultSet);
+	        statement.close();
+	    } catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+	        if (statement != null) try { statement.close(); } catch (SQLException logOrIgnore) {}
+	    }
+	    return tmpItemIds;
+	}
+	
 	/**
 	 * Return all cluster/non cluster groups
 	 * @return
@@ -115,16 +176,14 @@ public class UserGroupDAO {
 	private List<Long> getAllGroupIds(Boolean areCluster) {
 		PreparedStatement statement = null;
 	    ResultSet tmpGroupResultSet = null;
-	    List<Long> tmpGroupIds = new ArrayList<Long>();
+	    List<Long> tmpGroupIds = null;
 	    
 	    try {
 	    	String tmpCluster = (areCluster) ? " NOT " : " ";
 	    	String tmpQuery = "SELECT g.\"Id\" FROM groups as g WHERE g.centroid IS" + tmpCluster+ "NULL";
 	    	statement = this._connection.prepareStatement(tmpQuery);
 	        tmpGroupResultSet = statement.executeQuery();
-	        while(tmpGroupResultSet.next()) {
-	        	tmpGroupIds.add(tmpGroupResultSet.getLong("Id"));
-	        }
+	        tmpGroupIds = this.getIdsFromSQL(tmpGroupResultSet);
 	        statement.close();
 	    } catch (SQLException e) {
 			e.printStackTrace();
@@ -156,6 +215,21 @@ public class UserGroupDAO {
 		 	 }
 		 }
 		 return tmpResult;
+	}
+	
+	/**
+	 * Return the List of Long Id columns
+	 * @param theIdSQLSet
+	 * @return
+	 * @throws SQLException 
+	 */
+	private List<Long> getIdsFromSQL(ResultSet theIdSQLSet) throws SQLException {
+		List<Long> tmpIdList = new ArrayList<Long>();
+	    
+		while(theIdSQLSet.next()) {
+			tmpIdList.add(theIdSQLSet.getLong("Id"));
+        }
+		return tmpIdList;
 	}
 	
 	/**

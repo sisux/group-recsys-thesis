@@ -28,9 +28,14 @@
 	<!-- Group specific configuration part -->
 	
 	<bean name="averageStrategy" class="edu.ub.tfc.recommender.groups.impl.AverageElicitationStrategy" />
-
+	
 	<bean name="groupAverageService" class="edu.ub.tfc.recommender.services.impl.GroupRecommenderService">
 		<property name="strategy" ref="averageStrategy"/>
 		<property name="baseRecommenderService" ref="userCosineService"/>
+		<property name="groupMetricList">
+			<list>
+				<bean name="basicGroupMetric" class="edu.ub.tfc.recommender.groups.impl.BasicGroupMetric" />
+			</list>
+		</property>
 	</bean>
 </beans>
