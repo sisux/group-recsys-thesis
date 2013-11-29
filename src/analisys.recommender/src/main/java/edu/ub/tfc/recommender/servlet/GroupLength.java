@@ -1,12 +1,10 @@
 package edu.ub.tfc.recommender.servlet;
 
-/*
- * Type of selectable group to perform the GRecSys 
- */
-public enum GroupType {
+public enum GroupLength {
 	all ("%"),
-	similar ("S"),
-	dissimilar ("D");
+	length_3 ("3"),
+	length_5 ("5"),
+	length_7 ("7");
 
 	/* ****************************
 			ATTRIBUTES
@@ -30,7 +28,7 @@ public enum GroupType {
 		   PRIVATE CONSTRUCTORS
 	 * *************************** */
 	
-    private GroupType(String s) {
+    private GroupLength(String s) {
         name = s;
     }
 }

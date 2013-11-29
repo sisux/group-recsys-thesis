@@ -1,7 +1,9 @@
+<%@page import="java.util.Arrays"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Collections"%>
 <%@page import="edu.ub.tfc.recommender.servlet.GroupRecommenderServlet"%>
+<%@page import="edu.ub.tfc.recommender.utils.JspUtils"%>
 <%@page import="edu.ub.tfc.recommender.bean.GRSAnalyserResult"%>
 <%@page import="edu.ub.tfc.recommender.bean.GroupEvaluation"%>
 <%@page import="java.util.Map"%>
@@ -19,32 +21,37 @@
 		GRSAnalyserResult testCases = (GRSAnalyserResult)request.getAttribute(GroupRecommenderServlet.ATTRIBUTE_TESTCASE);
 		List<Long> tmpGroupIds = testCases.getAllGroupsId();
 		Collections.sort(tmpGroupIds);
+		
+		List<String> tmpDataElementsToPresent = Arrays.asList(GroupEvaluation.GROUP_ID, GroupEvaluation.GROUP_DESCRIPTION, GroupEvaluation.RECOMMENDATION_SERVICE, GroupEvaluation.ELICITATION_STRATEGY, GroupEvaluation.NUM_OF_ITEMS_TO_RECOMMEND, GroupEvaluation.MAE_METRIC_NAME, GroupEvaluation.RMSE_METRIC_NAME);
 	%>
 		<div style="float:left;width:100%">
 			<table cellpadding="5" cellspacing="0">
 				<tr>
 					<th style="background-color: gray;">Iteración</th>
-					<th style="background-color: gray;"><%= GroupEvaluation.GROUP_DESCRIPTION %></th>
-					<th style="background-color: gray;"><%= GroupEvaluation.RECOMMENDATION_SERVICE %></th>
-					<th style="background-color: gray;"><%= GroupEvaluation.ELICITATION_STRATEGY %></th>
-					<th style="background-color: gray;"><%= GroupEvaluation.MAE_METRIC_NAME %></th>
-					<th style="background-color: gray;"><%= GroupEvaluation.RMSE_METRIC_NAME %></th>
+				<%
+					for (String tmpDataElement : tmpDataElementsToPresent) {
+				%>
+					<th style="background-color: gray;"><%= tmpDataElement %></th>					
+				<% 
+					}
+				%>
 				</tr>
 			<%
 				int i = 0;	
-				for (final Long theGroupId : tmpGroupIds) {
+				for (Long theGroupId : tmpGroupIds) {
 					List<GroupEvaluation> tmpGroupEvaluations = testCases.getAllGroupEvaluationsByGroupId(theGroupId);
-					for(final GroupEvaluation tmpGroupEvaluation : tmpGroupEvaluations) {
-						i++;
+					i++;
+					for(GroupEvaluation tmpGroupEvaluation : tmpGroupEvaluations) {
 			%>
 				<tr>
 					<td style="text-align: center;background-color: gray;"><%= i %></td>
-					<td style="text-align: center;background-color: gray;"><%= tmpGroupEvaluation.getItemValue(GroupEvaluation.GROUP_ID) %></td>
-					<td style="text-align: right;background-color: yellow;"><%= tmpGroupEvaluation.getItemValue(GroupEvaluation.GROUP_DESCRIPTION) %></td>
-					<td style="text-align: right;background-color: yellow;"><%= tmpGroupEvaluation.getItemValue(GroupEvaluation.RECOMMENDATION_SERVICE) %></td>
-					<td style="text-align: right;background-color: yellow;"><%= tmpGroupEvaluation.getItemValue(GroupEvaluation.ELICITATION_STRATEGY) %></td>
-					<td style="text-align: right;background-color: blue;"><%= tmpGroupEvaluation.getItemValue(GroupEvaluation.MAE_METRIC_NAME) %></td>
-					<td style="text-align: right;background-color: blue;"><%= tmpGroupEvaluation.getItemValue(GroupEvaluation.RMSE_METRIC_NAME) %></td>
+			<%
+						for (String tmpDataElement : tmpDataElementsToPresent) {
+			%>
+					<td style="text-align: center;background-color: gray;"><%= JspUtils.getStringForHtmlCell(tmpGroupEvaluation.getItemValue(tmpDataElement)) %></td>
+			<% 
+						}
+			%>
 				</tr>	
 			<%
 					}

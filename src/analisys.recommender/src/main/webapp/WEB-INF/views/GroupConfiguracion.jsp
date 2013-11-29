@@ -10,8 +10,9 @@
 	<h1>Lanzador de pruebas</h1>
 	<form action="servlet" method="post">
 		<input type="hidden" name="action" value="test"/>
-		<h2>Group Configuraci&oacute;n</h2>
+		<h2>1. Test Configuraci&oacute;n</h2>
 		
+		<h3>1.1. Data selection</h3>
 		Group Type: <select name="groupType">
 			<option value="all">all</option>
 			<option value="similar" selected>similar</option>
@@ -20,20 +21,31 @@
 				
 		Group Length: <select name="groupLength">
 			<option value="all">all</option>
-			<option value="3" selected>3</option>
-			<option value="5">5</option>
-			<option value="7">7</option>
+			<option value="length_3" selected>3</option>
+			<option value="length_5">5</option>
+			<option value="length_7">7</option>
 		</select>
 		
-		Groups: <select name="maxGroups">
+		Max Groups: <select name="maxGroups">
+			<option value="<%=Integer.MAX_VALUE %>">all</option>
 		<%
 			for (int i = 1; i <= 840; i++) {
+				if(i == 5) {
+		
 		%>
-			<option value="<%=i%>"><%=i%></option>
+				<option value="<%=i%>" selected><%=i%></option>
 		<%
+				} else {
+		%>
+					<option value="<%=i%>"><%=i%></option>
+		<%			
+				}
 			}
 		%>			
 		</select>
+		
+		<h3>1.2. Group Recommendation</h3>
+		
 		Max Recommended items per Group: <select name="maxRecommendedItemsPerGroup">
 		<%
 			for (int i = 5; i <= 20; i++) {
@@ -43,8 +55,8 @@
 			}
 		%>			
 		</select>
-		
-		<h2>Seleccione los algoritmos que desee evaluar:</h2>
+		<br /><br />
+		Seleccione los algoritmos que desee evaluar:
 		
 		<table cellspacing="0">
 			<tr>

@@ -13,6 +13,7 @@ public class GroupEvaluation extends Evaluacion {
 	
 	public static final String RECOMMENDATION_SERVICE = "REC SERVICE";
 	public static final String ELICITATION_STRATEGY = "ELICITATION STRATEGY";
+	public static final String NUM_OF_ITEMS_TO_RECOMMEND = "NUM OF ITEMS TO RECOMMEND";
 	
 	public static final String MAE_METRIC_NAME = "MAE";
 	public static final String RMSE_METRIC_NAME = "RMSE";

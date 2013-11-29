@@ -115,7 +115,7 @@ public class UserGroupDAO {
 	    UserGroup tmpResult = null;
 	    
 	    try {
-	    	String tmpQuery = "SELECT g.\"Id\", g.centroid, gu.\"userId\" FROM groups as g, \"groupUsers\" as gu WHERE gu.\"groupId\" = g.\"Id\" AND g.\"Id\"=?";
+	    	String tmpQuery = "SELECT g.\"Id\", g.centroid, g.\"description\", gu.\"userId\" FROM groups as g, \"groupUsers\" as gu WHERE gu.\"groupId\" = g.\"Id\" AND g.\"Id\"=?";
 	    	statement = this._connection.prepareStatement(tmpQuery);
 	    	statement.setLong(1, theUserGroupId);
 	        tmpGroupResultSet = statement.executeQuery();
@@ -210,6 +210,7 @@ public class UserGroupDAO {
 				 if(theUserGroupData.isFirst()) {
 					 tmpResult.set_id(theUserGroupData.getLong("Id"));
 					 tmpResult.set_centroid(theUserGroupData.getString("centroid"));
+					 tmpResult.set_description(theUserGroupData.getString("description"));
 				 }
 				 tmpUserIds.add(theUserGroupData.getLong("userId"));
 		 	 }
@@ -272,5 +273,30 @@ public class UserGroupDAO {
 	        if (generatedKeys != null) try { generatedKeys.close(); } catch (SQLException logOrIgnore) {}
 	        if (statement != null) try { statement.close(); } catch (SQLException logOrIgnore) {}
 	    }
+	}
+
+	/**
+	 * Returns the Group Ids with the description indicated
+	 * @param theGroupDescription
+	 * @param theMaxGroups
+	 * @return
+	 */
+	public List<Long> getTopGroupIdsByDescription(String theGroupDescription, Integer theMaxGroups) {
+		PreparedStatement statement = null;
+	    ResultSet tmpGroupResultSet = null;
+	    List<Long> tmpGroupIds = null;
+	    
+	    try {
+	    	String tmpQuery = "SELECT g.\"Id\" FROM groups as g WHERE g.description LIKE '" + theGroupDescription+"' LIMIT " + theMaxGroups;
+	    	statement = this._connection.prepareStatement(tmpQuery);
+	        tmpGroupResultSet = statement.executeQuery();
+	        tmpGroupIds = this.getIdsFromSQL(tmpGroupResultSet);
+	        statement.close();
+	    } catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+	        if (statement != null) try { statement.close(); } catch (SQLException logOrIgnore) {}
+	    }
+	return tmpGroupIds;
 	}
 }

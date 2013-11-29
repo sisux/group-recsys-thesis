@@ -25,6 +25,8 @@ import edu.ub.tfc.recommender.bean.UserGroup;
 import edu.ub.tfc.recommender.dao.UserGroupDAO;
 import edu.ub.tfc.recommender.services.RecommenderService;
 import edu.ub.tfc.recommender.services.impl.RecommenderServiceType;
+import edu.ub.tfc.recommender.servlet.GroupLength;
+import edu.ub.tfc.recommender.servlet.GroupType;
 
 public class GRSAnalyser {
 
@@ -55,7 +57,6 @@ public class GRSAnalyser {
 		_trainModel = theTrainModel;
 
 		_userGroupDAO = new UserGroupDAO();
-		_groupIds = _userGroupDAO.getAllUserGroupIds();
 	}
 	
 	/* ****************************
@@ -94,12 +95,15 @@ public class GRSAnalyser {
     		PUBLIC METHODS
 	 * *************************** */
 	
-	public GRSAnalyserResult performAnalisys(final Map<String, RecommenderService> recommenderServices, final Integer totalIterations, final Integer itemsEstimados) throws IOException {
+	public GRSAnalyserResult performAnalisys(final Map<String, RecommenderService> recommenderServices, Integer totalIterations, Integer itemsEstimados, GroupType theGroupType, GroupLength theGroupLength) throws IOException {
 		escribirLog("========================================");
 		escribirLog("INICIANDO TEST");
 
 		GRSAnalyserResult tmpAnalysisResult = null;
 		try {
+			_groupIds = getSelectedUserGroups(totalIterations, theGroupType, theGroupLength);
+			totalIterations = Math.min(_groupIds.size(), totalIterations);
+			
 			escribirLog("TEST PARA "+ totalIterations + " GRUPOS");
 			tmpAnalysisResult = this.evaluate(recommenderServices, totalIterations, itemsEstimados);
 		
@@ -112,10 +116,24 @@ public class GRSAnalyser {
 		escribirLog("========================================");
 		return tmpAnalysisResult;
 	}
-	
+
 	/* ****************************
 			PRIVATE METHODS
 	 * *************************** */
+
+	/**
+	 * Get the selected groups depending on Type, Length and max
+	 * @param totalIterations
+	 * @param theGroupType
+	 * @param theGroupLength
+	 * @return
+	 */
+	private List<Long> getSelectedUserGroups(Integer theMaxGroups,
+			GroupType theGroupType, GroupLength theGroupLength) {
+
+		String tmpGroupDescription = theGroupType.toString() + theGroupLength.toString();
+		return this._userGroupDAO.getTopGroupIdsByDescription(tmpGroupDescription, theMaxGroups);
+	}
 	
 	/**
 	 * Realiza las evaluaciones
@@ -135,7 +153,7 @@ public class GRSAnalyser {
 		UserGroup tmpCurrentGroup;
 		
 		int iteracion = 1;
-		// por cada usuario (iteraci—n)
+		// por cada grupo
 		for (final Long tmpGroupId : this._groupIds) {
 			if (iteracion > totalIterations) {
 				break;
@@ -207,7 +225,7 @@ public class GRSAnalyser {
 		long time = Long.parseLong(tmpMetrics.get(GroupEvaluation.UNITARY_RECOMMENDATION_TIME));
 		
 		GroupEvaluation tmpGroupEvaluation = new GroupEvaluation(time, evaluacion);
-		tmpGroupEvaluation.setMetrics(tmpMetrics);
+		tmpGroupEvaluation.setMetrics(new HashMap<String,String>(tmpMetrics));
 
 		return tmpGroupEvaluation;
 	}

@@ -55,12 +55,15 @@ public class GroupRecommenderServlet extends HttpServlet {
 		
 	/* *** JSP ATTRIBUTES *********** */
 	public static final String ATTRIBUTE_TESTCASE = "testCase";
-		
+
+	/* *** JSP PAGES *********** */
+	private static final String CONFIGURACION_JSP = "/WEB-INF/views/GroupConfiguracion.jsp";
+	private static final String RESULTADOS_JSP = "/WEB-INF/views/GroupResultados.jsp";
+
+	/* *** SERVICES *********** */
 	private static final String GROUP_EUCLIDEAN = "gEuclidean";
 	private static final String GROUP_AVERAGE = "gAverage";
 	
-	private static final String CONFIGURACION_JSP = "/WEB-INF/views/GroupConfiguracion.jsp";
-	private static final String RESULTADOS_JSP = "/WEB-INF/views/GroupResultados.jsp";
 	private static final long serialVersionUID = 1L;
 
 	/* ****************************
@@ -130,7 +133,7 @@ public class GroupRecommenderServlet extends HttpServlet {
 		final Integer tmpMaxGroups = Integer.valueOf(request.getParameter(PARAMETER_MAXGROUPS));
 		final Integer tmpMaxRecommendedItemsPerGroup = Integer.valueOf(request.getParameter(PARAMETER_MAXRECOMMENDEDITEMSPERGROUP));
 		final GroupType tmpGroupType = GroupType.valueOf(GroupType.class, request.getParameter(PARAMETER_GROUPTYPE));
-		final String tmpGroupLength = "all".equalsIgnoreCase(request.getParameter(PARAMETER_GROUPLENGTH)) ? "*" : request.getParameter(PARAMETER_GROUPLENGTH);
+		final GroupLength tmpGroupLength = GroupLength.valueOf(GroupLength.class, request.getParameter(PARAMETER_GROUPLENGTH));
 
 		List<String> serviceNames = new ArrayList<String>();
 		if (request.getParameter(GROUP_EUCLIDEAN) != null) {
@@ -148,7 +151,7 @@ public class GroupRecommenderServlet extends HttpServlet {
 			tmpGRSAnalyser.setNombreFicheroCsv(nombreFicheroCsv);
 			tmpGRSAnalyser.setPathFicheroCsv(pathFicheroCsv);
 			
-			GRSAnalyserResult testCases = tmpGRSAnalyser.performAnalisys(recommenderServices, tmpMaxGroups, tmpMaxRecommendedItemsPerGroup);
+			GRSAnalyserResult testCases = tmpGRSAnalyser.performAnalisys(recommenderServices, tmpMaxGroups, tmpMaxRecommendedItemsPerGroup, tmpGroupType, tmpGroupLength);
 			request.setAttribute(ATTRIBUTE_TESTCASE, testCases);
 		} catch (TasteException e) {
 			e.printStackTrace();

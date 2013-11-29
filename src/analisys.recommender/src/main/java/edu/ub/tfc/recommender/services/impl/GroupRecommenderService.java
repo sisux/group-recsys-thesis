@@ -75,10 +75,11 @@ public class GroupRecommenderService extends AbstractRecommenderServiceImpl {
 			PRIVATE METHODS
 	* *************************** */
 
-	private void setBaselineGroupInfo(UserGroup theUserGroup) {
+	private void setBaselineGroupInfo(UserGroup theUserGroup, int theItemsNumToRecommend) {
 		this._metricResults.put(GroupEvaluation.GROUP_ID, theUserGroup.get_id().toString());
 		this._metricResults.put(GroupEvaluation.GROUP_DESCRIPTION, theUserGroup.get_description());
 		this._metricResults.put(GroupEvaluation.ELICITATION_STRATEGY, this._strategy.getElicitationStrategyName());
+		this._metricResults.put(GroupEvaluation.NUM_OF_ITEMS_TO_RECOMMEND, String.valueOf(theItemsNumToRecommend));
 	}
 
 	/**
@@ -129,8 +130,8 @@ public class GroupRecommenderService extends AbstractRecommenderServiceImpl {
 		// 1. Obtenir el llistat d'usuaris a partir del groupId
 		UserGroup tmpUserGroup = tmpUserGroupDAO.findGroupById(userID);
 		
-		// 1.1. Add basic info to results
-		this.setBaselineGroupInfo(tmpUserGroup);
+		//   1.1. Add basic info to results
+		this.setBaselineGroupInfo(tmpUserGroup, itemsID.size());
 		
 		// 2. Per each single user, perform its recommendation
 		Map<Long, Map<Long, Float>> tmpUsersEstimations = getAllUserEstimations(tmpUserGroup, itemsID);
