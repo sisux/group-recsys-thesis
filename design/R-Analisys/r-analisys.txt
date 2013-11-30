@@ -1,0 +1,110 @@
+mydata = read.csv("./data/Sample1.csv", header = TRUE, sep = ";", dec = ",")
+
+setwd("C:/Documents and Settings/username/My Documents/x/y/z")
+
+library(ggplot2)
+library(reshape)
+
+#read data
+data = read.csv("Sample1.csv", header = TRUE, sep = ";", dec = ",")
+
+#melt data "type vs. all"
+http://www.r-bloggers.com/melt/
+
+levels(mydata$type)
+[1] "A" "B" "C" "D"
+
+data2 = melt(data,id=c("Type"))
+
+#cast?
+
+
+#draw all variables at once as line with different linetypes
+qplot(Type,value,data=data2,geom="line",linetype=size)
+
+ 
+# Graph cars with specified labels for axes.  Use blue 
+# borders and diagnal lines in bars.
+barplot(autos_data$cars, main="Cars", xlab="Days", ylab="Total", names.arg=c("Mon","Tue","Wed","Thu","Fri"), border="blue", density=c(10,20,30,40,50))
+   
+The attach()function adds the data frame to the R search path.
+
+Tipus de columnes:
+ * nominal: are categorical, without an implied order. Diabetes(Type1, Type2)
+ * ordinal: imply order but not amount. Status(poor, improved, excellent)
+ * continuous: can take on any value within some range, and both order and amount are implied
+
+ The function factor()stores the categorical values as a vector of integers in the
+range [1... k] (where kis the number of unique values in the nominal variable), and
+an internal vector of character strings (the original values) mapped to these integers
+
+
+
+plot(x, y,type="b")
+
+--------------
+fit <- lm(some ~ model)
+#export the plot resulting into a png image
+png(filename="plot-sample1.png")
+png("plot.png", width=480, height=240, res=120)
+
+plot(fit)
+dev.off()
+
+
+------------------
+
+mydata.size2 = subset(mydata, size == 2, select=c(type, value))
+mydata.typeA = subset(mydata, type == "A", select=c(size, value))
+total <- merge(mydataSize2, mydataSize3, by="type")
+
+barplot(as.matrix(total), main="Grouped Bar Plot", xlab="Treatment", ylab="Frequency", col=c("red", "yellow", "green"), legend=rownames(total), beside=TRUE)
+----------------
+
+ Tipus 1
+
+#0. colors
+library(RColorBrewer)
+
+
+gresults = read.csv("./data/Sample1.csv", header = TRUE, sep = ";", dec = ",")
+
+# 1.Factoritzo el camp Size
+gresults$size <- as.factor(gresults$size)
+
+#2. paso a matriu, sumant pel camp value
+gresults.table <- xtabs(gresults$value ~ ., gresults)
+
+#3. Create the barplot
+barplot(gresults.table, ylim=c(0,1.0), xlab="Group Size", beside=T, col=brewer.pal(4, "PuBu"))
+
+#4. Set the legent
+legend("topleft", rownames(gresults.table), cex=0.6, bty="n", fill=brewer.pal(4, "PuBu"));
+
+#4.2 Set the legend outside the plot
+# Expand right side of clipping rect to make room for the legend
+o<-par(xpd=T, mar=par()$mar+c(0,0,0,4))
+plotXXX
+legend(42,0.7, legend=rownames(gresults.table), cex=0.6, bty="n", fill=brewer.pal(4, "PuBu"));
+par(o)
+--------------------------------
+
+
+--------------------------------
+ Tipus 2
+
+#2.1
+ gresults.typeA <- subset(gresults, type == "A", select=c(size, value))
+ plot(gresults.typeA, type="o", col="blue")
+ lines(gresults.typeA, type="o", pch=22, lty=2, col="red")
+ title(main="ChartTitle", col.main="red", font.main=4)
+
+
+Linies de guia
+ abline(h=0.7, lty=2, lwd=0.5, col="grey")
+
+#2.2 Alterantiva!!
+
+library( lattice )
+xyplot( value ~ size, gresults, group=type, type='b' )
+

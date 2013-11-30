@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
-<!-- Fichero de configuración de Spring -->
+	<!-- Fichero de configuración de Spring -->
 	<bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		 <property name="location" value="classpath:configuration/configuracionMovies.properties" />
 		 <!-- <property name="location" value="classpath:configuration/configuracionBooks.properties" /> -->
@@ -32,6 +32,8 @@
      <import resource="spring/spring-recommender-item-spearman.xml" />
     -->
 
+	<!--  Group services -->
 	<import resource="spring/spring-recommender-group-average.xml" />
+	<import resource="spring/spring-recommender-group-multiplicative.xml" />
 
 </beans>

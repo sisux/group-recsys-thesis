@@ -1,18 +1,25 @@
-package edu.ub.tfc.recommender.groups.impl;
+package edu.ub.tfc.recommender.groups.metrics.impl;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.apache.mahout.cf.taste.common.TasteException;
 import org.apache.mahout.common.distance.ManhattanDistanceMeasure;
 
 import edu.ub.tfc.recommender.bean.GroupEvaluation;
 import edu.ub.tfc.recommender.distance.RootMeanSquaredError;
-import edu.ub.tfc.recommender.groups.GroupMetric;
+import edu.ub.tfc.recommender.groups.metrics.GroupMetric;
 
 public class BasicGroupMetric implements GroupMetric {
+
+	/* ****************************
+			CLASS ATTRIBUTES
+	 * ************************** */
+
+	private static Logger logger = Logger.getLogger(BasicGroupMetric.class);	
 
 	/* ****************************
 			PUBLIC METHODS
@@ -43,10 +50,15 @@ public class BasicGroupMetric implements GroupMetric {
 				
 				tmpUserMAE = calculateMAE(totalItems, realUserRatingVector, predictedUserRatingVector);
 				tmpUserRMSE = calculateRMSE(totalItems, realUserRatingVector, predictedUserRatingVector);
-	
+				logger.info("MAE for user " + tmpUserId + " is: " + tmpUserMAE);
+				logger.info("RMSE for user " + tmpUserId + " is: " + tmpUserRMSE);
+				
 				tmpGroupMAE += tmpUserMAE;
 				tmpGroupRMSE += tmpUserRMSE;
 			}
+			
+			logger.info("Group total MAE per " + theUsersEstimations.size() + " users is: " + tmpGroupMAE + "");
+			logger.info("Group total RMSE per " + theUsersEstimations.size() + " users is: " + tmpGroupRMSE + "");
 			
 			tmpGroupMAE = tmpGroupMAE / theUsersEstimations.size();
 			tmpGroupRMSE = tmpGroupRMSE / theUsersEstimations.size();

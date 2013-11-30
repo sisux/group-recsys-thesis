@@ -134,6 +134,21 @@ Since this is a group recommendation list, as we observed above, none of the ite
 Moreover, suppose that the user $u$ test set consists of eight items ${1, 4, 7, 8, 9, 12, 14, 20}$. 
 In such case, we would compute nDCG on the ranked list $[1, 4, 8, 7, 9]$.
 
+------------
+
+Discounted Cumulative Gain (DCG) is a measure for ranking quality and measures the usefulness (gain)
+ of an item based on its relevance and position in the provided list.
+
+For comparing different lists of recommendations with various lengths, normalized Discounted Cumulative Gain (nDCG/NDCG) is used.
+It is computed by dividing the DCG by the Ideal Discounted Cumulative Gain or IDCG. The higher the nDCG, the better ranked list.
+
+Normalized discounted cumulative gain (NDCG) measures the performance of a recommendation system based on the graded relevance of the recommended entities.
+ It varies from 0.0 to 1.0, with 1.0 representing the ideal ranking of the entities.
+ This metric is commonly used in information retrieval and to evaluate the performance of web search engines.
+
+https://github.com/zenogantner/MyMediaLite/blob/master/src/MyMediaLite/Eval/Measures/NDCG.cs
+https://www.kaggle.com/wiki/NormalizedDiscountedCumulativeGain
+
 -----------------------------------------
 Carvalho, L. A. M. C., Cristóvão, S., & Macedo, H. T. (2013). Users ’ Satisfaction in Recommendation Systems for Groups : an Approach Based on Noncooperative Games, 951–958.
 

@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.apache.mahout.cf.taste.common.TasteException;
 import org.apache.mahout.cf.taste.impl.common.FastIDSet;
 import org.apache.mahout.cf.taste.impl.common.LongPrimitiveIterator;
@@ -20,16 +21,20 @@ import org.apache.mahout.cf.taste.impl.model.jdbc.GenericJDBCDataModel;
 
 import edu.ub.tfc.recommender.bean.GRSAnalyserResult;
 import edu.ub.tfc.recommender.bean.GroupEvaluation;
-import edu.ub.tfc.recommender.bean.Resultado;
 import edu.ub.tfc.recommender.bean.UserGroup;
 import edu.ub.tfc.recommender.dao.UserGroupDAO;
 import edu.ub.tfc.recommender.services.RecommenderService;
-import edu.ub.tfc.recommender.services.impl.RecommenderServiceType;
 import edu.ub.tfc.recommender.servlet.GroupLength;
 import edu.ub.tfc.recommender.servlet.GroupType;
 
 public class GRSAnalyser {
 
+	/* ****************************
+			CLASS ATTRIBUTES
+	* *************************** */
+	
+	private static Logger logger = Logger.getLogger(GRSAnalyser.class);	
+	
 	/* ****************************
 			CONSTANTS
 	 * *************************** */
@@ -53,6 +58,7 @@ public class GRSAnalyser {
 	 **************************** */
 
 	public GRSAnalyser(GenericJDBCDataModel theTestModel, GenericJDBCDataModel theTrainModel) throws TasteException {
+
 		_testModel = theTestModel;
 		_trainModel = theTrainModel;
 
@@ -107,7 +113,7 @@ public class GRSAnalyser {
 			escribirLog("TEST PARA "+ totalIterations + " GRUPOS");
 			tmpAnalysisResult = this.evaluate(recommenderServices, totalIterations, itemsEstimados);
 		
-			escribirLog("ESCRIBIENDO FICHERO DE RESULTADO");
+			escribirLog("ESCRIBIENDO FICHERO DE RESULTADO EN " + _pathFicheroCsv + _nombreFicheroCsv);
 			escribirCsv(tmpAnalysisResult, _nombreFicheroCsv, _pathFicheroCsv);
 		} catch (final TasteException e) {
 			escribirLog("ERROR");
@@ -187,27 +193,6 @@ public class GRSAnalyser {
 //			restoreRemovedValuations(tmpGroupId, backup);
 		}
 		return tmpResult;
-	}
-	
-	/**
-	 * Actualiza el resultado del analisis en el objeto general
-	 * @param key
-	 * @param tmpResultado
-	 * @param mae
-	 * @param rmse
-	 * @param evalItemTime
-	 */
-	private void updateResultado(String key, Resultado tmpResultado, double mae, double rmse, long evalItemTime) {
-	
-		if (RecommenderServiceType.GROUP_EUCLIDEAN_SERVICE.equalsName(key)) {
-			tmpResultado.setUserPearsonMae(mae);
-			tmpResultado.setUserPearsonRmse(rmse);
-			tmpResultado.setUserPearsonTime(evalItemTime);
-		} else if (RecommenderServiceType.GROUP_AVERAGE_SERVICE.equalsName(key)) {
-			tmpResultado.setUserCosineMae(mae);
-			tmpResultado.setUserCosineRmse(rmse);
-			tmpResultado.setUserCosineTime(evalItemTime);
-		}
 	}
 
 	/**

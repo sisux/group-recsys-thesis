@@ -8,16 +8,15 @@ public class GroupEvaluation extends Evaluacion {
 			CONSTANTS
 	* *************************** */	
 	
-	public static final String GROUP_ID = "GROUP ID";
-	public static final String GROUP_DESCRIPTION = "GROUP DESCRIPTION";
+	public static final String GROUP_ID = "id";
+	public static final String GROUP_DESCRIPTION = "kind";
 	
-	public static final String RECOMMENDATION_SERVICE = "REC SERVICE";
-	public static final String ELICITATION_STRATEGY = "ELICITATION STRATEGY";
-	public static final String NUM_OF_ITEMS_TO_RECOMMEND = "NUM OF ITEMS TO RECOMMEND";
+	public static final String RECOMMENDATION_SERVICE = "service";
+	public static final String ELICITATION_STRATEGY = "strategy";
+	public static final String NUM_OF_ITEMS_TO_RECOMMEND = "itemstorec";
 	
-	public static final String MAE_METRIC_NAME = "MAE";
-	public static final String RMSE_METRIC_NAME = "RMSE";
-	
+	public static final String MAE_METRIC_NAME = "mae";
+	public static final String RMSE_METRIC_NAME = "rmse";
 	
 	/* ****************************
 			ATTRIBUTES
@@ -53,13 +52,30 @@ public class GroupEvaluation extends Evaluacion {
 	
 	
 	/* ****************************
+	  	 PUBLIC STATIC METHODS
+	* *************************** */		
+	
+	public static String toStringHeader() {
+		String tmpResult = GROUP_ID;
+		tmpResult += ";" + GROUP_DESCRIPTION;
+		tmpResult += ";" + RECOMMENDATION_SERVICE;
+		tmpResult += ";" + ELICITATION_STRATEGY;
+		tmpResult += ";" + NUM_OF_ITEMS_TO_RECOMMEND;
+		tmpResult += ";" + MAE_METRIC_NAME;
+		tmpResult += ";" + RMSE_METRIC_NAME;
+
+		return tmpResult;
+	}
+	
+	
+	/* ****************************
 			PUBLIC METHODS
 	* *************************** */	
 	
 	public void addNewMetric(String theKey, String theValue) {
 		this.metrics.put(theKey, theValue);
 	}
-	
+
 	@Override
 	public String toString() {
 		
@@ -67,6 +83,7 @@ public class GroupEvaluation extends Evaluacion {
 		tmpResult += ";" + getItemValue(GROUP_DESCRIPTION);
 		tmpResult += ";" + getItemValue(RECOMMENDATION_SERVICE);
 		tmpResult += ";" + getItemValue(ELICITATION_STRATEGY);
+		tmpResult += ";" + getItemValue(NUM_OF_ITEMS_TO_RECOMMEND);
 		tmpResult += ";" + getItemValue(MAE_METRIC_NAME);
 		tmpResult += ";" + getItemValue(RMSE_METRIC_NAME);
 

@@ -10,6 +10,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import edu.ub.tfc.recommender.bean.UserGroup;
 
 public class UserGroupDAO {
@@ -19,6 +21,12 @@ public class UserGroupDAO {
 	* *************************** */
 
 	private static final int NO_LIMIT = -1;
+
+	/* ****************************
+			CLASS ATTRIBUTES
+	* *************************** */
+
+	private static Logger logger = Logger.getLogger(UserGroupDAO.class);		
 	
 	/* ****************************
 			ATTRIBUTES

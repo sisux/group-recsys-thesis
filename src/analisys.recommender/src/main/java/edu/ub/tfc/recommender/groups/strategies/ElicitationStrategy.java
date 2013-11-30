@@ -1,4 +1,4 @@
-package edu.ub.tfc.recommender.groups;
+package edu.ub.tfc.recommender.groups.strategies;
 
 import java.util.Map;
 

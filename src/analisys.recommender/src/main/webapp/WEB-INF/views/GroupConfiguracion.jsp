@@ -71,6 +71,10 @@
 				<th align="center" style="background-color: gray;">Euclidean</th>
 				<td align="center" style="background-color: yellow;"><input type="checkbox" name="gEuclidean" value="gEuclidean" /></td>
 			</tr>
+			<tr>
+				<th align="center" style="background-color: gray;">Multiplicative</th>
+				<td align="center" style="background-color: yellow;"><input type="checkbox" name="gMultiplicative" value="gMultiplicative" checked/></td>
+			</tr>			
 		</table>
 		<br />
 		<div style="text-align:right; width: 450px;">

@@ -148,8 +148,10 @@ public class Utils {
 			final List<Long> tmpGroupIds = testCases.getAllGroupsId();
 			Collections.sort(tmpGroupIds);
 			
+			pw.println(GroupEvaluation.toStringHeader());
 			for (final Long theGroupId : tmpGroupIds) {
 				List<GroupEvaluation> tmpGroupEvaluations = testCases.getAllGroupEvaluationsByGroupId(theGroupId);
+				
 				
 				for(final GroupEvaluation tmpGroupEvaluation : tmpGroupEvaluations) {
 					pw.println(tmpGroupEvaluation.toString().replace(DECIMAL_POINT, DECIMAL_COMA));

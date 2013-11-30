@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.apache.mahout.cf.taste.common.TasteException;
 import org.apache.mahout.cf.taste.impl.model.jdbc.GenericJDBCDataModel;
 import org.springframework.web.context.WebApplicationContext;
@@ -34,6 +35,12 @@ import edu.ub.tfc.recommender.services.impl.RecommenderServiceType;
 public class GroupRecommenderServlet extends HttpServlet {
 
 	/* ****************************
+			CLASS ATTRIBUTES
+	* *************************** */
+
+	private static Logger logger = Logger.getLogger(GroupRecommenderServlet.class);		
+	
+	/* ****************************
 				CONSTANTS
 	 * *************************** */
 	
@@ -41,7 +48,7 @@ public class GroupRecommenderServlet extends HttpServlet {
 	private static final String BEAN_TRAINMODEL = "trainModel";
 	private static final String BEAN_TESTMODEL = "testModel";
 	private static final String BEAN_NOMBREFICHEROCSV = "nombreFicheroCsv";
-	private static final String BEAN_PATHFICHEROCSV = "nombreFicheroCsv";
+	private static final String BEAN_PATHFICHEROCSV = "pathFicheroCsv";
 
 	/* *** JSP PARAMETERS *********** */
 	private static final String PARAMETER_ACTION = "action";
@@ -63,6 +70,7 @@ public class GroupRecommenderServlet extends HttpServlet {
 	/* *** SERVICES *********** */
 	private static final String GROUP_EUCLIDEAN = "gEuclidean";
 	private static final String GROUP_AVERAGE = "gAverage";
+	private static final String GROUP_MULTIPLICATIVE = "gMultiplicative";
 	
 	private static final long serialVersionUID = 1L;
 
@@ -135,15 +143,7 @@ public class GroupRecommenderServlet extends HttpServlet {
 		final GroupType tmpGroupType = GroupType.valueOf(GroupType.class, request.getParameter(PARAMETER_GROUPTYPE));
 		final GroupLength tmpGroupLength = GroupLength.valueOf(GroupLength.class, request.getParameter(PARAMETER_GROUPLENGTH));
 
-		List<String> serviceNames = new ArrayList<String>();
-		if (request.getParameter(GROUP_EUCLIDEAN) != null) {
-			escribirLog("EVALUACION EUCLIDEAN");
-			serviceNames.add(RecommenderServiceType.GROUP_EUCLIDEAN_SERVICE.toString());
-		}
-		if (request.getParameter(GROUP_AVERAGE) != null) {
-			escribirLog("EVALUACION AVERAGE");
-			serviceNames.add(RecommenderServiceType.GROUP_AVERAGE_SERVICE.toString());
-		}
+		List<String> serviceNames = getRequestedServiceNames(request);
 		final Map<String, RecommenderService> recommenderServices = getServices(serviceNames, springContext);
 
 		try {
@@ -159,6 +159,31 @@ public class GroupRecommenderServlet extends HttpServlet {
 		
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(RESULTADOS_JSP);
 		dispatcher.forward(request, response);
+	}
+	
+	/**
+	 * Return the services requested by the user
+	 * @param request
+	 * @return
+	 */
+	private List<String> getRequestedServiceNames(final HttpServletRequest request) {
+		List<String> serviceNames = new ArrayList<String>();
+		
+		if (request.getParameter(GROUP_EUCLIDEAN) != null) {
+			escribirLog("EVALUACION EUCLIDEAN");
+			serviceNames.add(RecommenderServiceType.GROUP_EUCLIDEAN_SERVICE.toString());
+		}
+		
+		if (request.getParameter(GROUP_AVERAGE) != null) {
+			escribirLog("EVALUACION AVERAGE");
+			serviceNames.add(RecommenderServiceType.GROUP_AVERAGE_SERVICE.toString());
+		}
+		
+		if (request.getParameter(GROUP_MULTIPLICATIVE) != null) {
+			escribirLog("EVALUACION MULTIPLICATIVE");
+			serviceNames.add(RecommenderServiceType.GROUP_MULTIPLICATIVE_SERVICE.toString());
+		}
+		return serviceNames;
 	}
 	
 	/**

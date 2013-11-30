@@ -1,9 +1,9 @@
-package edu.ub.tfc.recommender.groups.impl;
+package edu.ub.tfc.recommender.groups.strategies.impl;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.ub.tfc.recommender.groups.ElicitationStrategy;
+import edu.ub.tfc.recommender.groups.strategies.ElicitationStrategy;
 
 public class AverageElicitationStrategy implements ElicitationStrategy {
 

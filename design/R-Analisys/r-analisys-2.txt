@@ -1,0 +1,19 @@
+1. Agafar el fitxer de resultats => preprocésar-los per a ser utilitzats
+
+Resultats:
+ Id | kind | 
+                   |> type (Similar, Dissimilar, Random)
+				   |> size (3,5,7)
+				   
+gresults$type = ifelse(substr(gresults$kind, 1, 1) != "S", ifelse(substr(gresults$kind, 1, 1) == "D", 'Dissimilar', 'Random'), 'Similar')
+gresults$size = ifelse(substr(gresults$kind, 2, 2) != "3", ifelse(substr(gresults$kind, 2, 2) == "7", 7, 5), 3)
+
+2. Eliminem les columnes no utilitzades
+
+gresults <- gresults[,!(names(gresults) %in% c("kind","service"))]
+
+2. Summaritzar els diferents resultats de MAE i MNRE
+
+gresults.MAE <- aggregate(list(mae=gresults$mae), by=list(type=gresults$type, size=gresults$size), FUN=mean) 
+gresults.RMSE <- aggregate(list(rmse=gresults$rmse), by=list(type=gresults$type, size=gresults$size), FUN=mean) 
+

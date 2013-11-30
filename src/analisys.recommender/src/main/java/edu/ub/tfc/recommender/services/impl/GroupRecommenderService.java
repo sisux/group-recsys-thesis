@@ -4,17 +4,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.apache.mahout.cf.taste.common.TasteException;
 
 import edu.ub.tfc.recommender.bean.GroupEvaluation;
 import edu.ub.tfc.recommender.bean.UserGroup;
 import edu.ub.tfc.recommender.dao.UserGroupDAO;
-import edu.ub.tfc.recommender.groups.ElicitationStrategy;
-import edu.ub.tfc.recommender.groups.GroupMetric;
+import edu.ub.tfc.recommender.groups.metrics.GroupMetric;
+import edu.ub.tfc.recommender.groups.strategies.ElicitationStrategy;
 import edu.ub.tfc.recommender.services.RecommenderService;
 
 public class GroupRecommenderService extends AbstractRecommenderServiceImpl {
 
+	/* ****************************
+			CLASS ATTRIBUTES
+	 * *************************** */
+	
+	private static Logger logger = Logger.getLogger(GroupRecommenderService.class);
+	
 	/* ****************************
 			ATTRIBUTES
 	* *************************** */
