@@ -4,7 +4,7 @@ public class JspUtils {
 
 	public static String getStringForHtmlCell(String theBase) {
 		if(theBase == null || theBase.isEmpty()) {
-			return String.valueOf(Character.SPACE_SEPARATOR);
+			return String.valueOf((char)Character.SPACE_SEPARATOR);
 		}
 	return theBase;
 	}

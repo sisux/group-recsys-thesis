@@ -169,4 +169,89 @@ public class Utils {
 			}
 		}
 	}
+	
+	/**
+	 * Calculate the values log_{base}
+	 * @param x
+	 * @param base
+	 * @return
+	 */
+	public static double log(double x, double base)
+	{
+		return (Math.log(x) / Math.log(base));
+	}
+	
+	/*
+	 * Return the mean of a set of values
+	 */
+	public static float computeAverage(float[] theDataSet) {
+		float tmpMean = 0L;
+		int n = theDataSet.length;
+		
+		if(theDataSet != null && n > 0) {
+			for(int i = 0; i < n; i++)
+				tmpMean += theDataSet[i];
+			
+			tmpMean = tmpMean / n;
+		}
+		return tmpMean;
+	}
+	
+	/**
+	 * Calculates the Standard Deviation of a data set
+	 * @param a
+	 * @return
+	 */
+	public static float stdDev(float[] a, float theAverage)
+	{
+		float total = 0;
+		int n = a.length;
+		double all;
+		for(int i = 0; i < n; i++) 	{
+			all = Math.pow(a[i]-theAverage, 2);
+			total += all;
+		}
+		total = total/n;
+		total = (float) Math.sqrt(total);
+		return total;
+	}
+	
+	/**
+	 * Corrected sample standard deviation
+	 * @param a
+	 * @param theAverage
+	 * @return
+	 */
+	public static float correctedSampleStdDev(float[] a, float theAverage)
+	{
+		float total = 0;
+		int n = a.length;
+		double all;
+		for(int i = 0; i < n; i++) 	{
+			all = Math.pow(a[i]-theAverage, 2);
+			total += all;
+		}
+		total = total/(n-1);
+		total = (float) Math.sqrt(total);
+		return total;
+	}
+	
+	/**
+	 * Computes the average (mean) value of a data set
+	 * @param a
+	 * @return
+	 */
+	public static double computeAverage(double[] a)
+	{
+		double average = 0;
+		int n = a.length;
+		for(int i = 0; i < n; i++)
+			average = average + a[i];
+		if(n > 0) {
+			return (average/n);
+		} else {
+			System.out.println("ERROR: Can't average 0 numbers.");
+			return 0;
+		}
+	}
 }

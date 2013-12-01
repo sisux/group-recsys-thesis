@@ -22,7 +22,8 @@
 		List<Long> tmpGroupIds = testCases.getAllGroupsId();
 		Collections.sort(tmpGroupIds);
 		
-		List<String> tmpDataElementsToPresent = Arrays.asList(GroupEvaluation.GROUP_ID, GroupEvaluation.GROUP_DESCRIPTION, GroupEvaluation.RECOMMENDATION_SERVICE, GroupEvaluation.ELICITATION_STRATEGY, GroupEvaluation.NUM_OF_ITEMS_TO_RECOMMEND, GroupEvaluation.MAE_METRIC_NAME, GroupEvaluation.RMSE_METRIC_NAME);
+		List<String> tmpDataElementsToPresent = Arrays.asList(GroupEvaluation.GROUP_ID, GroupEvaluation.GROUP_DESCRIPTION, GroupEvaluation.RECOMMENDATION_SERVICE, GroupEvaluation.ELICITATION_STRATEGY, GroupEvaluation.NUM_OF_ITEMS_TO_RECOMMEND, GroupEvaluation.MAE_METRIC_NAME, GroupEvaluation.RMSE_METRIC_NAME, GroupEvaluation.AVG_METRIC_NAME, GroupEvaluation.STDEV_METRIC_NAME);
+		
 	%>
 		<div style="float:left;width:100%">
 			<table cellpadding="5" cellspacing="0">

@@ -35,6 +35,7 @@
 		<property name="groupMetricList">
 			<list>
 				<bean name="basicGroupMetric" class="edu.ub.tfc.recommender.groups.metrics.impl.BasicGroupMetric" />
+				<bean name="DcgGroupMetric" class="edu.ub.tfc.recommender.groups.metrics.impl.DcgGroupMetric" />
 			</list>
 		</property>
 	</bean>

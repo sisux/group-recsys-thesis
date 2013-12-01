@@ -18,6 +18,9 @@ public class GroupEvaluation extends Evaluacion {
 	public static final String MAE_METRIC_NAME = "mae";
 	public static final String RMSE_METRIC_NAME = "rmse";
 	
+	public static final String AVG_METRIC_NAME = "avg";
+	public static final String STDEV_METRIC_NAME = "cstdev";
+	
 	/* ****************************
 			ATTRIBUTES
 	* *************************** */
@@ -63,7 +66,9 @@ public class GroupEvaluation extends Evaluacion {
 		tmpResult += ";" + NUM_OF_ITEMS_TO_RECOMMEND;
 		tmpResult += ";" + MAE_METRIC_NAME;
 		tmpResult += ";" + RMSE_METRIC_NAME;
-
+		tmpResult += ";" + AVG_METRIC_NAME;
+		tmpResult += ";" + STDEV_METRIC_NAME;
+		
 		return tmpResult;
 	}
 	
@@ -86,7 +91,9 @@ public class GroupEvaluation extends Evaluacion {
 		tmpResult += ";" + getItemValue(NUM_OF_ITEMS_TO_RECOMMEND);
 		tmpResult += ";" + getItemValue(MAE_METRIC_NAME);
 		tmpResult += ";" + getItemValue(RMSE_METRIC_NAME);
-
+		tmpResult += ";" + getItemValue(AVG_METRIC_NAME);
+		tmpResult += ";" + getItemValue(STDEV_METRIC_NAME);		
+		
 		return tmpResult;
 	}
 

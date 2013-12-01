@@ -34,7 +34,7 @@ allMetricsAnalisys <- function() {
 	
 	gtypes <- levels(gresults$type)
 	for (itype in gtypes) {
-		#metricBarplot("mae", itype)
+		metricBarplot("mae", itype)
 		metricXYplot("rmse", itype)
 	}
 }
@@ -59,6 +59,7 @@ metricBarplot <- function(theMetric, theType) {
 	#Plotting
 	o<-par(xpd=T, mar=par()$mar+c(0,0,0,4))
 	barplot(m_agg_type.table, ylim=c(0,1.0), xlab="Group Size", beside=T, col=mycolorpalette)
+	#grid()
 	legend(9.5,0.7, legend=rownames(m_agg_type.table), cex=0.6, bty="n", fill=mycolorpalette)
 	title(plot.title, cex.main = 1, font.main= 2, col.main= "blue")
 	par(o)
@@ -83,7 +84,9 @@ metricXYplot <- function(theMetric, theType) {
 
 	#Plotting
 	o<-par(xpd=T, mar=par()$mar+c(0,0,0,4))
-	xyplot( value ~ size, m_agg_type, group=strategy, type='b', xlab="Group Size", col=mycolorpalette, lwd=3, pch=20, cex=3.0)
+	plot_obj <- xyplot( value ~ size, m_agg_type, group=strategy, type='b', xlab="Group Size", col=mycolorpalette, lwd=3, pch=20, cex=3.0)
+	#panel.grid()
+	print(plot_obj)
 	par(o)
 
 	#Finalize plot and png export
@@ -91,3 +94,4 @@ metricXYplot <- function(theMetric, theType) {
 }
 
 allMetricsAnalisys()
+

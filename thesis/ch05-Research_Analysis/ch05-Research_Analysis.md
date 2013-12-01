@@ -146,6 +146,9 @@ Normalized discounted cumulative gain (NDCG) measures the performance of a recom
  It varies from 0.0 to 1.0, with 1.0 representing the ideal ranking of the entities.
  This metric is commonly used in information retrieval and to evaluate the performance of web search engines.
 
+Important!
+http://en.wikipedia.org/wiki/Discounted_cumulative_gain
+
 https://github.com/zenogantner/MyMediaLite/blob/master/src/MyMediaLite/Eval/Measures/NDCG.cs
 https://www.kaggle.com/wiki/NormalizedDiscountedCumulativeGain
 
