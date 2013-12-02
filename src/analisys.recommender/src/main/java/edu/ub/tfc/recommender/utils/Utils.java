@@ -11,8 +11,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -254,4 +259,32 @@ public class Utils {
 			return 0;
 		}
 	}
+	
+	/**
+	 * Sort Map by its values
+	 * @param map
+	 * @return
+	 */
+    public static Map<Long, Float> sortMapByValue(Map<Long, Float> map) {
+        List<Map.Entry<Long,Float>> list = new LinkedList<Entry<Long, Float>>(map.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<Long,Float>>() {
+
+			@Override
+			public int compare(Map.Entry<Long, Float> o1, Map.Entry<Long, Float> o2) {
+				
+				if (o1.getValue() <= o2.getValue()) {
+			        return 1;
+			    } else {
+			        return -1;
+			    }
+			}
+        });
+
+        Map<Long,Float> result = new LinkedHashMap<Long,Float>();
+        for (Iterator<Entry<Long, Float>> it = list.iterator(); it.hasNext();) {
+            Map.Entry<Long, Float> entry = it.next();
+            result.put(entry.getKey(), entry.getValue());
+        }
+        return result;
+    }
 }

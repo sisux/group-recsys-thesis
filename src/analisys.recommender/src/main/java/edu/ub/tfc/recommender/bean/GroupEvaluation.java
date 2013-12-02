@@ -21,6 +21,9 @@ public class GroupEvaluation extends Evaluacion {
 	public static final String AVG_METRIC_NAME = "avg";
 	public static final String STDEV_METRIC_NAME = "cstdev";
 	
+	public static final String PRECISION_METRIC_NAME = "precision";
+	public static final String RECALL_METRIC_NAME = "recall";
+	
 	/* ****************************
 			ATTRIBUTES
 	* *************************** */
@@ -68,6 +71,8 @@ public class GroupEvaluation extends Evaluacion {
 		tmpResult += ";" + RMSE_METRIC_NAME;
 		tmpResult += ";" + AVG_METRIC_NAME;
 		tmpResult += ";" + STDEV_METRIC_NAME;
+		tmpResult += ";" + PRECISION_METRIC_NAME;
+		tmpResult += ";" + RECALL_METRIC_NAME;
 		
 		return tmpResult;
 	}
@@ -92,7 +97,9 @@ public class GroupEvaluation extends Evaluacion {
 		tmpResult += ";" + getItemValue(MAE_METRIC_NAME);
 		tmpResult += ";" + getItemValue(RMSE_METRIC_NAME);
 		tmpResult += ";" + getItemValue(AVG_METRIC_NAME);
-		tmpResult += ";" + getItemValue(STDEV_METRIC_NAME);		
+		tmpResult += ";" + getItemValue(STDEV_METRIC_NAME);
+		tmpResult += ";" + getItemValue(PRECISION_METRIC_NAME);
+		tmpResult += ";" + getItemValue(RECALL_METRIC_NAME);
 		
 		return tmpResult;
 	}

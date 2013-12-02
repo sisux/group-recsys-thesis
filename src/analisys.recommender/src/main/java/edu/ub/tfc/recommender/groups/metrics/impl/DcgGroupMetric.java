@@ -47,10 +47,10 @@ public class DcgGroupMetric implements GroupMetric {
 		List<Float> tmpUserSatisfaction = new ArrayList<Float>();
         Map<Long,Float> tmpSortedUserEstimation;
 
-        Map<Long, Float> tmpSortedGroupEstimation = sortMapByValue(theGroupEstimation);
+        Map<Long, Float> tmpSortedGroupEstimation = Utils.sortMapByValue(theGroupEstimation);
 		//per each user estimation
 		for(Map<Long, Float> tmpUserEstimation : theUsersEstimations.values()) {
-			tmpSortedUserEstimation = sortMapByValue(tmpUserEstimation);
+			tmpSortedUserEstimation = Utils.sortMapByValue(tmpUserEstimation);
 	        
 			tmpIdealDCG = getIdealDCG(tmpSortedUserEstimation);
 			tmpWorstDCG= getWorstDCG(tmpSortedUserEstimation);
@@ -160,32 +160,4 @@ public class DcgGroupMetric implements GroupMetric {
 		}
 		return tmpResult;
 	}
-	
-	/**
-	 * Sort Map by its values
-	 * @param map
-	 * @return
-	 */
-    private static Map<Long, Float> sortMapByValue(Map<Long, Float> map) {
-        List<Map.Entry<Long,Float>> list = new LinkedList<Entry<Long, Float>>(map.entrySet());
-        Collections.sort(list, new Comparator<Map.Entry<Long,Float>>() {
-
-			@Override
-			public int compare(Map.Entry<Long, Float> o1, Map.Entry<Long, Float> o2) {
-				
-				if (o1.getValue() <= o2.getValue()) {
-			        return 1;
-			    } else {
-			        return -1;
-			    }
-			}
-        });
-
-        Map<Long,Float> result = new LinkedHashMap<Long,Float>();
-        for (Iterator<Entry<Long, Float>> it = list.iterator(); it.hasNext();) {
-            Map.Entry<Long, Float> entry = it.next();
-            result.put(entry.getKey(), entry.getValue());
-        }
-        return result;
-    }
 }
